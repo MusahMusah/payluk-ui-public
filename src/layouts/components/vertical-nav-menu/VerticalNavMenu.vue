@@ -103,7 +103,7 @@
             </template>
           </template>
           <template v-if="windowWidth < 992">
-            <vs-button :to="{name: 'activate-account'}" class="ml-8 mt-3">Activate Account</vs-button>
+            <vs-button :to="{name: 'activate-account'}" icon="double_arrow" color="primary" v-if="userData.status == 'not activated'" class="ml-8 mt-3">Activate Account</vs-button>
           </template>
         </VuePerfectScrollbar>
         <!-- /Menu Items -->
@@ -121,6 +121,7 @@
 
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 import VNavMenuGroup from './VerticalNavMenuGroup.vue'
 import VNavMenuItem from './VerticalNavMenuItem.vue'
@@ -153,6 +154,9 @@ export default {
     showShadowBottom    : false,
   }),
   computed: {
+    ...mapGetters({
+      userData : 'users/getUserData',
+    }),
     isGroupActive() {
       return (item) => {
         const path        = this.$route.fullPath
@@ -219,6 +223,9 @@ export default {
     //   this.windowWidth = event.currentTarget.innerWidth;
     //   this.setVerticalNavMenuWidth()
     // },
+    ...mapActions({
+      activeUserInfo : "users/activeUserInfo",
+    }),
     onSwipeLeft() {
       if (this.isVerticalNavMenuActive && this.showCloseButton) this.isVerticalNavMenuActive = false
     },
@@ -323,6 +330,9 @@ export default {
       this.reduceButton = val
       this.setVerticalNavMenuWidth()
     },
+  },
+  created(){
+    this.activeUserInfo()
   },
   mounted() {
     this.setVerticalNavMenuWidth()
