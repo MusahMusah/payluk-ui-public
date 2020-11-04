@@ -607,7 +607,6 @@ export default {
           this.visibility = "display:none";
         })
         .catch((error) => {
-          console.log(error);
           this.$vs.loading.close();
           this.$vs.notify({
             title: "Error",
