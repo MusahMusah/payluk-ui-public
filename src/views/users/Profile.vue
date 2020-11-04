@@ -51,8 +51,9 @@
             <vs-button
               type="button"
               name="button"
+              size="small"
               to="/profile-view"
-              class="vs-component vs-button mr-4 vs-button-primary vs-button-filled includeIcon"
+              class="vs-component vs-button p-3 mr-4 vs-button-primary vs-button-filled includeIcon"
             >
               <span
                 class="vs-button-backgroundx vs-button--background"
@@ -70,7 +71,7 @@
                 class="vs-icon notranslate icon-scale feather icon-edit null"
                 style="order: 0; margin-right: 5px; margin-left: 0px"
               ></i>
-              <span class="vs-button-text vs-button--text">View Profile</span>
+              <span class="vs-button-text vs-button--text" style="font-size: 1.2em;">View Profile</span>
               <span
                 class="vs-button-linex"
                 style="
@@ -306,8 +307,8 @@
       <!-- COL 2 -->
       <div class="vx-col w-full lg:w-1/2" v-if="allReviews != null">
 
-        <vx-card class="mt-base" v-for="(userReview, index) in allReviews" :key="index">
-          <div>
+        <vx-card title="All Reviews" class="mt-base">
+          <div  v-for="(userReview, index) in allReviews" :key="index" class="mb-10">
             <!-- POST HEADER -->
             <div class="post-header flex justify-between mb-4">
               <div class="flex items-center">
@@ -349,12 +350,12 @@
             <div class="post-content">
               <p>{{userReview.message}}</p>
             </div>
+           <vs-divider color="primary" class="mb-3"></vs-divider>
           </div>
         </vx-card>
-        <!-- v-if="allReviews" -->
         <div v-if="userReviews != null" v-observe-visibility="handleScrolledToBottom"></div>
       </div>
-      <div class="vx-col w-full lg:w-1/2" v-else >
+      <div class="vx-col w-full lg:w-1/2" v-else>
         <vx-card class="mt-base">
           <div>
             <!-- POST HEADER -->
@@ -493,14 +494,14 @@ export default {
     }),
     async fetch1(page){
       if (page > this.lastPage) {  return  }
-      let reviews = await axios.get(`http://localhost/pay4me/pay4me-clients-side-api/account?page=${page}`)
+      let reviews = await axios.get(`https://payluk.com/backend/account?page=${page}`)
       console.log(reviews.data.data.reviews.review)
       this.allReviews.push(...reviews.data.data.reviews)
       this.lastPage = reviews.data.data.reviews.pager.meta.last_page
       // console.log(this.lastPage)
     },
     async fetch(){
-      let reviews = await axios.get(`http://localhost/pay4me/pay4me-clients-side-api/reviews?page=${this.page}`)
+      let reviews = await axios.get(`https://payluk.com/backend/reviews?page=${this.page}`)
       console.log(reviews.data.reviews)
       if (reviews.data.reviews != null) 
       {
@@ -537,6 +538,7 @@ export default {
             this.$vs.notify({
               title: "Info",
               text: response.data.message,
+              position:'top-right',
               iconPack: "feather",
               icon: "icon-alert-circle",
               color: "danger",
@@ -546,6 +548,7 @@ export default {
             this.$vs.notify({
               title: "Info",
               text: response.data.message,
+              position:'top-right',
               iconPack: "feather",
               icon: "icon-alert-circle",
               color: "success",
@@ -555,6 +558,7 @@ export default {
             this.$vs.notify({
               title: "Info",
               text: response.data.message,
+              position:'top-right',
               iconPack: "feather",
               icon: "icon-alert-circle",
               color: "danger",
@@ -564,6 +568,7 @@ export default {
             this.$vs.notify({
               title: "Success",
               text: response.data.message,
+              position:'top-right',
               iconPack: "feather",
               icon: "icon-alert-circle",
               color: "success",
@@ -576,6 +581,7 @@ export default {
           this.$vs.notify({
             title: "Error",
             text: error.response.data.message,
+            position:'top-right',
             // text: error.response.data,
             iconPack: "feather",
             icon: "icon-alert-circle",
@@ -592,6 +598,7 @@ export default {
           this.$vs.notify({
             title: "Success",
             text: response.data.message,
+            position:'top-right',
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "success",
@@ -605,6 +612,7 @@ export default {
           this.$vs.notify({
             title: "Error",
             text: error.response.data.message,
+            position:'top-right',
             // text: error.response.data,
             iconPack: "feather",
             icon: "icon-alert-circle",

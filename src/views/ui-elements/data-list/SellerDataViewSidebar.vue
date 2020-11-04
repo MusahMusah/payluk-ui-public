@@ -36,12 +36,13 @@
     >
       <div class="p-6">
         <!-- Product Image -->
-        <template v-if="sellerImg">
+        <template>
           <!-- Image Container -->
           <div
             class="img-container w-64 mx-auto flex items-center justify-center"
           >
-            <img :src="sellerImg" alt="img" class="responsive" />
+            <img  v-if="buyerImg" :src="buyerImg" alt="img" class="responsive" />
+            <img  v-else :src="cover_img" alt="img" class="responsive" />
           </div>
         </template>
 
@@ -86,8 +87,21 @@
           class="mt-5 w-full mb-3"
         />
         <vs-textarea
+          v-if="modificationMessage1"
           label="Modification Message 1"
           v-model="modificationMessage1"
+        />
+
+        <vs-textarea
+          v-if="modificationMessage2"
+          label="Modification Message 2"
+          v-model="modificationMessage2"
+        />
+
+        <vs-textarea
+          v-if="modificationMessage3"
+          label="Modification Message 3"
+          v-model="modificationMessage3"
         />
 
         <!-- ORDER STATUS -->
@@ -95,45 +109,89 @@
         <vs-chip color="primary" class="mt-2 mb-4 w-full">
           <span style="text-transform: uppercase">{{ status }}</span>
         </vs-chip>
-        <!-- <v-select label="countryName" :options="status"></v-select> -->
       </div>
     </VuePerfectScrollbar>
 
     <div class="flex flex-wrap items-center p-6" slot="footer">
-      <vs-button clss="mr-6" @click="popupActivo = true"
-        >Open Ticket</vs-button
+      <vs-button class="w-full"
+        >Submit Updated Quotation</vs-button
       >
+      <!-- <vs-button clss="mr-6" @click="popupActivo = true"
+        >Open Ticket</vs-button
+      > -->
       <!-- <vs-button type="border" color="danger" @click="isSidebarActiveLocal = false">Cancel</vs-button> -->
     </div>
-    <div class="clearfix">
+    <!-- <div class="">
       <vs-popup
         classContent="popup-example2"
-        title="REQUEST MODIFICATION OF SELLER QUOTATION"
-        :style="visibility"
-        :active.sync="popupActivo"
+        title="OPEN TICKET FOR COMPLAIN"
+        :active.sync="popupActivo3"
       >
+        <div class="vx-row">
+          <div class="vx-col w-full">
+            <label for="">Ticket Subject:</label>
+            <vs-select
+              data-vv-validate-on="blur"
+              v-validate="'required'"
+              v-model="subject"
+              name="Ticket Subject"
+              class="w-full mt-2"
+            >
+              <vs-select-item
+                :key="index"
+                :value="item.value"
+                :text="item.text"
+                v-for="(item, index) in addressTypeOptions"
+              />
+            </vs-select>
+            <span class="text-danger text-sm">{{
+              errors.first("Ticket Subject")
+            }}</span>
+          </div>
+        </div>
         <div class="vx-row mt-5">
           <div class="vx-col w-full">
             <vs-textarea
-              label="Modification Message"
-              name="Message"
               data-vv-validate-on="blur"
               v-validate="'required'"
-              v-model="message"
+              label="Message"
+              v-model="ticket_message"
             />
-          <span class="text-danger text-sm">{{ errors.first("Message") }}</span>
+            <span class="text-danger text-sm">{{
+              errors.first("Ticket Mesage")
+            }}</span>
           </div>
         </div>
-        <!-- :disabled="!validateForm" -->
+        <div class="vx-row mt-5">
+          <div class="vx-col w-full">
+            <img
+              v-bind:src="imagePreview"
+              class="preview-image w-full"
+              v-on:click="openUpload"
+              style="heght: 60vh !important; object-fit: contain"
+            />
+
+            <div class="form-group">
+              <input
+                name="image"
+                type="file"
+                id="file-field"
+                required
+                v-on:change="updatePreview"
+                style="display: none"
+              />
+            </div>
+          </div>
+        </div>
+
         <vs-button
-          :disabled="!isFormValid"
+          :disabled="!validateForm3"
           class="mt-6 ml-auto flex"
-          @click="send_request_modification(invitationId)"
-          >SUBMIT REQUEST</vs-button
+          @click="send_ticket"
+          >SUBMIT TICKET</vs-button
         >
-        <!-- </form> -->
       </vs-popup>
-    </div>
+    </div> -->
   </vs-sidebar>
 </template>
 
@@ -160,7 +218,7 @@ export default {
         this.$validator.reset();
       } else {
         let {
-          seller_image,
+          buyer_image,
           wallet_id,
           invitation_id,
           item_name,
@@ -175,10 +233,12 @@ export default {
           company_address,
           flow,
           modification_message1,
+          modification_message2,
+          modification_message3,
           status,
           payment,
         } = JSON.parse(JSON.stringify(this.data));
-        this.sellerImg = seller_image;
+        this.buyerImg = buyer_image;
         this.walletId = wallet_id;
         this.invitationId = invitation_id;
         this.itemName = item_name;
@@ -192,6 +252,8 @@ export default {
         this.companyName = company_name;
         this.companyAddress = company_address;
         this.modificationMessage1 = modification_message1;
+        this.modificationMessage2 = modification_message2;
+        this.modificationMessage3 = modification_message3;
         this.flow = flow;
         this.status = status;
         this.payment = payment;
@@ -202,7 +264,7 @@ export default {
   },
   data() {
     return {
-      sellerImg: null,
+      buyerImg: null,
       message: "",
       walletId: null,
       invitationId: null,
@@ -217,11 +279,16 @@ export default {
       companyName: null,
       companyAddress: null,
       modificationMessage1: null,
+      modificationMessage2: null,
+      modificationMessage3: null,
       status: null,
       flow: null,
       payment: null,
       popupActivo: false,
       visibility: "",
+
+      // Ticket
+      cover_img: require("@/assets/images/timeline.jpg"),
 
       category_choices: [
         { text: "Audio", value: "audio" },

@@ -70,7 +70,8 @@ export default {
         ...mapActions({
         verifyAccount : 'users/verifyAccount',
         resendOtp : 'users/resendOtp',
-        triggerOtp: "users/triggerOtp"
+        triggerOtp: "users/triggerOtp",
+        logOutAction : 'authentication/logOut',
         }),
         trigger_otp () {
             this.triggerOtp()
@@ -78,6 +79,7 @@ export default {
                 this.$vs.notify({
                     title: 'Success',
                     text : response.data.message,
+                    position:'top-right',
                     iconPack: 'feather',
                     icon: 'icon-alert-circle',
                     color: 'success',
@@ -89,6 +91,7 @@ export default {
                 this.$vs.notify({
                     title: 'Error',
                     text : message,
+                    position:'top-right',
                     iconPack: 'feather',
                     icon: 'icon-alert-circle',
                     color: 'danger',
@@ -105,13 +108,15 @@ export default {
                 this.$vs.notify({
                     title: 'Success',
                     text : response.data.message,
+                    position:'top-right',
                     iconPack: 'feather',
                     icon: 'icon-alert-circle',
                     color: 'success',
                 });
                 setTimeout(() => {
-                    location.reload()
-                }, 800);
+                    // location.reload()
+                    this.logout()
+                }, 300);
                 // this.$router.push('/').catch((err) => { console.log(err)})
             })
             .catch((error) => {
@@ -120,10 +125,22 @@ export default {
                 this.$vs.notify({
                     title: 'Error',
                     text : message,
+                    position:'top-right',
                     iconPack: 'feather',
                     icon: 'icon-alert-circle',
                     color: 'danger',
                 })
+            })
+        },
+
+        logout() {
+            // This is just for demo Purpose. If user clicks on logout -> redirect
+            this.logOutAction()
+            .then(() => {
+              this.$router.push('/login').catch(() => {})
+            })
+            .catch((err) => {
+              console.log(err)
             })
         },
 
@@ -135,6 +152,7 @@ export default {
                 this.$vs.notify({
                     title: 'Success',
                     text : response.data.message,
+                    position:'top-right',
                     iconPack: 'feather',
                     icon: 'icon-alert-circle',
                     color: 'success',
@@ -147,6 +165,7 @@ export default {
                 this.$vs.notify({
                     title: 'Error',
                     text : Object(error.response.data.messages.error),
+                    position:'top-right',
                     iconPack: 'feather',
                     icon: 'icon-alert-circle',
                     color: 'danger',

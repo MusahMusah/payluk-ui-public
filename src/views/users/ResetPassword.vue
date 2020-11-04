@@ -97,6 +97,7 @@ export default {
                 this.$vs.notify({
                     title: 'Error',
                     text : Object(error.response.data.messages.error),
+                    position:'top-right',
                     // text: error.response.data,
                     iconPack: 'feather',
                     icon: 'icon-alert-circle',

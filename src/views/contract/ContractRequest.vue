@@ -332,6 +332,7 @@ export default {
           this.$vs.notify({
             title: "Success",
             text: response.data.message,
+            position:'top-right',
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "success"
@@ -346,7 +347,7 @@ export default {
           this.$vs.notify({
             title: "Error",
             text: error.response.data.message,
-            // text: error.response.data,
+            position:'top-right',
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "danger"
@@ -382,6 +383,7 @@ export default {
           this.$vs.notify({
             title: "Success",
             text: response.data.message,
+            position:'top-right',
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "success"
@@ -401,6 +403,7 @@ export default {
             title: "Error",
             // text: "Invalid Login Credentials, Try again!",
             text: error.response.data.message,
+            position:'top-right',
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "danger"

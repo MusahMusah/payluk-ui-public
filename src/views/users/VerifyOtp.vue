@@ -63,6 +63,7 @@ export default {
             this.$vs.notify({
                 title: 'Info',
                 text: localStorage.getItem('error_703'),
+                position:'top-right',
                 iconPack: 'feather',
                 icon: 'icon-alert-circle',
                 color: 'danger',
@@ -73,6 +74,7 @@ export default {
             this.$vs.notify({
                 title: 'Info',
                 text: this.dataMessage,
+                position:'top-right',
                 iconPack: 'feather',
                 icon: 'icon-alert-circle',
                 color: 'success',
@@ -99,6 +101,7 @@ export default {
                 this.$vs.notify({
                     title: 'Successful',
                     text : response.data.message,
+                    position:'top-right',
                     iconPack: 'feather',
                     icon: 'icon-alert-circle',
                     color: 'success',
@@ -110,6 +113,7 @@ export default {
                 this.$vs.notify({
                     title: 'Error',
                     text : Object(error.response.data.messages.error),
+                    position:'top-right',
                     iconPack: 'feather',
                     icon: 'icon-alert-circle',
                     color: 'danger',
@@ -129,6 +133,7 @@ export default {
                 this.$vs.notify({
                     title: 'Error',
                     text : Object(error.response.data.messages.error),
+                    position:'top-right',
                     iconPack: 'feather',
                     icon: 'icon-alert-circle',
                     color: 'danger',

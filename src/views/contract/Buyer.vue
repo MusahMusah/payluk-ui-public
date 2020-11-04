@@ -90,7 +90,8 @@
         <tbody>
           <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
             <vs-td class="img-container">
-              <img :src="tr.seller_image" class="product-img" />
+              <img v-if="tr.seller_image" :src="tr.seller_image" class="product-img" />
+              <img v-else :src="cover_img" class="product-img" />
             </vs-td>
 
             <vs-td>
@@ -132,8 +133,14 @@
               type="gradient" class="m-1"> 
               Accept and Pay 
               </vs-button>
+              <vs-button
+                v-if="(tr.flow == 'buyer' && tr.status != 'request_modification')"
+                type="gradient" class="m-1"
+                @click="popupActivo4 = true"
+                >Request Modification</vs-button
+              >
               <vs-button 
-              :style="hide" v-if="!(tr.expired_time >  tr.delivered_before_date)" 
+              :style="hide" v-if="!(tr.expired_time >  tr.delivered_before_date && tr.buyer_ticket != 1)" 
               @click="ticketPopUp(tr.invitation_id)" 
               type="gradient"  class="m-1"> 
               Open Ticket 
@@ -284,6 +291,36 @@
             <!-- </form> -->
           </vs-popup>
         </div>
+        <div class="clearfix">
+          <vs-popup
+            classContent="popup-example2"
+            title="REQUEST MODIFICATION OF SELLER QUOTATION"
+            :active.sync="popupActivo4"
+          >
+            <div class="vx-row mt-5">
+              <div class="vx-col w-full">
+                <vs-textarea
+                  label="Modification Message"
+                  name="Message"
+                  data-vv-validate-on="blur"
+                  v-validate="'required'"
+                  v-model="modification_message"
+                />
+                <span class="text-danger text-sm">{{
+                  errors.first("Message")
+                }}</span>
+              </div>
+            </div>
+            <!-- :disabled="!validateForm" -->
+            <vs-button
+              :disabled="!isFormValid"
+              class="mt-6 ml-auto flex"
+              @click="send_request_modification(invitationId)"
+              >SUBMIT REQUEST</vs-button
+            >
+            <!-- </form> -->
+          </vs-popup>
+        </div>
       </template>
     </vs-table>
   </div>
@@ -306,15 +343,20 @@ export default {
       selected: [],
       pendingContracts: [],
       itemsPerPage: 4,
+      cover_img: require("@/assets/images/timeline.jpg"),
       contract_type: "",
       centerx: '',
       satisfied:true,
       starRating: '',
       message:'',
+
+      modification_message: '',
+
       hide: '',
       popupActivo: false,
       popupActivo2: false,
       popupActivo3: false,
+      popupActivo4: false,
       visibility: "",
       visibility2:"",
       visibility3:"",
@@ -365,8 +407,43 @@ export default {
       acceptContract: "contract_request/acceptContract",
       closeContract: "contract_request/closeContract",
       sendReview: "contract_request/sendReview",
-      sendBuyerTicket: "tickets/sendBuyerTicket"
+      sendBuyerTicket: "tickets/sendBuyerTicket",
+      sendRequestModification: "contract_request/sendRequestModification",
     }),
+
+    send_request_modification(verify) {
+      // console.log(verify);
+      this.popupActivo4 = false;
+      const payload = {
+        invitation_id: verify,
+        message: this.modification_message,
+      };
+      this.$vs.loading();
+      this.sendRequestModification(payload)
+        .then((response) => {
+          this.$vs.loading.close();
+          this.$vs.notify({
+            title: "Success",
+            text: response.data.message,
+            position:'top-right',
+            iconPack: "feather",
+            icon: "icon-alert-circle",
+            color: "success",
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+          this.$vs.loading.close();
+          this.$vs.notify({
+            title: "Error",
+            text: error.response.data.message,
+            position:'top-right',
+            iconPack: "feather",
+            icon: "icon-alert-circle",
+            color: "danger",
+          });
+        });
+    },
 
     close_transaction(){
       const payload = localStorage.getItem("invitation_id")
@@ -377,6 +454,7 @@ export default {
           this.$vs.notify({
             title: "Success",
             text: response.data.message,
+            position:'top-right',
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "success",
@@ -393,6 +471,7 @@ export default {
           this.$vs.notify({
             title: "Error",
             text: error.response.data.message,
+            position:'top-right',
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "danger",
@@ -442,6 +521,7 @@ export default {
           this.$vs.notify({
             title: "Success",
             text: response.data.message,
+            position:'top-right',
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "success",
@@ -458,6 +538,7 @@ export default {
           this.$vs.notify({
             title: "Error",
             text: error.response.data.messages.error,
+            position:'top-right',
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "danger",
@@ -481,6 +562,7 @@ export default {
           this.$vs.notify({
             title: "Success",
             text: response.data.message,
+            position:'top-right',
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "success",
@@ -497,6 +579,7 @@ export default {
           this.$vs.notify({
             title: "Error",
             text: error.response.data.message,
+            position:'top-right',
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "danger",
@@ -570,6 +653,7 @@ export default {
             this.$vs.notify({
               title: "Info",
               text: response.data.message,
+              position:'top-right',
               iconPack: "feather",
               icon: "icon-alert-circle",
               color: "success",
@@ -581,6 +665,7 @@ export default {
             this.$vs.notify({
               title: "Success",
               text: response.data.message,
+              position:'top-right',
               iconPack: "feather",
               icon: "icon-alert-circle",
               color: "success",
@@ -598,6 +683,7 @@ export default {
           this.$vs.notify({
             title: "Error",
             text: error.response.data.message,
+            position:'top-right',
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "danger",

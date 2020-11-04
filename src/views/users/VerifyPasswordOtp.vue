@@ -63,6 +63,7 @@ export default {
             this.$vs.notify({
                 title: 'Info',
                 text: this.dataMessage,
+                position:'top-right',
                 iconPack: 'feather',
                 icon: 'icon-alert-circle',
                 color: 'success',
@@ -89,6 +90,7 @@ export default {
                 this.$vs.notify({
                     title: 'Success',
                     text : response.data.message,
+                    position:'top-right',
                     iconPack: 'feather',
                     icon: 'icon-alert-circle',
                     color: 'success',
@@ -101,6 +103,7 @@ export default {
                 this.$vs.notify({
                     title: 'Error',
                     text : message,
+                    position:'top-right',
                     iconPack: 'feather',
                     icon: 'icon-alert-circle',
                     color: 'danger',
@@ -117,6 +120,7 @@ export default {
                 this.$vs.notify({
                     title: 'Success',
                     text : res.data.message,
+                    position:'top-right',
                     iconPack: 'feather',
                     icon: 'icon-alert-circle',
                     color: 'success',
@@ -129,6 +133,7 @@ export default {
                 this.$vs.notify({
                     title: 'Error',
                     text : Object(error.response.data.messages.error),
+                    position:'top-right',
                     iconPack: 'feather',
                     icon: 'icon-alert-circle',
                     color: 'danger',

@@ -63,7 +63,7 @@ export default {
         let response = await axios.get('/firewall').then(() => {}).catch(() => {
           localStorage.removeItem("token")
           localStorage.removeItem("verify_token")
-          return window.location.href = `http://localhost:3000/login`; 
+          return window.location.href = `https://payluk.com/backend/login`; 
         }) 
         let res = await axios.get('/account') 
         // console.log(res)
@@ -72,11 +72,11 @@ export default {
         } else if(response.status == 201) {
           localStorage.removeItem("token")
           localStorage.removeItem("verify_token")
-          return window.location.href = `http://localhost:3000/login`; 
+          return window.location.href = `https://payluk.com/backend/login`; 
         }else {
           localStorage.removeItem("token")
           localStorage.removeItem("verify_token")
-          return window.location.href = `http://localhost:3000/login`; 
+          return window.location.href = `https://payluk.com/backend/login`; 
         }
     },
 

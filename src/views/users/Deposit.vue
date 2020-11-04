@@ -1,12 +1,12 @@
 <template lang="html">
   <vs-row>
-    <vs-col vs-md="6" vs-lg="6" vs-type="fle" vs-justify="center" vs-alig="center"  vs-sm="12" vs-xs="12" class="m-2">
+    <vs-col vs-md="6" vs-order="2" vs-lg="6" vs-type="fle" vs-justify="center" vs-alig="center"  vs-sm="12" vs-xs="12" class="m-2">
       <vs-card>
          <div>
             <vs-table search max-items="6" pagination  stripe :data="user_transactions">
               <template slot="header">
                 <h3>
-                  Transactions History
+                  Payments History
                 </h3>
               </template>
               <template slot="thead">
@@ -43,7 +43,7 @@
           </div>
       </vs-card>
     </vs-col>
-    <vs-col vs-md="5" vs-lg="5" vs-type="flex" vs-justify="center" vs-align="center"  vs-sm="12" vs-xs="12" class="m-2">
+    <vs-col vs-md="5" vs-order="1" vs-lg="5" vs-type="flex" vs-justify="center" vs-align="center"  vs-sm="12" vs-xs="12" class="m-2 mb-5">
       <vx-card>
         <h2 class="m-3" icon="feather icon-credit-card">Deposit Payment</h2>
          <div class="vx-row mb-6 mt-10">
@@ -180,6 +180,7 @@ export default {
           this.$vs.notify({
             title: "Success",
             text: response.data.message,
+            position:'top-right',
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "success",
@@ -191,6 +192,7 @@ export default {
           this.$vs.notify({
             title: "Error",
             text: Object(error.response.data.messages.error),
+            position:'top-right',
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "danger",
@@ -198,7 +200,7 @@ export default {
         });
     },
     invokeStripe(){
-      // localStorage.setItem("amount", this.amount)
+      localStorage.setItem("amount", this.amount)
       this.$router.replace({name:'deposit-pay', params: { amount : this.amount }}).catch((err) => { console.log(err)})
     }
   },

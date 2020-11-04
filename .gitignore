@@ -12,3 +12,4 @@ package-lock.json
 docs/.vuepress/dist/
 yarn.lock
 scripts/
+node_modules

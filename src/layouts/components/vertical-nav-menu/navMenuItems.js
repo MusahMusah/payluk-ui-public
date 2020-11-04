@@ -21,26 +21,18 @@
 
 export default [
   {
-    url: null,
+    url: '/dashboard/analytics',
+    slug: "dashboard-analytics",
     name: "Dashboard",
-    tag: "2",
-    tagColor: "warning",
     icon: "HomeIcon",
     i18n: "Dashboard",
-    submenu: [
-      {
-        url: '/dashboard/analytics',
-        name: "Analytics",
-        slug: "dashboard-analytics",
-        i18n: "Analytics",
-      },
-      {
-        url: '/dashboard/ecommerce',
-        name: "eCommerce",
-        slug: "dashboard-ecommerce",
-        i18n: "eCommerce",
-      },
-    ]
+  },
+  {
+    url: '/account',
+    slug: 'account',
+    name: "Profile",
+    icon: "UserIcon",
+    i18n: "Profile",
   },
   // {
   //   url: null,

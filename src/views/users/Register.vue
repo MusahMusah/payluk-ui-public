@@ -150,6 +150,7 @@ export default {
             this.$vs.notify({
               title: 'Login Attempt',
               text: 'You are already logged in!',
+              position:'top-right',
               iconPack: 'feather',
               icon: 'icon-alert-circle',
               color: 'warning'
@@ -188,6 +189,7 @@ export default {
               this.$vs.notify({
               title: 'Error',
               text: element,
+              position:'top-right',
               iconPack: 'feather',
               icon: 'icon-alert-circle',
               color: 'danger',

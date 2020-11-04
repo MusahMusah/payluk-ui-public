@@ -140,9 +140,9 @@
       </div>
 
       <!-- COL 2 -->
-      <div class="vx-col w-full lg:w-1/2" v-if="allReviews != null">
-        <vx-card class="mt-base" v-for="(userReview, index) in allReviews" :key="index">
-          <div>
+      <div  class="vx-col w-full lg:w-1/2" v-if="allReviews.length != 0">
+        <vx-card class="mt-base" title="All Reviews">
+          <div  v-for="(userReview, index) in allReviews" :key="index" class="mb-10">
             <!-- POST HEADER -->
             <div class="post-header flex justify-between mb-4">
               <div class="flex items-center">
@@ -184,13 +184,13 @@
             <div class="post-content">
               <p>{{userReview.message}}</p>
             </div>
-            <!-- {{userReviews}} -->
+            <vs-divider color="primary" class="mb-3"></vs-divider>
           </div>
         </vx-card>
         <div v-if="userReviews != null" v-observe-visibility="handleScrolledToBottom"></div>
       </div>
       <div class="vx-col w-full lg:w-1/2" v-else>
-        <vx-card class="mt-base">
+        <vx-card class="mt-base" title="All Reviews">
           <div>
             <!-- POST HEADER -->
             <div class="post-header flex justify-between mb-4">
@@ -202,7 +202,7 @@
 
             <!-- POST CONTENT -->
             <div class="post-content h-10 p-5 m-5">
-              <p>No Reviews Yet  </p>
+              <h2 class="mb-4">No Reviews Yet</h2>
             </div>
             
           </div>
@@ -260,7 +260,6 @@ export default {
       user_info: {
         profile_img: require("@/assets/images/noimage.svg"),
         cover_img: require("@/assets/images/timeline.jpg"),
-        // cover_img: require("@/assets/images/profile/user-uploads/cover.jpg"),
       },
       allReviews: [],
       page:1,
@@ -301,16 +300,18 @@ export default {
       sendInvite: "users/sendInvite",
     }),
     async fetch(){
-      let reviews = await axios.get(`http://localhost/pay4me/pay4me-clients-side-api/clients_review?wallet_id=${this.$route.params.wallet_id}&page=${this.page}`)
+      let reviews = await axios.get(`https://payluk.com/backend/clients_review?wallet_id=${this.$route.params.wallet_id}&page=${this.page}`)
       if (reviews.data.reviews != null) 
       {
-      
+        this.allReviews = []
         this.allReviews.push(...reviews.data.reviews)
         this.lastPage = reviews.data.pagers[0].meta.last_page
         // console.log(this.lastPage)
-      }else
+      }
+      else 
       {
-        this.allReviews = null
+        // this.allReviews = null
+        this.allReviews = []
       }
     },
     handleScrolledToBottom (isVisible){
@@ -330,6 +331,7 @@ export default {
             this.$vs.notify({
               title: "Info",
               text: response.data.message,
+              position:'top-right',
               iconPack: "feather",
               icon: "icon-alert-circle",
               color: "danger",
@@ -339,6 +341,7 @@ export default {
              this.$vs.notify({
               title: "Info",
               text: response.data.message,
+              position:'top-right',
               iconPack: "feather",
               icon: "icon-alert-circle",
               color: "success",
@@ -348,6 +351,7 @@ export default {
             this.$vs.notify({
               title: "Info",
               text: response.data.message,
+              position:'top-right',
               iconPack: "feather",
               icon: "icon-alert-circle",
               color: "danger",
@@ -358,6 +362,7 @@ export default {
             this.$vs.notify({
               title: "Success",
               text: response.data.message,
+              position:'top-right',
               iconPack: "feather",
               icon: "icon-alert-circle",
               color: "success",
@@ -370,6 +375,7 @@ export default {
           this.$vs.notify({
             title: "Error",
             text: error.response.data.message,
+            position:'top-right',
             // text: error.response.data,
             iconPack: "feather",
             icon: "icon-alert-circle",

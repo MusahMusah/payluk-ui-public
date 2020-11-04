@@ -2,15 +2,15 @@
   <vx-card>
     <vs-tabs>
       <vs-tab
-        icon="account_circle"
+        ico="account_circle"
         label="Profile Image"
         style="text-align: center !important"
       >
         <div class="vx-row">
           <div class="vx-col w-full">
-            <vx-card>
+            <!-- <vx-card> -->
               <div
-                class="FieldField__wrapper"
+                class="FieldField__wrapper mt-5"
                 style="text-align: center !important"
               >
                 <img
@@ -39,20 +39,20 @@
                 >
                 <!-- <button @click="uploadFile">Upload</button> -->
               </div>
-            </vx-card>
+            <!-- </vx-card> -->
           </div>
         </div>
       </vs-tab>
-      <vs-tab label="Password" icon="info">
+      <vs-tab label="Password" ico="info">
         <div class="con-slot-tabs">
           <div class="con-tab vs-tabs--content">
             <div class="tab-text">
               <div id="user-edit-tab-info" class="mt-4">
                 <div class="vx-row">
                   <div class="vx-col w-full">
-                    <vx-card>
+                    <!-- <vx-card> -->
                       <form @submit.prevent="update_password">
-                        <div class="p-8">
+                        <div>
                           <div class="vx-card__title mb-8">
                             <h4 class="mb-4">Update Password</h4>
                             <vs-alert
@@ -108,7 +108,7 @@
                           </div>
                         </div>
                       </form>
-                    </vx-card>
+                    <!-- </vx-card> -->
                   </div>
                 </div>
               </div>
@@ -116,16 +116,16 @@
           </div>
         </div>
       </vs-tab>
-      <vs-tab label="Currency" icon="track_changes">
+      <vs-tab label="Currency" ico="track_changes">
         <div class="con-slot-tabs">
           <div class="con-tab vs-tabs--content">
             <div class="tab-text">
               <div id="user-edit-tab-currency" class="mt-4">
                 <div class="vx-row">
                   <div class="vx-col w-full">
-                    <vx-card>
+                    <!-- <vx-card> -->
                       <form @submit.prevent="update_password">
-                        <div class="p-8">
+                        <div class="pt-8">
                           <div class="vx-card__title mb-8">
                             <h4 class="mb-4">Change Currency</h4>
                             <vs-alert
@@ -157,7 +157,7 @@
                           >
                             <!-- <vs-button type="border" to="/login" class="w-full sm:w-auto mb-8 sm:mb-auto mt-3 sm:mt-auto">Go Back To Login</vs-button> -->
                             <vs-button
-                              class="w-full sm:w-auto"
+                              class="w-full sm:w-auto mt-3"
                               @click="update_currency"
                               >Change Currency</vs-button 
                             >
@@ -165,7 +165,7 @@
                           </div>
                         </div>
                       </form>
-                    </vx-card>
+                    <!-- </vx-card> -->
                   </div>
                 </div>
               </div>
@@ -247,6 +247,7 @@ export default {
         return this.$vs.notify({
           title: "Info",
           text: "Please Choose a Picture to Upload First",
+          position:'top-right',
           iconPack: "feather",
           icon: "icon-alert-circle",
           color: "danger",
@@ -263,6 +264,7 @@ export default {
           this.$vs.notify({
             title: "Success",
             text: res.data.message,
+            position:'top-right',
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "success",
@@ -279,6 +281,7 @@ export default {
             title: "Success",
             // text : e.data.message,
             text: "File Size is above the Maximum size Allowed",
+            position:'top-right',
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "danger",
@@ -300,6 +303,7 @@ export default {
           this.$vs.notify({
             title: "Success",
             text: response.data.message,
+            position:'top-right',
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "success",
@@ -312,6 +316,7 @@ export default {
           this.$vs.notify({
             title: "Error",
             text: Object(error.response.data.messages.error),
+            position:'top-right',
             // text: error.response.data,
             iconPack: "feather",
             icon: "icon-alert-circle",
@@ -333,6 +338,7 @@ export default {
           this.$vs.notify({
             title: "Success",
             text: response.data.message,
+            position:'top-right',
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "success",
@@ -345,6 +351,7 @@ export default {
           this.$vs.notify({
             title: "Error",
             text: Object(error.response.data.messages.error),
+            position:'top-right',
             // text: error.response.data,
             iconPack: "feather",
             icon: "icon-alert-circle",

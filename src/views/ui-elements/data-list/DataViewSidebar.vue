@@ -36,12 +36,13 @@
     >
       <div class="p-6">
         <!-- Product Image -->
-        <template v-if="sellerImg">
+        <template>
           <!-- Image Container -->
           <div
             class="img-container w-64 mx-auto flex items-center justify-center"
           >
-            <img :src="sellerImg" alt="img" class="responsive" />
+            <img v-if="sellerImg" :src="sellerImg" alt="img" class="responsive" />
+            <img v-else :src="cover_img" alt="img" class="responsive" />
           </div>
         </template>
 
@@ -124,7 +125,7 @@
         >Accept & Pay</vs-button
       > -->
       <vs-button
-        v-if="!(flow == 'buyer' && status != 'request_modification')"
+        v-if="(flow == 'buyer' && status != 'request_modification')"
         class="mt-4 w-full"
         @click="popupActivo = true"
         >Request Modification</vs-button
@@ -239,6 +240,7 @@ export default {
       disable: true,
 
       sellerImg: null,
+      cover_img: require("@/assets/images/timeline.jpg"),
       message: "",
       walletId: null,
       invitationId: null,
@@ -314,6 +316,7 @@ export default {
           this.$vs.notify({
             title: "Success",
             text: response.data.message,
+            position:'top-right',
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "success",
@@ -329,6 +332,7 @@ export default {
           this.$vs.notify({
             title: "Error",
             text: error.response.data.message,
+            position:'top-right',
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "danger",
@@ -349,6 +353,7 @@ export default {
           this.$vs.notify({
             title: "Success",
             text: response.data.message,
+            position:'top-right',
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "success",
@@ -360,6 +365,7 @@ export default {
           this.$vs.notify({
             title: "Error",
             text: error.response.data.message,
+            position:'top-right',
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "danger",

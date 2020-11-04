@@ -68,7 +68,7 @@ export default {
           // localStorage.removeItem("token")
           localStorage.setItem("error_703", verify.data.message)
           // return router.push({ name: 'verify-otp', params: { dataMessage: verify.data.message } }) 
-          return window.location.href = `http://localhost:3000/verify_otp?message=${verify.data.message}`; 
+          return window.location.href = ` https://payluk.com/verify_otp?message=${verify.data.message}`; 
         }
         localStorage.removeItem("token")
         // Set the error 
@@ -94,7 +94,7 @@ export default {
           //   await axios.get('/firewall').then(() => {}).catch(() => {
           //   localStorage.removeItem("token")
           //   localStorage.removeItem("verify_token")
-          //   return window.location.href = `http://localhost:3000/login`; 
+          //   return window.location.href = ` https://payluk.com/backend/login`; 
           // }) 
           let response = await axios.get('/account')
           if (response.status == 200) {
@@ -186,7 +186,7 @@ export default {
         console.log(response)
         localStorage.removeItem("token")
         localStorage.removeItem("verify_token")
-        return window.location.href = `http://localhost:3000/login`; 
+        return window.location.href = ` https://payluk.com/login`; 
       }) 
       return axios.post('/logout')
       .then(() => {

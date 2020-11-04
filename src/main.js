@@ -83,7 +83,7 @@ require('@/store/subscriber')
 // Vue select css
 // Note: In latest version you have to add it separately
 // import 'vue-select/dist/vue-select.css';
-axios.defaults.baseURL = 'http://localhost:8080'
+axios.defaults.baseURL = 'https://payluk.com/backend'
 
 store.dispatch('authentication/attempt', localStorage.getItem('token'))
 // console.log(store.dispatch('authentication/attempt', localStorage.getItem('token')))

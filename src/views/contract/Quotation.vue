@@ -203,6 +203,7 @@ export default {
           this.$vs.notify({
             title: "Success",
             text: response.data.message,
+            position:'top-right',
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "success",
@@ -215,6 +216,7 @@ export default {
           this.$vs.notify({
             title: "Error",
             text: error.response.data.message,
+            position:'top-right',
             // text: error.response.data,
             iconPack: "feather",
             icon: "icon-alert-circle",
@@ -231,6 +233,7 @@ export default {
           this.$vs.notify({
             title: "Success",
             text: response.data.message,
+            position:'top-right',
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "success",
@@ -242,6 +245,7 @@ export default {
           this.$vs.notify({
             title: "Error",
             text: error.response.data.message,
+            position:'top-right',
             // text: error.response.data,
             iconPack: "feather",
             icon: "icon-alert-circle",

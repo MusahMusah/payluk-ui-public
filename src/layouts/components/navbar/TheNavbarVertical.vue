@@ -85,6 +85,63 @@
             size="medium" icon="double_arrow" color="primary">ACTIVATE</vs-button>
         </div>
       </template>
+      <template v-if="windowWidth < 992">
+
+        <!-- STARRED PAGES MORE -->
+        <div class="vx-navbar__starred-pages--more-dropdown" v-if="starredPagesMore.length">
+          <vs-dropdown vs-custom-content vs-trigger-click>
+            <feather-icon icon="ChevronDownIcon" svgClasses="h-4 w-4" class="cursor-pointer p-2"></feather-icon>
+            <vs-dropdown-menu>
+              <ul class="vx-navbar__starred-pages-more--list">
+                <draggable v-model="starredPagesMore" :group="{name: 'pinList'}" class="cursor-move">
+                  <li class="starred-page--more flex items-center cursor-pointer" v-for="page in starredPagesMore" :key="page.url" @click="$router.push(page.url).catch(() => {})">
+                    <feather-icon svgClasses="h-5 w-5" class="ml-2 mr-1" :icon="page.labelIcon"></feather-icon>
+                    <span class="px-2 pt-2 pb-1">{{ page.label }}</span>
+                  </li>
+                </draggable>
+              </ul>
+            </vs-dropdown-menu>
+          </vs-dropdown>
+        </div>
+
+        <div class="bookmark-container">
+          <!-- <feather-icon icon="StarIcon" :svgClasses="['stoke-current text-warning', {'text-white': navbarColor != '#fff'}]" class="cursor-pointer p-2" @click.stop="showBookmarkPagesDropdown = !showBookmarkPagesDropdown" /> -->
+                    <!-- <div v-click-outside="outside" class="absolute bookmark-list w-1/3 xl:w-1/4 mt-4" v-if="showBookmarkPagesDropdown">
+          <vx-auto-suggest :autoFocus="true" :data="navbarSearchAndPinList" @selected="selected" @actionClicked="actionClicked" inputClassses="w-full" show-action show-pinned background-overlay></vx-auto-suggest>
+          </div> -->
+          <!-- <feather-icon icon="StarIcon" :svgClasses="['stoke-current text-warning', {'text-white': navbarColor != '#fff'}]" class="cursor-pointer p-2" @click.stop="showBookmarkPagesDropdown = !showBookmarkPagesDropdown" /> -->
+            <vs-chip color="primary ml1">
+              <!-- <vs-avatar icon-pack="feather" icon="icon-star" /> -->
+              <span style="font-weight: bold; font-size: 1em; padding:1px">RANKING:</span>
+              <star-rating 
+              :star-size="10" 
+              :read-only="true"
+              :rating="rank"
+              :max-rating="rank"
+              :border-width="1" 
+              border-color="#d8d8d8" 
+              :rounded-corners="true"
+              :show-rating="false" 
+              :star-points="
+              [23,2, 14,17, 0,19,
+                10,34, 7,50,
+                23,43, 38,50, 36,34,
+                46,19, 31,17]">
+              </star-rating>
+              <span class="p" style="text-transform: uppercase;font-weight: bold; font-size: 1em">{{userData.rank}}</span>
+              <!-- <vs-button class="p-1" style="text-transform: uppercase;font-weight: bold; font-size: 1.3em">{{userData.rank.toUpperCase()}}</vs-button> -->
+            </vs-chip>
+            <!-- <vs-chip color="primary" class="ml-2 mr-2">
+              <vs-avatar size="28px" v-if="userData.status == 'not activated'" icon="close" />
+              <vs-avatar size="28px" v-else icon="check" />
+              <span  style="text-transform: uppercase; font-weight: bold; font-size: 1.3em">ACCOUNT {{userData.status}}</span>
+            </vs-chip> -->
+            <!-- <vs-button v-if="userData.status == 'not activated'" 
+            :to="{name: 'activate-account'}"
+            style="text-transform: uppercase; font-weight: bold; font-size: .7em" 
+            size="medium" icon="double_arrow" color="primary">ACTIVATE</vs-button> -->
+        </div>
+      </template>
 
 
       <vs-spacer />
@@ -106,10 +163,8 @@
           <div class="absolute right-0 h-full z-50">
               <feather-icon icon="XIcon" class="px-4 cursor-pointer h-full close-search-icon" @click="showFullSearch = false"></feather-icon>
           </div>
-          <!-- {{searchData}}
-        {{test}} -->
       </div>
-      <feather-icon icon="SearchIcon" @click="showFullSearch = true" class="cursor-pointer navbar-fuzzy-search mr-4"></feather-icon>
+      <!-- <feather-icon icon="SearchIcon" @click="showFullSearch = true" class="cursor-pointer navbar-fuzzy-search mr-4"></feather-icon> -->
 
       <!-- NOTIFICATIONS -->
       <!-- <vs-dropdown vs-custom-content :vs-trigger-click="change"  class="cursor-pointer"> -->
@@ -189,17 +244,10 @@
             <ul style="min-width: 9rem">
               <li
                 class="flex py-2 px-4 cursor-pointer hover:bg-primary hover:text-white"
-                @click="$router.push('/account').catch(() => {})">
+                @click="$router.replace('/account').catch(() => {})">
 
                 <feather-icon icon="UserIcon" svgClasses="w-4 h-4" />
                 <span class="ml-2">Profile</span>
-              </li>
-              <li
-                class="flex py-2 px-4 cursor-pointer hover:bg-primary hover:text-white"
-                @click="$router.push('/apps/email').catch(() => {})">
-
-                <feather-icon icon="MailIcon" svgClasses="w-4 h-4" />
-                <span class="ml-2">Inbox</span>
               </li>
               <vs-divider class="m-1"></vs-divider>
               <li

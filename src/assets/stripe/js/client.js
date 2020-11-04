@@ -11,7 +11,7 @@ var purchase = {
 
 // Disable the button until we have Stripe set up on the page
 document.querySelector("button").disabled = true;
-fetch("http://localhost:8080/stripe/invoke", {
+fetch("https://payluk.com/backend/stripe/invoke", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
@@ -88,7 +88,7 @@ var payWithCard = function(stripe, card, clientSecret) {
 // Shows a success message when the payment is complete
 var orderComplete = function(paymentIntentId) {
   //loading(true);
-  fetch("http://localhost:8080/payment?paymentIntent="+paymentIntentId, {
+  fetch("https://payluk.com/backend/payment?paymentIntent="+paymentIntentId, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

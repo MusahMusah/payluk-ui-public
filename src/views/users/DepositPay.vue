@@ -1,6 +1,6 @@
 <template>
   <vs-row>
-    <vs-col vs-w="10" offset="2" class="mx-auto m-20">
+    <vs-col vs-w="12" class="mx-auto m-20">
       <form id="payment-form">
         <div id="card-element"><!--Stripe.js injects the Card Element--></div>
         <button id="submit">
@@ -27,7 +27,8 @@ export default {
   mounted() {
     // A reference to Stripe.js initialized with your real test publishable API key.
     var stripe = Stripe("pk_test_KPQoeXoc6SUDHanW1BjtpgpS003CqpjqHx");
-    var amount = this.$route.params.amount * 100;
+    // var amount = this.$route.params.amount * 100;
+    var amount = localStorage.getItem("amount") * 100;
     // The items the customer wants to buy
     var purchase = {
       items: [
@@ -40,7 +41,7 @@ export default {
 
     // Disable the button until we have Stripe set up on the page
     document.querySelector("button").disabled = true;
-    fetch("http://localhost:8080/stripe/invoke", {
+    fetch("https://payluk.com/backend/stripe/invoke", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -81,7 +82,7 @@ export default {
             ? event.error.message
             : "";
         });
-
+        localStorage.removeItem("amount");
         var form = document.getElementById("payment-form");
         form.addEventListener("submit", function (event) {
           event.preventDefault();
@@ -119,7 +120,7 @@ export default {
     // Shows a success message when the payment is complete
     var orderComplete = function (paymentIntentId) {
       //loading(true);
-      fetch("http://localhost:8080/payment?paymentIntent=" + paymentIntentId, {
+      fetch("https://payluk.com/backend/payment?paymentIntent=" + paymentIntentId, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -131,6 +132,7 @@ export default {
         .then(function (data) {
           if (data) {
             console.log(data.result.receipt_url);
+            localStorage.removeItem("amount");
             // Redirect to Receipt Page
             window.location.href = `${data.result.receipt_url}`;
             //  this.$vs.loading.close();
@@ -220,7 +222,7 @@ input {
 
 #card-element {
   border-radius: 4px 4px 0 0;
-  padding: 12px;
+  /* padding: 12px; */
   border: 1px solid rgba(50, 50, 93, 0.1);
   height: 44px;
   width: 100%;
@@ -325,11 +327,11 @@ button:disabled {
   }
 }
 
-@media only screen and (max-width: 600px) {
+/* @media only screen and (max-width: 600px) {
   form {
     width: 80vw;
   }
-}
+} */
 
 /* @import '@/assets/css/main.css' */
 </style>

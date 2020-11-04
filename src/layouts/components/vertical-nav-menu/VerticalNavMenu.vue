@@ -32,7 +32,8 @@
           <!-- Logo -->
           <router-link tag="div" class="vx-logo cursor-pointer flex items-center" to="/">
             <img :src="logo" alt="logo" class="w-10 mr-4" v-if="logo">
-            <span class="vx-logo-text" v-show="isMouseEnter || !reduce" v-if="title">{{ title }}</span>
+            <!-- {{ title }} -->
+            <span class="vx-logo-text" v-show="isMouseEnter || !reduce" v-if="title">Payluk</span>
           </router-link>
           <!-- /Logo -->
 
@@ -68,6 +69,7 @@
             <span v-if="item.header && !verticalNavMenuItemsMin" class="navigation-header truncate" :key="`header-${index}`">
               {{ item.header }}
             </span>
+            
             <!-- /Group Header -->
 
             <template v-else-if="!item.header">
@@ -85,6 +87,7 @@
                   <span v-show="!verticalNavMenuItemsMin" class="truncate">{{ item.name }}</span>
                   <vs-chip class="ml-auto" :color="item.tagColor" v-if="item.tag && (isMouseEnter || !reduce)">{{ item.tag }}</vs-chip>
               </v-nav-menu-item>
+              
 
               <!-- Nav-Group -->
               <template v-else>
@@ -95,8 +98,12 @@
                   :groupIndex="index"
                   :open="isGroupActive(item)" />
               </template>
+              
               <!-- /Nav-Group -->
             </template>
+          </template>
+          <template v-if="windowWidth < 992">
+            <vs-button :to="{name: 'activate-account'}" class="ml-8 mt-3">Activate Account</vs-button>
           </template>
         </VuePerfectScrollbar>
         <!-- /Menu Items -->

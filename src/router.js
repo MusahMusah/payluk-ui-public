@@ -53,17 +53,6 @@ const router = new Router({
                     requiresAuthentication: true,
                   },
               },
-              {
-                  path: '/dashboard/ecommerce',
-                  name: 'dashboard-ecommerce',
-                  component: () => import('./views/DashboardECommerce.vue'),
-                  meta: {
-                    requiresAuthentication: true,
-                  },
-                  // meta: {
-                  //     rule: 'admin'
-                  // }
-              },
 
               // User Sections
               {

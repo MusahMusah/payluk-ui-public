@@ -90,7 +90,8 @@
         <tbody>
           <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
             <vs-td class="img-container">
-              <img :src="tr.seller_image" class="product-img" />
+              <img v-if="tr.seller_image" :src="tr.seller_image" class="product-img" />
+              <img v-else :src="cover_img" class="product-img" />
             </vs-td>
 
             <vs-td>
@@ -128,11 +129,11 @@
             <vs-td class="whitespace-no-wrap">
               <vs-button
                 :style="hide"
-                v-if="(tr.expired_time != tr.delivered_before_date)"
+                v-if="!(tr.expired_time > tr.delivered_before_date && tr.seller_ticket != 1)"
                 @click="ticketPopUp(tr.invitation_id)"
                 type="gradient"
                 class="m-1"
-              >
+                >
                 Open Ticket
               </vs-button>
               <!-- close_transaction(tr.invitation_id) -->
@@ -269,6 +270,7 @@ export default {
       pendingContracts: [],
       itemsPerPage: 4,
       contract_type: "",
+      cover_img: require("@/assets/images/timeline.jpg"),
 
       subject: "Choose Subject",
       addressTypeOptions: [
@@ -375,6 +377,7 @@ export default {
           this.$vs.notify({
             title: "Success",
             text: response.data.message,
+            position:'top-right',
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "success",
@@ -391,6 +394,7 @@ export default {
           this.$vs.notify({
             title: "Error",
             text: error.response.data.messages.error,
+            position:'top-right',
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "danger",
