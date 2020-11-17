@@ -124,8 +124,16 @@ export default {
         resend_otp () {
             this.$vs.loading()
             this.resendOtp()
-            .then(() => {
+            .then((response) => {
                 this.$vs.loading.close()
+                this.$vs.notify({
+                    title: 'Successful',
+                    text : response.data.message,
+                    position:'top-right',
+                    iconPack: 'feather',
+                    icon: 'icon-alert-circle',
+                    color: 'success',
+                })
                 // this.$router.push('/').catch((err) => { console.log(err)})
             })
             .catch((error) => {

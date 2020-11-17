@@ -9,7 +9,26 @@
     <script src="https://js.stripe.com/v3/"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
     <script src="https://js.paystack.co/v1/inline.js"></script>
-    <title>Pay4me</title>
+    <link href="https://unpkg.com/nprogress@0.2.0/nprogress.css" rel="stylesheet" />
+    <script src="https://unpkg.com/nprogress@0.2.0/nprogress.js"></script>
+    <title>Payluk</title>
+    <style>
+      #nprogress {
+        background-color: blue !important;
+      }
+      #nprogress .bar {
+        background: blue !important;
+        position: fixed;
+        z-index: 1031;
+        top: 5;
+        left: 0;
+        /* height: 5em; */
+      }
+      /* #nprogress .spinner-icon {
+        border-left-color: green !important;
+        border-top-color: yellow  !important;
+      } */
+    </style>
   </head>
   <body>
     <noscript>

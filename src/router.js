@@ -18,7 +18,7 @@
 
 
 import Vue from 'vue'
-import Router from 'vue-router' 
+import Router from 'vue-router'
 // import store from './store'
 
 Vue.use(Router)
@@ -122,8 +122,8 @@ const router = new Router({
                 }
               },
               {
-                path: '/contract-request',
-                name: 'contract-request',
+                path: '/request',
+                name: 'request',
                 component: () => import('./views/contract/ContractRequest.vue'),
                 meta: {
                   breadcrumb: [
@@ -180,7 +180,7 @@ const router = new Router({
                   ],
                   pageTitle: 'Your Pending Contracts',
                 },
-              
+
               },
               {
                 path: '/buyer',
@@ -194,7 +194,7 @@ const router = new Router({
                   ],
                   pageTitle: 'Your Pending Contracts',
                 },
-              
+
               },
 
               // Tickets
@@ -209,17 +209,22 @@ const router = new Router({
                   ],
                   pageTitle: 'All Tickets',
                 },
-              
+
+              },
+              {
+                path: '/test2',
+                name: 'test2',
+                component: () => import('./views/users/Test.vue'),
               },
               {
                 path: '/test',
                 name: 'test',
-                component: () => import('./views/users/Test.vue'),
+                component: () => import('./views/DashboardECommerce.vue'),
               },
             ],
         },
     // =============================================================================
-    // AUTHENTICATIONS 
+    // AUTHENTICATIONS
     // =============================================================================
         {
           path: '',
@@ -307,8 +312,25 @@ const router = new Router({
     ],
 })
 
-router.afterEach(() => {
+
+router.beforeResolve((to, from, next) => {
+  // If this isn't an initial page load.
+  if (to.path) {
+    // Start the route progress bar.
+    NProgress.start()
+  }
+  next()
+})
+
+// router.afterEach((to, from) => {
+//   // Complete the animation of the route progress bar.
+//   NProgress.done()
+// })
+
+
+router.afterEach((to, from) => {
   // Remove initial loading
+  NProgress.done()
   const appLoading = document.getElementById('loading-bg')
     if (appLoading) {
         appLoading.style.display = "none";

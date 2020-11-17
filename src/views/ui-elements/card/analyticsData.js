@@ -191,15 +191,15 @@ export default {
         }
     },
     revenueComparisonLine: {
-        // series: [{
-        //         name: "This Month",
-        //         data: [45000, 47000, 44800, 47500, 45500, 48000, 46500, 48600]
-        //     },
-        //     {
-        //         name: "Last Month",
-        //         data: [46000, 48000, 45500, 46600, 44500, 46500, 45000, 47000]
-        //     }
-        // ],
+        series: [{
+                name: "This Month",
+                data: [45000, 47000, 44800, 47500, 45500, 48000, 46500, 48600]
+            },
+            {
+                name: "Last Month",
+                data: [46000, 48000, 45500, 46600, 44500, 46500, 45000, 47000]
+            }
+        ],
         chartOptions: {
             chart: {
                 toolbar: { show: false },
@@ -546,61 +546,30 @@ export default {
     },
     // RADIAL BAR
     goalOverviewRadialBar: {
-        // series: [83],
-        chartOptions: {
+        series: [600, 500],
+        chartOptions :{
+            colors: ['#7367f0', '#7367f0'],
             plotOptions: {
                 radialBar: {
-                    size: 110,
-                    startAngle: -150,
-                    endAngle: 150,
-                    hollow: {
-                        size: '77%',
-                    },
-                    track: {
-                        background: "#bfc5cc",
-                        strokeWidth: '50%',
-                    },
-                    dataLabels: {
-                        name: {
-                            show: false
-                        },
-                        value: {
-                            offsetY: 18,
-                            color: '#99a2ac',
-                            fontSize: '4rem'
+                dataLabels: {
+                    value: {
+                        show: true,
+                        fontSize: '14px',
+                        formatter: function (val) {
+                          return  '$' + val 
                         }
-                    }
+                    },
+                    total: {
+                    show: true,
+                    formatter: function (w ) {
+                        return `$${w.config.series[0] + w.config.series[1]}`
+                      },
+                    label: 'TOTAL'
+                    },
+                }
                 }
             },
-            colors: ['#00db89'],
-            fill: {
-                type: 'gradient',
-                gradient: {
-                    shade: 'dark',
-                    type: 'horizontal',
-                    shadeIntensity: 0.5,
-                    gradientToColors: ['#00b5b5'],
-                    inverseColors: true,
-                    opacityFrom: 1,
-                    opacityTo: 1,
-                    stops: [0, 100]
-                },
-            },
-            stroke: {
-                lineCap: 'round'
-            },
-            chart: {
-                sparkline: {
-                    enabled: true,
-                },
-                dropShadow: {
-                    enabled: true,
-                    blur: 3,
-                    left: 1,
-                    top: 1,
-                    opacity: 0.1
-                },
-            },
+            labels: ['MAIN BALANCE', 'LAIN BALANCE']
         }
     },
     supportTrackerRadialBar: {
@@ -661,13 +630,13 @@ export default {
     },
     // RADAR
     statisticsRadar: {
-        // series: [{
-        //     name: 'Visits',
-        //     data: [90, 50, 86, 40, 100, 20],
-        // }, {
-        //     name: 'Sales',
-        //     data: [70, 75, 70, 76, 20, 85],
-        // }],
+        series: [{
+            name: 'Visits',
+            data: [90, 50, 86, 40, 100, 20],
+        }, {
+            name: 'Sales',
+            data: [70, 75, 70, 76, 20, 85],
+        }],
         chartOptions: {
             labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
             dataLabels: {
@@ -757,12 +726,12 @@ export default {
     },
     // Product Orders
     productOrdersRadialBar: {
-        // analyticsData: [
-        //     { 'orderType': 'Finished', 'counts': 23043, color: 'primary' },
-        //     { 'orderType': 'Pending', 'counts': 14658, color: 'warning' },
-        //     { 'orderType': 'Rejected ', 'counts': 4758, color: 'danger' },
-        // ],
-        // series: [70, 52, 26],
+        analyticsData: [
+            { 'orderType': 'Finished', 'counts': 23043, color: 'primary' },
+            { 'orderType': 'Pending', 'counts': 14658, color: 'warning' },
+            { 'orderType': 'Rejected ', 'counts': 4758, color: 'danger' },
+        ],
+        series: [70, 52, 26],
         chartOptions: {
             labels: ['Finished', 'Pending', 'Rejected'],
             plotOptions: {

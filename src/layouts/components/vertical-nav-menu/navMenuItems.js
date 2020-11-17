@@ -27,92 +27,154 @@ export default [
     icon: "HomeIcon",
     i18n: "Dashboard",
   },
-  {
-    url: '/account',
-    slug: 'account',
-    name: "Profile",
-    icon: "UserIcon",
-    i18n: "Profile",
-  },
   // {
-  //   url: null,
-  //   name: "Contracts",
-  //   // tag: "3",
-  //   tagColor: "warning",
-  //   icon: "PackageIcon",
-  //   i18n: "Contracts",
-  //   submenu: [
-  //     {
-  //       url: '/contract-request',
-  //       name: "Contract Request",
-  //       slug: "contract-request",
-  //       i18n: "Contract Request",
-  //     },
-  //     {
-  //       url: '/buyer',
-  //       name: "Buyer",
-  //       slug: "buyer",
-  //       // tagColor: "warning",
-  //       // tag: "3",
-  //       i18n: "buyer",
-  //     },
-  //     {
-  //       url: '/seller',
-  //       name: "Seller",
-  //       slug: "seller",
-  //       i18n: "seller",
-  //     },
-
-  //   ]
+  //   url: '/account',
+  //   slug: 'account',
+  //   name: "Profile",
+  //   icon: "UserIcon",
+  //   i18n: "Profile",
   // },
   {
-    url: '/contract-request',
+    header: "YOUR BUSINESS",
     icon: "PackageIcon",
-    name: "Contract Request",
-    slug: "contract-request",
-    i18n: "Contract Request",
+    i18n: "Apps",
+    items: [
+      {
+        url: '/request',
+        icon: "GitPullRequestIcon",
+        name: "Request",
+        slug: "request",
+        i18n: "Request",
+      },
+      {
+        url: null,
+        name: "Buyer",
+        icon: "ShoppingBagIcon",
+        i18n: "Buyer",
+        submenu: [
+          {
+            url: '/apps/eCommerce/shop',
+            name: "Pending",
+            slug: "pending",
+            i18n: "pending",
+          },
+          {
+            url: '/apps/eCommerce/wish-list',
+            name: "Completed",
+            slug: "completed",
+            i18n: "completed",
+          },
+        ]
+      },
+      {
+        url: null,
+        name: "Seller",
+        icon: "ShoppingCartIcon",
+        i18n: "Seller",
+        submenu: [
+          {
+            url: '/apps/eCommerce/shop',
+            name: "Pending",
+            slug: "pending",
+            i18n: "pending",
+          },
+          {
+            url: '/apps/eCommerce/wish-list',
+            name: "Completed",
+            slug: "completed",
+            i18n: "completed",
+          },
+        ]
+      },
+    ]
   },
   {
-    url: '/buyer',
-    name: "Buyer",
-    slug: "buyer",
-    icon: "ShoppingCartIcon",
-    // tag: "3",
-    i18n: "buyer",
+    header: "TRANSACTIONS",
+    icon: "PackageIcon",
+    i18n: "Apps",
+    items: [
+      {
+        url: null,
+        name: "Deposit",
+        icon: "CreditCardIcon",
+        i18n: "Deposit",
+        submenu: [
+          {
+            url: '/deposit',
+            name: "Add Fund",
+            slug: "deposit",
+            i18n: "deposit",
+          },
+          {
+            url: '/apps/eCommerce/wish-list',
+            name: "View All",
+            slug: "view",
+            i18n: "view",
+          },
+        ]
+      },
+      {
+        url: null,
+        name: "Withdrawal",
+        icon: "SendIcon",
+        i18n: "Withdrawal",
+        submenu: [
+          {
+            url: '/deposit',
+            name: "Cash Out",
+            slug: "withdraw",
+            i18n: "withdraw",
+          },
+          {
+            url: '/apps/eCommerce/wish-list',
+            name: "View All",
+            slug: "view",
+            i18n: "view",
+          },
+        ]
+      },
+    ]
   },
   {
-    url: '/seller',
-    name: "Seller",
-    icon: "ShoppingCartIcon",
-    slug: "seller",
-    i18n: "seller",
+    header: "DISPUTES",
+    icon: "PackageIcon",
+    i18n: "Apps",
+    items: [
+      {
+        url: '/tickets',
+        name: "Tickets",
+        icon: "MessageSquareIcon",
+        slug: "tickets",
+        i18n: "tickets",
+      },
+    ]
   },
   {
-    url: '/tickets',
-    name: "Tickets",
-    icon: "MessageSquareIcon",
-    slug: "tickets",
-    i18n: "tickets",
-  },
-  {
-    url: '/deposit',
-    slug: 'deposit',
-    name: "Deposit",
-    icon: "CreditCardIcon",
-    i18n: "Deposit",
-  },
-  {
-    url: '/withdrawal',
-    slug: 'withdrawal',
-    name: "Withdrawal",
-    icon: "CreditCardIcon",
-    i18n: "Withdrawal",
-  },
-  {
-    url: '/faq',
-    slug: 'faq',
-    name: "FAQ",
-    icon: "HelpCircleIcon",
-    i18n: "FAQ",
+    header: "SUPPORT",
+    icon: "PackageIcon",
+    i18n: "Apps",
+    items: [
+      {
+        url: '/contact-us',
+        slug: 'contact-us',
+        name: "Contact Us",
+        icon: "PhoneIcon",
+        i18n: "FAQ",
+      },
+      {
+        url: '/faq',
+        slug: 'faq',
+        name: "FAQ",
+        icon: "HelpCircleIcon",
+        i18n: "FAQ",
+      },
+      {
+        url: '/knowledge-base',
+        slug: 'knowledge-base',
+        name: "Knowledge Base",
+        icon: "InfoIcon",
+        i18n: "FAQ",
+      },
+    ]
   },
 ]
