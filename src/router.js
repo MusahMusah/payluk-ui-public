@@ -53,15 +53,7 @@ const router = new Router({
                   component: () => import('./views/DashboardAnalytics.vue'),
                   meta: {
                     requiresAuthentication: true,
-                    // progress: {
-                    //   func: [
-                    //     {call: 'color', modifier: 'temp', argument: '#ffb000'},
-                    //     {call: 'fail', modifier: 'temp', argument: '#6e0000'},
-                    //     {call: 'location', modifier: 'temp', argument: 'top'},
-                    //     {call: 'transition', modifier: 'temp', argument: {speed: '1.5s', opacity: '0.6s', termination: 400}}
-                    //   ]
-                    // }
-                  },
+                  }
               },
 
               // User Sections
@@ -202,6 +194,7 @@ const router = new Router({
                       { title: 'Your Pending Contracts', active: true },
                   ],
                   pageTitle: 'Your Pending Contracts',
+                  requiresAuthentication: true,
                 },
 
               },
@@ -216,6 +209,7 @@ const router = new Router({
                       { title: 'Your Completed Contracts', active: true },
                   ],
                   pageTitle: 'Your Completed Contracts',
+                  requiresAuthentication: true,
                 },
 
               },
@@ -230,6 +224,7 @@ const router = new Router({
                       { title: 'Your Pending Contracts', active: true },
                   ],
                   pageTitle: 'Your Pending Contracts',
+                  requiresAuthentication: true,
                 },
 
               },
@@ -244,6 +239,7 @@ const router = new Router({
                       { title: 'Your Completed Contracts', active: true },
                   ],
                   pageTitle: 'Your Completed Contracts',
+                  requiresAuthentication: true,
                 },
 
               },
@@ -259,6 +255,7 @@ const router = new Router({
                       { title: 'All Tickets', active: true },
                   ],
                   pageTitle: 'All Tickets',
+                  requiresAuthentication: true,
                 },
 
               },
