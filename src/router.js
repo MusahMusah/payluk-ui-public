@@ -51,17 +51,17 @@ const router = new Router({
                   path: '/dashboard/analytics',
                   name: 'dashboard-analytics',
                   component: () => import('./views/DashboardAnalytics.vue'),
-                  // meta: {
-                  //   requiresAuthentication: true,
-                  //   progress: {
-                  //     func: [
-                  //       {call: 'color', modifier: 'temp', argument: '#ffb000'},
-                  //       {call: 'fail', modifier: 'temp', argument: '#6e0000'},
-                  //       {call: 'location', modifier: 'temp', argument: 'top'},
-                  //       {call: 'transition', modifier: 'temp', argument: {speed: '1.5s', opacity: '0.6s', termination: 400}}
-                  //     ]
-                  //   }
-                  // },
+                  meta: {
+                    requiresAuthentication: true,
+                    // progress: {
+                    //   func: [
+                    //     {call: 'color', modifier: 'temp', argument: '#ffb000'},
+                    //     {call: 'fail', modifier: 'temp', argument: '#6e0000'},
+                    //     {call: 'location', modifier: 'temp', argument: 'top'},
+                    //     {call: 'transition', modifier: 'temp', argument: {speed: '1.5s', opacity: '0.6s', termination: 400}}
+                    //   ]
+                    // }
+                  },
               },
 
               // User Sections
@@ -379,7 +379,7 @@ const router = new Router({
 // })
 
 
-router.afterEach((to, from) => {
+router.afterEach(() => {
   // Remove initial loading
   const appLoading = document.getElementById('loading-bg')
   if (appLoading) {
