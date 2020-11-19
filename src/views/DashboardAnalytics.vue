@@ -101,7 +101,7 @@
                 </template>
                 <div class="flex">
                   <span class="flex items-center"><div class="h-3 w-3 rounded-full mr-1 bg-primary"></div><span>Sales</span></span>
-                  <span class="flex items-center ml-4"><div class="h-3 w-3 rounded-full mr-1 bg-success"></div><span>Visits</span></span>
+                  <span class="flex items-center ml-4"><div class="h-3 w-3 rounded-full mr-1 bg-warning"></div><span>Visits</span></span>
                 </div>
                 <div slot="no-body-bottom">
                   <vue-apex-charts type=radar height=400 :options="analyticsData.statisticsRadar.chartOptions" :series="analyticsData.statisticsRadar.series" />
@@ -236,14 +236,14 @@ export default{
             //     time: "20 days ago"
             //   },
               {
-                color: "success",
+                color: "primary",
                 icon: "LayoutIcon",
                 title: "Launch Website",
                 desc: "Candy ice cream cake. Halvah gummi bears Cupcake gummi bears soufflé caramels candy.",
                 time: "25 days ago"
               },
               {
-                color: "primary",
+                color: "warning",
                 icon: "TvIcon",
                 title: "Marketing",
                 desc: "Candy ice cream cake. Halvah gummi bears Cupcake gummi bears.",

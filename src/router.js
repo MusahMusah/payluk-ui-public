@@ -19,6 +19,8 @@
 
 import Vue from 'vue'
 import Router from 'vue-router'
+// import NProgress from 'nprogress'
+// import '../node_modules/nprogress/nprogress.css';
 // import store from './store'
 
 Vue.use(Router)
@@ -49,9 +51,17 @@ const router = new Router({
                   path: '/dashboard/analytics',
                   name: 'dashboard-analytics',
                   component: () => import('./views/DashboardAnalytics.vue'),
-                  meta: {
-                    requiresAuthentication: true,
-                  },
+                  // meta: {
+                  //   requiresAuthentication: true,
+                  //   progress: {
+                  //     func: [
+                  //       {call: 'color', modifier: 'temp', argument: '#ffb000'},
+                  //       {call: 'fail', modifier: 'temp', argument: '#6e0000'},
+                  //       {call: 'location', modifier: 'temp', argument: 'top'},
+                  //       {call: 'transition', modifier: 'temp', argument: {speed: '1.5s', opacity: '0.6s', termination: 400}}
+                  //     ]
+                  //   }
+                  // },
               },
 
               // User Sections
@@ -137,7 +147,20 @@ const router = new Router({
               {
                 path: '/deposit',
                 name: 'deposit',
-                component: () => import('./views/users/Deposit.vue'),
+                component: () => import('./views/deposit/Deposit.vue'),
+                meta: {
+                  breadcrumb: [
+                    { title: 'Home', url: '/' },
+                    { title: 'Deposit Payment', active: true },
+                  ],
+                  pageTitle: 'Deposit Payment',
+                  requiresAuthentication: true
+                }
+              },
+              {
+                path: '/deposit-view',
+                name: 'deposit-view',
+                component: () => import('./views/deposit/ViewAllDeposit.vue'),
                 meta: {
                   breadcrumb: [
                     { title: 'Home', url: '/' },
@@ -150,7 +173,7 @@ const router = new Router({
               {
                 path: '/deposit-pay',
                 name: 'deposit-pay',
-                component: () => import('./views/users/DepositPay.vue'),
+                component: () => import('./views/deposit/DepositPay.vue'),
                 meta: {
                   breadcrumb: [
                     { title: 'Home', url: '/' },
@@ -169,8 +192,8 @@ const router = new Router({
                 }
               },
               {
-                path: '/seller',
-                name: 'seller',
+                path: '/seller-pending',
+                name: 'seller-pending',
                 component: () => import('./views/contract/Seller.vue'),
                 meta: {
                   breadcrumb: [
@@ -183,9 +206,23 @@ const router = new Router({
 
               },
               {
-                path: '/buyer',
-                name: 'buyer',
-                component: () => import('./views/contract/Buyer.vue'),
+                path: '/seller-completed',
+                name: 'seller-completed',
+                component: () => import('./views/contract/SellerCompleted.vue'),
+                meta: {
+                  breadcrumb: [
+                      { title: 'Home', url: '/' },
+                      // { title: 'Data List'},
+                      { title: 'Your Completed Contracts', active: true },
+                  ],
+                  pageTitle: 'Your Completed Contracts',
+                },
+
+              },
+              {
+                path: '/buyer-pending',
+                name: 'buyer-pending',
+                component: () => import('./views/contract/BuyerPending.vue'),
                 meta: {
                   breadcrumb: [
                       { title: 'Home', url: '/' },
@@ -193,6 +230,20 @@ const router = new Router({
                       { title: 'Your Pending Contracts', active: true },
                   ],
                   pageTitle: 'Your Pending Contracts',
+                },
+
+              },
+              {
+                path: '/buyer-completed',
+                name: 'buyer-completed',
+                component: () => import('./views/contract/BuyerCompleted.vue'),
+                meta: {
+                  breadcrumb: [
+                      { title: 'Home', url: '/' },
+                      // { title: 'Data List'},
+                      { title: 'Your Completed Contracts', active: true },
+                  ],
+                  pageTitle: 'Your Completed Contracts',
                 },
 
               },
@@ -219,7 +270,12 @@ const router = new Router({
               {
                 path: '/test',
                 name: 'test',
-                component: () => import('./views/DashboardECommerce.vue'),
+                component: () => import('./views/users/Test2.vue'),
+              },
+              {
+                path: '/test3',
+                name: 'test3',
+                component: () => import('./views/users/Test3.vue'),
               },
             ],
         },
@@ -313,28 +369,24 @@ const router = new Router({
 })
 
 
-router.beforeResolve((to, from, next) => {
-  // If this isn't an initial page load.
-  if (to.path) {
-    // Start the route progress bar.
-    NProgress.start()
-  }
-  next()
-})
-
-// router.afterEach((to, from) => {
-//   // Complete the animation of the route progress bar.
-//   NProgress.done()
+// router.beforeResolve((to, from, next) => {
+//   // If this isn't an initial page load.
+//   if (to.path) {
+//     // Start the route progress bar.
+//     NProgress.start()
+//   }
+//   next()
 // })
 
 
 router.afterEach((to, from) => {
   // Remove initial loading
-  NProgress.done()
   const appLoading = document.getElementById('loading-bg')
-    if (appLoading) {
+  if (appLoading) {
+        // NProgress.done()
         appLoading.style.display = "none";
     }
 })
+
 
 export default router

@@ -556,7 +556,7 @@ export default {
                         show: true,
                         fontSize: '14px',
                         formatter: function (val) {
-                          return  '$' + val 
+                          return  '$' + val
                         }
                     },
                     total: {
@@ -666,7 +666,7 @@ export default {
             stroke: {
                 width: 0
             },
-            colors: ['#9f8ed7', '#1edec5'],
+            colors: ['#9f8ed7', '#f0ad4e'],
             plotOptions: {
                 radar: {
                     polygons: {
@@ -679,7 +679,7 @@ export default {
                 type: 'gradient',
                 gradient: {
                     shade: 'dark',
-                    gradientToColors: ['#8e9ad6', '#1fcadb'],
+                    gradientToColors: ['#8e9ad6', '#f0ad4e'],
                     shadeIntensity: 1,
                     type: 'horizontal',
                     opacityFrom: 1,
@@ -784,7 +784,7 @@ export default {
                     }
                 }
             }],
-            colors: ['#7961F9', '#FF9F43', '#EA5455'],
+            colors: ['#7961F9', '#FF9F43', '#7961F9'],
             fill: {
                 type: 'gradient',
                 gradient: {
@@ -792,7 +792,7 @@ export default {
                     shade: 'dark',
                     type: 'vertical',
                     shadeIntensity: 0.5,
-                    gradientToColors: ['#9c8cfc', '#FFC085', '#f29292'],
+                    gradientToColors: ['#9c8cfc', '#FFC085', '#9c8cfc'],
                     inverseColors: false,
                     opacityFrom: 1,
                     opacityTo: 1,

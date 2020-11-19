@@ -72,7 +72,7 @@ export default {
       return await axios.post('/contract/quotation/buyer/pay', payload)
     },
 
-    // Seller sendTicket 
+    // Seller sendTicket
     async sendTicket(_, payload){
       return await axios.post('/seller/ticket/create', payload)
     },
@@ -106,7 +106,7 @@ export default {
     async buyerPendingContracts({commit}) {
       let response = await axios.get('/contract/buyer')
       // console.log(response.data.contracts)
-      if (response.status === 200) {
+      if (response.data.contracts != null) {
         commit('SET_BUYER_PENDING_CONTRACTS', response.data.contracts)
       }
     },
@@ -153,9 +153,9 @@ export default {
       return await axios.get('/reset_notification')
     },
 
-    // 
+    //
     async sendQuotation(_, payload) {
-      return await axios.put('/send_quotation', payload) 
+      return await axios.put('/send_quotation', payload)
     },
 
   }

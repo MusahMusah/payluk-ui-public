@@ -127,11 +127,11 @@
             </vs-td>
 
             <vs-td class="whitespace-no-wrap">
-              <vs-button 
-              :style="hide" v-if="(tr.payment != 'made')" 
-              @click="openConfirm(tr)" 
-              type="gradient" class="m-1"> 
-              Accept and Pay 
+              <vs-button
+              :style="hide" v-if="(tr.payment != 'made')"
+              @click="openConfirm(tr)"
+              type="gradient" class="m-1">
+              Accept and Pay
               </vs-button>
               <vs-button
                 v-if="(tr.flow == 'buyer' && tr.status != 'request_modification')"
@@ -139,17 +139,17 @@
                 @click="popupActivo4 = true"
                 >Request Modification</vs-button
               >
-              <vs-button 
-              :style="hide" v-if="!(tr.expired_time >  tr.delivered_before_date && tr.buyer_ticket != 1)" 
-              @click="ticketPopUp(tr.invitation_id)" 
-              type="gradient"  class="m-1"> 
-              Open Ticket 
+              <vs-button
+              :style="hide" v-if="!(tr.expired_time >  tr.delivered_before_date && tr.buyer_ticket != 1)"
+              @click="ticketPopUp(tr.invitation_id)"
+              type="gradient"  class="m-1">
+              Open Ticket
               </vs-button>
-              <vs-button 
-              :style="hide" v-if="(tr.payment == 'made')" 
-              @click="openConfirm2(tr.invitation_id)" 
-              type="gradient"> 
-              Confirm Transaction 
+              <vs-button
+              :style="hide" v-if="(tr.payment == 'made')"
+              @click="openConfirm2(tr.invitation_id)"
+              type="gradient">
+              Confirm Transaction
               </vs-button>
             </vs-td>
           </vs-tr>
@@ -463,7 +463,7 @@ export default {
           setTimeout(() => {
             this.popupActivo2 = true
           }, 1500)
-          
+
         })
         .catch((error) => {
           console.log(error);
@@ -586,7 +586,7 @@ export default {
           });
         });
     },
-    
+
      open_contracts() {
       this.visibility = "display:none";
       if (this.contract_type == "Pending") {
@@ -595,7 +595,7 @@ export default {
       } else if(this.contract_type == "Completed") {
           this.completed()
         // location.href = "/seller-pending"
-        
+
       }
     },
 
@@ -615,13 +615,13 @@ export default {
     },
 
     openConfirm(tr) {
-      const payload = 
+      const payload =
       {
         contract_id : tr.id,
         invitation_id: tr.invitation_id,
         amount:   Number(tr.total_cost.replace(/[^0-9.-]+/g,"")),
         currency: tr.currency
-      }     
+      }
       localStorage.setItem("payload",  JSON.stringify(payload))
       this.$vs.dialog({
         type: 'confirm',
@@ -658,7 +658,7 @@ export default {
               icon: "icon-alert-circle",
               color: "success",
             });
-           
+
           }else {
             localStorage.removeItem("payload")
             this.$vs.loading.close();
@@ -674,7 +674,7 @@ export default {
               location.reload()
             }, 800);
           }
-          
+
         })
         .catch((error) => {
           localStorage.removeItem("payload")

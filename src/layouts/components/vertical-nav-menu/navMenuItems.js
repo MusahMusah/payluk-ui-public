@@ -53,16 +53,16 @@ export default [
         i18n: "Buyer",
         submenu: [
           {
-            url: '/apps/eCommerce/shop',
+            url: '/buyer-pending',
             name: "Pending",
-            slug: "pending",
-            i18n: "pending",
+            slug: "buyer-pending",
+            i18n: "buyer-pending",
           },
           {
-            url: '/apps/eCommerce/wish-list',
+            url: '/buyer-completed',
             name: "Completed",
-            slug: "completed",
-            i18n: "completed",
+            slug: "buyer-completed",
+            i18n: "buyer-completed",
           },
         ]
       },
@@ -73,16 +73,16 @@ export default [
         i18n: "Seller",
         submenu: [
           {
-            url: '/apps/eCommerce/shop',
+            url: '/seller-pending',
             name: "Pending",
-            slug: "pending",
-            i18n: "pending",
+            slug: "seller-pending",
+            i18n: "seller-pending",
           },
           {
-            url: '/apps/eCommerce/wish-list',
+            url: '/seller-completed',
             name: "Completed",
-            slug: "completed",
-            i18n: "completed",
+            slug: "seller-completed",
+            i18n: "seller-completed",
           },
         ]
       },
@@ -91,7 +91,7 @@ export default [
   {
     header: "TRANSACTIONS",
     icon: "PackageIcon",
-    i18n: "Apps",
+    i18n: "Transactions",
     items: [
       {
         url: null,
@@ -106,10 +106,10 @@ export default [
             i18n: "deposit",
           },
           {
-            url: '/apps/eCommerce/wish-list',
+            url: '/deposit-view',
             name: "View All",
-            slug: "view",
-            i18n: "view",
+            slug: "deposit-view",
+            i18n: "deposit-view",
           },
         ]
       },
@@ -120,7 +120,7 @@ export default [
         i18n: "Withdrawal",
         submenu: [
           {
-            url: '/deposit',
+            url: '/cash-out',
             name: "Cash Out",
             slug: "withdraw",
             i18n: "withdraw",

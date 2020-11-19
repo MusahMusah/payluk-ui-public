@@ -301,8 +301,8 @@ export default {
       getAllPendingRequests: "contract_request/getAllPendingRequest"
     }),
     validateForm() {
-      return !this.errors.any() && this.item_name != "" && this.item_quantity != "" 
-      && this.total_cost != "" && this.currency != "" 
+      return !this.errors.any() && this.item_name != "" && this.item_quantity != ""
+      && this.total_cost != "" && this.currency != ""
       && this.ship_from != "" && this.ship_to != "" && this.ship_date != ""
       && this.delivered_before_date != "" && this.company_name != "";
     },
@@ -321,8 +321,6 @@ export default {
       localStorage.setItem("invite_id", payload)
       this.pop();
     },
-
-
     decline_invite(payload) {
       // Loading
       this.$vs.loading();
@@ -393,7 +391,7 @@ export default {
           setTimeout(() => {
               location.reload()
             }, 800);
-          
+
           // this.$router.replace('/contract-request').catch((err) => { console.log(err)})
           // router.push(router.currentRoute.query.to || '/').catch((err) => { console.log(err)})
         })

@@ -91,7 +91,7 @@
           v-model="companyAddress"
           class="mt-5 w-full mb-3"
         />
-        
+
         <vs-textarea
           v-if="modificationMessage1"
           label="Modification Message 1"
@@ -255,6 +255,8 @@ export default {
       companyName: null,
       companyAddress: null,
       modificationMessage1: null,
+      modificationMessage2: null,
+      modificationMessage3: null,
       status: null,
       flow: null,
       payment: null,
@@ -324,7 +326,7 @@ export default {
           setTimeout(() => {
             location.reload();
           }, 1000)
-          
+
         })
         .catch((error) => {
           console.log(error);

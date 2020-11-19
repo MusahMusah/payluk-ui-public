@@ -79,17 +79,28 @@ require('./assets/css/iconfont.css')
 // Subscriber
 require('@/store/subscriber')
 
-
 // Vue select css
 // Note: In latest version you have to add it separately
 // import 'vue-select/dist/vue-select.css';
 axios.defaults.baseURL = 'https://payluk.com/backend'
+// Vue Progress Bar Config Setup
+import VueProgressBar from 'vue-progressbar'
+
+Vue.use(VueProgressBar, {
+  color: '#7367f0',
+  failedColor: 'red',
+  height: '2px',
+  thickness: '4px',
+  // transition: {speed: '0.2s', opacity: '0.6s', termination: 300},
+  transition: {speed: '1s', opacity: '0.6s', termination: 800},
+})
 
 store.dispatch('authentication/attempt', localStorage.getItem('token'))
 // console.log(store.dispatch('authentication/attempt', localStorage.getItem('token')))
 
 Vue.config.productionTip = false
 console.log(store.getters['authentication/loggedIn'])
+
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuthentication)) {
     if (!store.getters['authentication/loggedIn']) {

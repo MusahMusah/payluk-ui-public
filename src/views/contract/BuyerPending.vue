@@ -22,7 +22,7 @@
       pagination
       :max-items="itemsPerPage"
       search
-      :data="allBuyerCompletedContracts"
+      :data="allBuyerPendingContracts"
     >
       <div
         slot="header"
@@ -44,11 +44,11 @@
             <span class="mr-2"
               >{{ currentPage * itemsPerPage - (itemsPerPage - 1) }} -
               {{
-                allBuyerCompletedContracts.length - currentPage * itemsPerPage > 0
+                allBuyerPendingContracts.length - currentPage * itemsPerPage > 0
                   ? currentPage * itemsPerPage
-                  : allBuyerCompletedContracts.length
+                  : allBuyerPendingContracts.length
               }}
-              of {{ allBuyerCompletedContracts.length }}</span
+              of {{ allBuyerPendingContracts.length }}</span
             >
             <feather-icon icon="ChevronDownIcon" svgClasses="h-4 w-4" />
           </div>
@@ -382,7 +382,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      getBuyerCompletedContracts : "contract_request/getBuyerCompletedContracts"
+      getBuyerPendingContracts : "contract_request/getBuyerPendingContracts"
     }),
     currentPage() {
       if (this.isMounted) {
@@ -401,8 +401,8 @@ export default {
         !this.errors.any() && this.subject != "" && this.ticket_message != ""
       );
     },
-    allBuyerCompletedContracts() {
-      return this.getBuyerCompletedContracts
+    allBuyerPendingContracts() {
+      return this.getBuyerPendingContracts
     }
   },
   methods: {
@@ -412,7 +412,7 @@ export default {
       sendReview: "contract_request/sendReview",
       sendBuyerTicket: "tickets/sendBuyerTicket",
       sendRequestModification: "contract_request/sendRequestModification",
-      buyerCompletedContracts : "contract_request/buyerCompletedContracts",
+      buyerPendingContracts : "contract_request/buyerPendingContracts",
     }),
 
     send_request_modification(verify) {
@@ -679,7 +679,7 @@ export default {
     },
   },
   created() {
-    this.buyerCompletedContracts();
+    this.buyerPendingContracts();
   },
   mounted() {
     this.isMounted = true;

@@ -9,7 +9,7 @@
 
 import axios from "axios"
 // import router from "@/router"
-
+const ApiLoginUrl = 'http://localhost:3000/login';
 export default {
   namespaced: true,
 
@@ -32,7 +32,7 @@ export default {
       return state.singleUserData
     },
     getNotifications(state){
-      return state.notifications 
+      return state.notifications
     },
     getAllCurrencies(state){
       return state.currencies
@@ -63,27 +63,27 @@ export default {
         let response = await axios.get('/firewall').then(() => {}).catch(() => {
           localStorage.removeItem("token")
           localStorage.removeItem("verify_token")
-          return window.location.href = `https://payluk.com/login`; 
-        }) 
-        let res = await axios.get('/account') 
+          return window.location.href = `https://payluk.com/login`;
+        })
+        let res = await axios.get('/account')
         // console.log(res)
         if (res.status == 200) {
             commit('SET_USER_DATA', res.data.data)
         } else if(response.status == 201) {
           localStorage.removeItem("token")
           localStorage.removeItem("verify_token")
-          return window.location.href = `https://payluk.com/login`; 
+          return window.location.href = `https://payluk.com/login`;
         }else {
           localStorage.removeItem("token")
           localStorage.removeItem("verify_token")
-          return window.location.href = `https://payluk.com/login`; 
+          return window.location.href = `https://payluk.com/login`;
         }
     },
 
     // Get User By Wallet Id
     async UserPublicProfile({ commit }, wallet_id) {
       let response = await axios.get('/clients?wallet_id=' + wallet_id)
-      // console.log(response.data.data) 
+      // console.log(response.data.data)
       if (response) {
         commit('SET_SINGLE_USER_DATA', response.data.data)
       }
@@ -111,7 +111,7 @@ export default {
       // console.log(response.data)
       return await axios.put('/currency/set', payload)
     },
-    
+
     // Search For Sellers/Users
     async searchUserData(){
       return await axios.get('/search')
@@ -139,14 +139,14 @@ export default {
       }
     },
 
-    // Activate Account 
+    // Activate Account
     async triggerOtp() {
       return await axios.get('/send_otp')
     },
 
     // Verify Otp
     async verifyAccount(_, payload) {
-      return await axios.post('/verify_otp', {otp : payload}) 
+      return await axios.post('/verify_otp', {otp : payload})
     },
 
       // Resend Otp For User

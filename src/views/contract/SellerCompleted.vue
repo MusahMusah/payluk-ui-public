@@ -22,7 +22,7 @@
       pagination
       :max-items="itemsPerPage"
       search
-      :data="pendingContracts"
+      :data="allSellerCompletedContracts"
     >
       <div
         slot="header"
@@ -45,11 +45,11 @@
             <span class="mr-2"
               >{{ currentPage * itemsPerPage - (itemsPerPage - 1) }} -
               {{
-                pendingContracts.length - currentPage * itemsPerPage > 0
+                allSellerCompletedContracts.length - currentPage * itemsPerPage > 0
                   ? currentPage * itemsPerPage
-                  : pendingContracts.length
+                  : allSellerCompletedContracts.length
               }}
-              of {{ pendingContracts.length }}</span
+              of {{ allSellerCompletedContracts.length }}</span
             >
             <feather-icon icon="ChevronDownIcon" svgClasses="h-4 w-4" />
           </div>
@@ -110,14 +110,6 @@
               <vs-chip color="primary">{{ tr.satisfied }}</vs-chip>
             </vs-td>
 
-            <!-- <vs-td>
-              <p class="product-category">{{ tr.ship_from }}</p>
-            </vs-td>
-
-            <vs-td>
-              <p class="product-category">{{ tr.ship_to }}</p>
-            </vs-td> -->
-
             <vs-td class="text-center">
               <feather-icon
                 icon="EyeIcon"
@@ -129,7 +121,7 @@
             <vs-td class="whitespace-no-wrap">
               <vs-button
                 :style="hide"
-                v-if="!(tr.expired_time > tr.delivered_before_date && tr.seller_ticket != 1)"
+                v-if="(tr.expired_time > tr.delivered_before_date && tr.seller_ticket != 1)"
                 @click="ticketPopUp(tr.invitation_id)"
                 type="gradient"
                 class="m-1"
@@ -254,9 +246,8 @@
 
 <script>
 import SellerDataViewSidebar from "../ui-elements/data-list/SellerDataViewSidebar";
-import axios from "axios";
 import vSelect from "vue-select";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 // import moduleDataList from "@/store/data-list/moduleDataList.js"
 
 export default {
@@ -267,7 +258,6 @@ export default {
   data() {
     return {
       selected: [],
-      pendingContracts: [],
       itemsPerPage: 4,
       contract_type: "",
       cover_img: require("@/assets/images/timeline.jpg"),
@@ -310,6 +300,10 @@ export default {
     };
   },
   computed: {
+    ...mapGetters({
+      getAllPendingRequests: "contract_request/getAllPendingRequest",
+      getSellerCompletedContracts : "contract_request/getSellerCompletedContracts"
+    }),
     currentPage() {
       if (this.isMounted) {
         return this.$refs.table.currentx;
@@ -327,6 +321,9 @@ export default {
         !this.errors.any() && this.subject != "" && this.ticket_message != ""
       );
     },
+    allSellerCompletedContracts(){
+      return this.getSellerCompletedContracts
+    }
   },
   methods: {
     ...mapActions({
@@ -334,6 +331,7 @@ export default {
       closeContract: "contract_request/closeContract",
       sendReview: "contract_request/sendReview",
       sendTicket: "tickets/sendTicket",
+      sellerCompletedContracts : "contract_request/sellerCompletedContracts",
     }),
     openUpload() {
       document.getElementById("file-field").click();
@@ -413,36 +411,6 @@ export default {
       }
     },
 
-    async pending() {
-      let contracts = await axios.get("/contract/seller");
-      if (contracts.status === 200) {
-        this.pendingContracts = contracts.data.contracts;
-      }
-    },
-
-    async completed() {
-      let contracts = await axios.get("/contract/seller/completed");
-      if (contracts.status === 200) {
-        this.pendingContracts = contracts.data.contracts;
-      }
-      this.hide = "display:none";
-    },
-
-    pop() {
-      this.popupActivo = true;
-      this.visibility = "";
-    },
-    // pop2() {
-    //   this.popupActivo2 = true;
-    //   this.visibility = "";
-    // },
-    // pop3() {
-    //   this.popupActivo = false;
-    //   this.popupActivo2 = false;
-    //   this.popupActivo2 = true;
-    //   this.visibility = "";
-    // },
-
     editData(data) {
       this.sidebarData = data;
       this.toggleDataSidebar(true);
@@ -452,7 +420,8 @@ export default {
     },
   },
   created() {
-    this.pop();
+    // this.completed();
+    this.sellerCompletedContracts();
   },
   mounted() {
     this.isMounted = true;

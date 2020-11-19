@@ -24,6 +24,11 @@ export default {
   data() {
     return {};
   },
+  created(){
+    if (!localStorage.getItem("amount")) {
+      this.$router.replace({name:'dashboard-analytics'}).catch((err) => { console.log(err)})
+    }
+  },
   mounted() {
     // A reference to Stripe.js initialized with your real test publishable API key.
     var stripe = Stripe("pk_test_KPQoeXoc6SUDHanW1BjtpgpS003CqpjqHx");
