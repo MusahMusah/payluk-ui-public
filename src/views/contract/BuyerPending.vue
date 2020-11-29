@@ -74,7 +74,7 @@
         <vs-th>Seller Image</vs-th>
         <vs-th sort-key="company_name">Company Name</vs-th>
         <vs-th sort-key="item_name">Item Name</vs-th>
-        <vs-th sort-key="status">Status</vs-th>
+        <!-- <vs-th sort-key="status">Status</vs-th> -->
         <!-- <vs-th sort-key="category">Item Quantity</vs-th> -->
         <!-- <vs-th sort-key="ship_from">Ship From</vs-th>
         <vs-th sort-key="ship_to">Ship To</vs-th> -->
@@ -105,49 +105,56 @@
               </p>
             </vs-td>
 
-            <vs-td>
+            <!-- <vs-td>
               <vs-chip color="primary">{{ tr.satisfied }}</vs-chip>
-            </vs-td>
+            </vs-td> -->
 
             <vs-td>
               <p class="product-category">{{ tr.total_cost }}</p>
             </vs-td>
 
-            <!-- <vs-td>
-              <p class="product-category">{{ tr.ship_to }}</p>
-            </vs-td> -->
-
             <vs-td class="text-center">
-              <feather-icon
+              <!-- <feather-icon
                 icon="EyeIcon"
                 svgClasses="w-10 text-center h-10 hover:text-primary stroke-current"
                 @click.stop="editData(tr)"
-              />
+              /> -->
+               <vs-button
+                color="primary"
+                :to="{ name: 'buyer-pending-details', params: { invitation_id: tr.invitation_id } }"
+                type="border"
+                icon="remove_red_eye"
+                >View</vs-button
+              >
             </vs-td>
 
             <vs-td class="whitespace-no-wrap">
               <vs-button
+              color="primary"
               :style="hide" v-if="(tr.payment != 'made')"
               @click="openConfirm(tr)"
-              type="gradient" class="m-1">
+              type="border" class="m-1">
               Accept and Pay
               </vs-button>
-              <vs-button
+              <!-- <vs-button
+                color="primary"
                 v-if="(tr.flow == 'buyer' && tr.status != 'request_modification')"
-                type="gradient" class="m-1"
+                type="border" class="m-1"
                 @click="popupActivo4 = true"
                 >Request Modification</vs-button
-              >
+              > -->
               <vs-button
+              color="primary"
               :style="hide" v-if="(tr.expired_time >  tr.delivered_before_date && tr.buyer_ticket != 1)"
               @click="ticketPopUp(tr.invitation_id)"
-              type="gradient"  class="m-1">
+              type="border"  class="m-1">
               Open Ticket
               </vs-button>
               <vs-button
+              color="primary"
               :style="hide" v-if="(tr.payment == 'made')"
               @click="openConfirm2(tr.invitation_id)"
-              type="gradient">
+              type="border">
               Confirm Transaction
               </vs-button>
             </vs-td>
@@ -263,6 +270,7 @@
             <!-- </form> -->
           </vs-popup>
         </div>
+
         <div class="centerx">
           <vs-popup
             classContent="popup-example"

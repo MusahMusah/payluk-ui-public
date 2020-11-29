@@ -126,7 +126,7 @@ export default [
             i18n: "withdraw",
           },
           {
-            url: '/apps/eCommerce/wish-list',
+            url: '/withdrawal-view',
             name: "View All",
             slug: "view",
             i18n: "view",

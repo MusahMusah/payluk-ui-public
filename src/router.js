@@ -165,7 +165,7 @@ const router = new Router({
               {
                 path: '/deposit-pay',
                 name: 'deposit-pay',
-                component: () => import('./views/deposit/DepositPay.vue'),
+                component: () => import('./views/deposit/StripePay.vue'),
                 meta: {
                   breadcrumb: [
                     { title: 'Home', url: '/' },
@@ -175,10 +175,46 @@ const router = new Router({
                   requiresAuthentication: true
                 }
               },
+
+              // WithDrawal
+              {
+                path: '/cash-out',
+                name: 'cash-out',
+                component: () => import('./views/withdrawal/Withdrawal.vue'),
+                meta: {
+                  breadcrumb: [
+                    { title: 'Home', url: '/' },
+                    { title: 'Make Withdrawal', active: true },
+                  ],
+                  pageTitle: 'Make Withdrawal',
+                  requiresAuthentication: true
+                }
+              },
+              {
+                path: '/withdrawal-view',
+                name: 'withdrawal-view',
+                component: () => import('./views/withdrawal/ViewAll.vue'),
+                meta: {
+                  breadcrumb: [
+                    { title: 'Home', url: '/' },
+                    { title: 'Withdrawal Payment', active: true },
+                  ],
+                  pageTitle: 'Withdrawal Payment',
+                  requiresAuthentication: true
+                }
+              },
               {
                 path: '/faq',
                 name: 'faq',
                 component: () => import('./views/pages/Faq.vue'),
+                meta: {
+                  requiresAuthentication: true
+                }
+              },
+              {
+                path: '/knowledge-base',
+                name: 'knowledge-base',
+                component: () => import('./views/pages/KnowledgeBase.vue'),
                 meta: {
                   requiresAuthentication: true
                 }
@@ -267,12 +303,38 @@ const router = new Router({
               {
                 path: '/test',
                 name: 'test',
-                component: () => import('./views/users/Test2.vue'),
+                // "v-autocomplete": "^1.8.2",
+                component: () => import('./views/users/TestSave.vue'),
               },
               {
-                path: '/test3',
-                name: 'test3',
-                component: () => import('./views/users/Test3.vue'),
+                path: '/users',
+                name: 'users',
+                // "v-autocomplete": "^1.8.2",
+                component: () => import('./views/topsellers/ECommerceShop.vue'),
+              },
+              {
+                path: '/buyer-pending-details/:invitation_id',
+                props: true,
+                name: 'buyer-pending-details',
+                component: () => import('./views/contract/BuyerPendingDetails.vue'),
+              },
+              {
+                path: '/buyer-completed-details/:invitation_id',
+                props: true,
+                name: 'buyer-completed-details',
+                component: () => import('./views/contract/BuyerCompletedDetails.vue'),
+              },
+              {
+                path: '/seller-pending-details/:invitation_id',
+                props: true,
+                name: 'seller-pending-details',
+                component: () => import('./views/contract/SellerPendingDetails.vue'),
+              },
+              {
+                path: '/seller-completed-details/:invitation_id',
+                props: true,
+                name: 'seller-completed-details',
+                component: () => import('./views/contract/SellerCompletedDetails.vue'),
               },
             ],
         },

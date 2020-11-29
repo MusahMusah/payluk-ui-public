@@ -12,7 +12,7 @@
         <div class="vx-row">
 
             <!-- LINE CHART -->
-            <div class="vx-col w-full md:w-2/3 mb-base">
+            <div class="w-full vx-col md:w-2/3 mb-base">
                 <vx-card title="Schedule Analysis">
                     <template slot="actions">
                         <feather-icon icon="SettingsIcon" svgClasses="w-6 h-6 text-grey"></feather-icon>
@@ -21,11 +21,11 @@
                         <div class="flex">
                             <div class="mr-6">
                                 <p class="mb-1 font-semibold" style="color: #7367f0;">This Month</p>
-                                <p class="text-3xl" style="color: #7367f0;"><sup class="text-base mr-1">$</sup>782187</p>
+                                <p class="text-3xl" style="color: #7367f0;"><sup class="mr-1 text-base">$</sup>782187</p>
                             </div>
                             <div>
                                 <p class="mb-1 font-semibold" style="color: #7367f0;">Last Month</p>
-                                <p class="text-3xl" style="color: #7367f0;"><sup class="text-base mr-1">$</sup>666635</p>
+                                <p class="text-3xl" style="color: #7367f0;"><sup class="mr-1 text-base">$</sup>666635</p>
                             </div>
                         </div>
                         <vue-apex-charts
@@ -38,7 +38,7 @@
             </div>
 
             <!-- RADIAL CHART -->
-            <div class="vx-col w-full md:w-1/3 mb-base">
+            <div class="w-full vx-col md:w-1/3 mb-base">
                 <vx-card title="Goal Overview">
                     <template slot="actions">
                         <feather-icon icon="HelpCircleIcon" svgClasses="w-6 h-6 text-grey"></feather-icon>
@@ -53,13 +53,13 @@
 
                     <!-- DATA -->
                     <div class="flex justify-between text-center mt-" slot="no-body-bottom">
-                        <div class="w-1/2 border border-solid d-theme-border-grey-light border-r-0 border-b-0 border-l-0">
+                        <div class="w-1/2 border border-b-0 border-l-0 border-r-0 border-solid d-theme-border-grey-light">
                             <p class="mt-4" style="color: #7367f0; font-size: 1.1em; font-weight: bold">Main Balance</p>
-                            <p class="mb-4 text-3xl font-semibold" style="color: #7367f0;">786,617</p>
+                            <p class="mb-4 text-3xl font-semibold" style="color: #7367f0;">{{main_balance}}</p>
                         </div>
-                        <div class="w-1/2 border border-solid d-theme-border-grey-light border-r-0 border-b-0">
+                        <div class="w-1/2 border border-b-0 border-r-0 border-solid d-theme-border-grey-light">
                             <p class="mt-4" style="color: #7367f0; font-size: 1.1em; font-weight: bold">Lain Balance</p>
-                            <p class="mb-4 text-3xl font-semibold" style="color: #7367f0;">13,561</p>
+                            <p class="mb-4 text-3xl font-semibold" style="color: #7367f0;">{{lain_balance}}</p>
                         </div>
                     </div>
                 </vx-card>
@@ -68,7 +68,7 @@
 
         <div class="vx-row">
             <!-- CARD 6: Product Orders -->
-            <div class="vx-col w-full lg:w-1/3 mb-base">
+            <div class="w-full vx-col lg:w-1/3 mb-base">
                 <vx-card title="Contracts Overview">
                     <!-- CARD ACTION -->
                     <template slot="actions">
@@ -82,9 +82,9 @@
 
                     <ul>
                         <!-- productsOrder.analyticsData{{analyticsData.productOrdersRadialBar.analyticsData}} -->
-                        <li v-for="orderData in analyticsData.productOrdersRadialBar.analyticsData" :key="orderData.orderType" class="flex mb- justify-between">
+                        <li v-for="orderData in analyticsData.productOrdersRadialBar.analyticsData" :key="orderData.orderType" class="flex justify-between mb-">
                             <span class="flex items-center">
-                                    <span class="inline-block h-4 w-4 rounded-full mr-2 bg-white border-3 border-solid" :class="`border-${orderData.color}`"></span>
+                                    <span class="inline-block w-4 h-4 mr-2 bg-white border-solid rounded-full border-3" :class="`border-${orderData.color}`"></span>
                                     <span class="font-semibold">{{ orderData.orderType }}</span>
                             </span>
                             <span>{{ orderData.counts }}</span>
@@ -94,14 +94,14 @@
             </div>
 
             <!-- CARD 7: Sales Stats -->
-            <div class="vx-col w-full lg:w-1/3 mb-base">
+            <div class="w-full vx-col lg:w-1/3 mb-base">
               <vx-card title="Sales Stats" subtitle="Last 6 Months">
                 <template slot="actions">
                   <feather-icon icon="MoreVerticalIcon" svgClasses="w-6 h-6 text-grey"></feather-icon>
                 </template>
                 <div class="flex">
-                  <span class="flex items-center"><div class="h-3 w-3 rounded-full mr-1 bg-primary"></div><span>Sales</span></span>
-                  <span class="flex items-center ml-4"><div class="h-3 w-3 rounded-full mr-1 bg-warning"></div><span>Visits</span></span>
+                  <span class="flex items-center"><div class="w-3 h-3 mr-1 rounded-full bg-primary"></div><span>Sales</span></span>
+                  <span class="flex items-center ml-4"><div class="w-3 h-3 mr-1 rounded-full bg-warning"></div><span>Visits</span></span>
                 </div>
                 <div slot="no-body-bottom">
                   <vue-apex-charts type=radar height=400 :options="analyticsData.statisticsRadar.chartOptions" :series="analyticsData.statisticsRadar.series" />
@@ -110,7 +110,7 @@
             </div>
 
             <!-- CARD 8: Activity Timeline -->
-            <div class="vx-col w-full lg:w-1/3 mb-base">
+            <div class="w-full vx-col lg:w-1/3 mb-base">
                 <vx-card title="Activity Timeline">
                     <vx-timeline :data="timelineData" />
                 </vx-card>
@@ -118,7 +118,7 @@
         </div>
 
         <div class="vx-row">
-            <div class="vx-col w-full">
+            <div class="w-full vx-col">
                 <vx-card title="Recent Transactions">
                 <div slot="no-body" class="mt-4">
                     <vs-table :data="dispatchedOrders" class="table-dark-inverted">
@@ -138,13 +138,13 @@
                             <span>#{{data[indextr].orderNo}}</span>
                         </vs-td>
                         <vs-td :data="data[indextr].status">
-                            <span class="flex items-center px-2 py-1 rounded"><div class="h-3 w-3 rounded-full mr-2" :class="'bg-' + data[indextr].statusColor"></div>{{data[indextr].status}}</span>
+                            <span class="flex items-center px-2 py-1 rounded"><div class="w-3 h-3 mr-2 rounded-full" :class="'bg-' + data[indextr].statusColor"></div>{{data[indextr].status}}</span>
                         </vs-td>
                         <vs-td :data="data[indextr].orderNo">
                             <ul class="users-liked user-list">
                                 <li v-for="(user, userIndex) in data[indextr].usersLiked" :key="userIndex">
                                     <vx-tooltip :text="user.name" position="bottom">
-                                        <vs-avatar :src="user.img" size="30px" class="border-2 border-white border-solid -m-1"></vs-avatar>
+                                        <vs-avatar :src="user.img" size="30px" class="-m-1 border-2 border-white border-solid"></vs-avatar>
                                     </vx-tooltip>
                                 </li>
                             </ul>
@@ -180,10 +180,12 @@ import StatisticsCardLine from '@/components/statistics-cards/StatisticsCardLine
 import analyticsData from './ui-elements/card/analyticsData.js'
 import ChangeTimeDurationDropdown from '@/components/ChangeTimeDurationDropdown.vue'
 import VxTimeline from "@/components/timeline/VxTimeline"
+import { mapActions, mapGetters } from 'vuex'
 
 export default{
     data() {
         return {
+            testCash : '',
             subscribersGained: {},
             revenueGenerated: {},
             quarterlySales: {},
@@ -256,6 +258,42 @@ export default{
             ],
         }
     },
+    computed : {
+      ...mapGetters({
+          userData : 'users/getUserData',
+      }),
+      user_data() {
+            return this.userData
+      },
+      lain_balance () {
+        return this.formatMoney(this.userData.lain_balance)
+
+      },
+      main_balance () {
+        return this.formatMoney(this.userData.main_balance)
+
+      },
+    },
+    methods : {
+      ...mapActions({
+          activeUserInfo : "users/activeUserInfo",
+      }),
+      formatMoney(amount, decimalCount = 2, decimal = ".", thousands = ",") {
+        try {
+          decimalCount = Math.abs(decimalCount);
+          decimalCount = isNaN(decimalCount) ? 2 : decimalCount;
+
+          const negativeSign = amount < 0 ? "-" : "";
+
+          let i = parseInt(amount = Math.abs(Number(amount) || 0).toFixed(decimalCount)).toString();
+          let j = (i.length > 3) ? i.length % 3 : 0;
+
+          return negativeSign + (j ? i.substr(0, j) + thousands : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousands) + (decimalCount ? decimal + Math.abs(amount - i).toFixed(decimalCount).slice(2) : "");
+        } catch (e) {
+          console.log(e)
+        }
+      }
+    },
     components: {
         VueApexCharts,
         StatisticsCardLine,
@@ -267,6 +305,9 @@ export default{
         this.$refs.chatLogPS.$el.scrollTop = this.$refs.chatLog.scrollHeight;
     },
     created() {
+      this.activeUserInfo()
+      this.test()
+      this.formatMoney()
       // Subscribers gained - Statistics
       // axios.get("/api/card/card-statistics/subscribers")
       //   .then((response) => { this.subscribersGained = response.data })

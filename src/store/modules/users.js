@@ -18,7 +18,8 @@ export default {
     topSellers : [],
     singleUserData : [],
     notifications : [],
-    currencies:[]
+    currencies:[],
+    allUsers : [],
   },
 
   getters : {
@@ -36,7 +37,10 @@ export default {
     },
     getAllCurrencies(state){
       return state.currencies
-    }
+    },
+    getAllUsers(state){
+      return state.allUsers
+    },
   },
 
   mutations : {
@@ -54,7 +58,10 @@ export default {
     },
     SET_GET_ALL_CURRENCIES(state, data){
       state.currencies = data
-    }
+    },
+    SET_ALL_USERS(state, data){
+      state.allUsers = data
+    },
   },
 
   actions : {
@@ -113,8 +120,11 @@ export default {
     },
 
     // Search For Sellers/Users
-    async searchUserData(){
-      return await axios.get('/search')
+    async searchUserData({commit}){
+      let response = await axios.get('/search')
+      if (response) {
+        commit('SET_ALL_USERS', response.data.data)
+      }
     },
     // Update User Password
     async updatePassword(_, payload) {

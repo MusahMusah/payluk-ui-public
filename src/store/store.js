@@ -20,6 +20,7 @@ import users from './modules/users'
 import contract_request from './modules/contract_request'
 import payments from './modules/payments'
 import tickets from './modules/tickets'
+import withdrawal from './modules/withdrawal'
 
 Vue.use(Vuex)
 
@@ -34,7 +35,8 @@ export default new Vuex.Store({
       users,
       contract_request,
       payments,
-      tickets
+      tickets,
+      withdrawal,
     },
     strict: process.env.NODE_ENV !== 'production'
 })

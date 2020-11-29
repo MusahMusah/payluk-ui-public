@@ -7,10 +7,10 @@
         style="text-align: center !important"
       >
         <div class="vx-row">
-          <div class="vx-col w-full">
+          <div class="w-full vx-col">
             <!-- <vx-card> -->
               <div
-                class="FieldField__wrapper mt-5"
+                class="mt-5 FieldField__wrapper"
                 style="text-align: center !important"
               >
                 <img
@@ -49,11 +49,11 @@
             <div class="tab-text">
               <div id="user-edit-tab-info" class="mt-4">
                 <div class="vx-row">
-                  <div class="vx-col w-full">
+                  <div class="w-full vx-col">
                     <!-- <vx-card> -->
                       <form @submit.prevent="update_password">
                         <div>
-                          <div class="vx-card__title mb-8">
+                          <div class="mb-8 vx-card__title">
                             <h4 class="mb-4">Update Password</h4>
                             <vs-alert
                               v-if="passSuccessMessage"
@@ -76,7 +76,7 @@
                             label-placeholder="Password"
                             class="w-full mb-6"
                           />
-                          <span class="text-danger text-sm">{{
+                          <span class="text-sm text-danger">{{
                             errors.first("password")
                           }}</span>
                           <vs-input
@@ -90,14 +90,14 @@
                             v-model="confirm_password"
                             class="w-full mb-8"
                           />
-                          <span class="text-danger text-sm">{{
+                          <span class="text-sm text-danger">{{
                             errors.first("confirm_password")
                           }}</span>
 
                           <div
-                            class="flex flex-wrap justify-between flex-col-reverse sm:flex-row"
+                            class="flex flex-col-reverse flex-wrap justify-between sm:flex-row"
                           >
-                            <!-- <vs-button type="border" to="/login" class="w-full sm:w-auto mb-8 sm:mb-auto mt-3 sm:mt-auto">Go Back To Login</vs-button> -->
+                            <!-- <vs-button type="border" to="/login" class="w-full mt-3 mb-8 sm:w-auto sm:mb-auto sm:mt-auto">Go Back To Login</vs-button> -->
                             <vs-button
                               class="w-full sm:w-auto"
                               :disabled="!validateForm"
@@ -122,11 +122,11 @@
             <div class="tab-text">
               <div id="user-edit-tab-currency" class="mt-4">
                 <div class="vx-row">
-                  <div class="vx-col w-full">
+                  <div class="w-full vx-col">
                     <!-- <vx-card> -->
                       <form @submit.prevent="update_password">
                         <div class="pt-8">
-                          <div class="vx-card__title mb-8">
+                          <div class="mb-8 vx-card__title">
                             <h4 class="mb-4">Change Currency</h4>
                             <vs-alert
                               v-if="currencySuccessMessage"
@@ -149,17 +149,17 @@
                             class="w-full"
                             :options="options"
                           ></v-select>
-                          <span class="text-danger text-sm">{{
+                          <span class="text-sm text-danger">{{
                             errors.first("Currency")
                           }}</span>
                           <div
-                            class="flex flex-wrap justify-between flex-col-reverse sm:flex-row mt-4"
+                            class="flex flex-col-reverse flex-wrap justify-between mt-4 sm:flex-row"
                           >
-                            <!-- <vs-button type="border" to="/login" class="w-full sm:w-auto mb-8 sm:mb-auto mt-3 sm:mt-auto">Go Back To Login</vs-button> -->
+                            <!-- <vs-button type="border" to="/login" class="w-full mt-3 mb-8 sm:w-auto sm:mb-auto sm:mt-auto">Go Back To Login</vs-button> -->
                             <vs-button
-                              class="w-full sm:w-auto mt-3"
+                              class="w-full mt-3 sm:w-auto"
                               @click="update_currency"
-                              >Change Currency</vs-button 
+                              >Change Currency</vs-button
                             >
                             <!-- <button color="primary" type="submit"> Submit</button> -->
                           </div>
@@ -253,7 +253,7 @@ export default {
           color: "danger",
         });
       }
-      this.$vs.loading();
+      this.$vs.loading({type: 'border'});
       const formData = new FormData();
       formData.append("file", this.selectedFile, this.selectedFile.name);
       axios
@@ -278,7 +278,7 @@ export default {
           this.$vs.loading.close();
           // console.log(res)
           this.$vs.notify({
-            title: "Success",
+            title: "Error",
             // text : e.data.message,
             text: "File Size is above the Maximum size Allowed",
             position:'top-right',
@@ -343,6 +343,9 @@ export default {
             icon: "icon-alert-circle",
             color: "success",
           });
+           setTimeout(() => {
+              location.reload()
+            }, 800);
         //   (this.password = ""), (this.confirm_password = "");
         })
         .catch((error) => {

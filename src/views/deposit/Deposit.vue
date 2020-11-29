@@ -1,10 +1,10 @@
 <template lang="html">
   <vs-row>
-    <vs-col vs-lg="7" vs-type="flex" vs-justify="center" vs-align="center"  vs-sm="12" vs-xs="12" class="m-2 mb-5 mx-auto">
+    <vs-col vs-lg="7" vs-type="flex" vs-justify="center" vs-align="center"  vs-sm="12" vs-xs="12" class="m-2 mx-auto mb-5">
       <vx-card>
         <h2 class="m-3 text-center" style="color: #7367f0" icon="feather icon-credit-card">Make Deposit</h2>
-         <!-- <div class="vx-row mb-6 mt-10">
-          <div class="vx-col w-full">
+         <!-- <div class="mt-10 mb-6 vx-row">
+          <div class="w-full vx-col">
               <label>Select Payment Method</label>
                 <v-select
                   data-vv-validate-on="blur"
@@ -14,11 +14,11 @@
                   class="w-full"
                   :options="['Paystack', 'Stripe']"
                 ></v-select>
-                <span class="text-danger text-sm">{{ errors.first('Payment Method') }}</span>
+                <span class="text-sm text-danger">{{ errors.first('Payment Method') }}</span>
             </div>
           </div> -->
-        <div class="vx-row mb-4 mt-6">
-          <div class="vx-col w-full">
+        <div class="mt-6 mb-4 vx-row">
+          <!-- <div class="w-full vx-col">
             <vs-input
               v-validate="'required|email'"
               data-vv-validate-on="blur"
@@ -28,11 +28,11 @@
               placeholder="Email"
               v-model="email"
               class="w-full mt-6 mb-2" />
-            <span class="text-danger text-sm">{{ errors.first('email') }}</span>
-          </div>
+            <span class="text-sm text-danger">{{ errors.first('email') }}</span>
+          </div> -->
         </div>
-        <div class="vx-row mb-4 mt-6">
-          <div class="vx-col w-full">
+        <div class="mt-6 mb-4 vx-row">
+          <div class="w-full vx-col">
             <vs-input
               data-vv-validate-on="blur"
               v-validate="'required'"
@@ -44,11 +44,11 @@
               label-placeholder="Amount"
               v-model="amount"
             />
-            <span class="text-danger text-sm">{{ errors.first('Amount') }}</span>
+            <span class="text-sm text-danger">{{ errors.first('Amount') }}</span>
           </div>
         </div>
         <div class="vx-row ">
-          <div class="vx-col w-full mt-6">
+          <div class="w-full mt-6 vx-col">
             <vs-button
               :disabled="!validateForm"
               @click="completePayment"
@@ -73,7 +73,6 @@ export default {
   data() {
     return {
       amount: '',
-      email: '',
       payment_method: '',
     };
   },
@@ -95,7 +94,7 @@ export default {
     payWithPaystack(){
       let handler = PaystackPop.setup({
         key: 'pk_test_d236cd0f648a7429521cad6c3018cd4d920f49e0', // Replace with your public key
-        email: this.email,
+        email: this.activeUserEmail,
         amount: this.amount * 100,
         reference: ''+Math.floor((Math.random() * 1000000000) + 1), // Replace with a reference you generated
         callback: function(response) {
@@ -132,7 +131,7 @@ export default {
       this.$vs.loading();
       this.completePaystackPayment(reference)
         .then((response) => {
-          console.log(response.data)
+          // console.log(response.data)
           this.$vs.loading.close();
           this.$vs.notify({
             title: "Success",
@@ -175,11 +174,14 @@ export default {
       }
       // return []
     },
+    activeUserEmail(){
+      return this.getUserData.email
+    },
     activeUserCurrency(){
       return this.getUserData.currency
     },
     validateForm() {
-      return !this.errors.any() && this.amount != "" && this.email != "";
+      return !this.errors.any() && this.amount != "";
     }
   },
    created() {

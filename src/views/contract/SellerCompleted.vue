@@ -16,6 +16,7 @@
     />
 
     <vs-table
+      class="vs-table"
       multiple
       ref="table"
       v-model="selected"
@@ -45,7 +46,9 @@
             <span class="mr-2"
               >{{ currentPage * itemsPerPage - (itemsPerPage - 1) }} -
               {{
-                allSellerCompletedContracts.length - currentPage * itemsPerPage > 0
+                allSellerCompletedContracts.length -
+                  currentPage * itemsPerPage >
+                0
                   ? currentPage * itemsPerPage
                   : allSellerCompletedContracts.length
               }}
@@ -88,9 +91,13 @@
 
       <template slot-scope="{ data }">
         <tbody>
-          <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
+          <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data" style="margin-bottom: 10em !important;">
             <vs-td class="img-container">
-              <img v-if="tr.seller_image" :src="tr.seller_image" class="product-img" />
+              <img
+                v-if="tr.seller_image"
+                :src="tr.seller_image"
+                class="product-img"
+              />
               <img v-else :src="cover_img" class="product-img" />
             </vs-td>
 
@@ -111,21 +118,31 @@
             </vs-td>
 
             <vs-td class="text-center">
-              <feather-icon
+              <!-- <feather-icon
                 icon="EyeIcon"
                 svgClasses="w-10 text-center h-10 hover:text-primary stroke-current"
                 @click.stop="editData(tr)"
-              />
+              /> -->
+              <vs-button
+                color="primary"
+                :to="{ name: 'seller-completed-details', params: { invitation_id: tr.invitation_id } }"
+                type="border"
+                icon="remove_red_eye"
+                >View</vs-button
+              >
             </vs-td>
 
             <vs-td class="whitespace-no-wrap">
               <vs-button
                 :style="hide"
-                v-if="(tr.expired_time > tr.delivered_before_date && tr.seller_ticket != 1)"
+                v-if="
+                  tr.expired_time > tr.delivered_before_date &&
+                  tr.seller_ticket != 1
+                "
                 @click="ticketPopUp(tr.invitation_id)"
                 type="gradient"
                 class="m-1"
-                >
+              >
                 Open Ticket
               </vs-button>
               <!-- close_transaction(tr.invitation_id) -->
@@ -302,7 +319,8 @@ export default {
   computed: {
     ...mapGetters({
       getAllPendingRequests: "contract_request/getAllPendingRequest",
-      getSellerCompletedContracts : "contract_request/getSellerCompletedContracts"
+      getSellerCompletedContracts:
+        "contract_request/getSellerCompletedContracts",
     }),
     currentPage() {
       if (this.isMounted) {
@@ -321,9 +339,9 @@ export default {
         !this.errors.any() && this.subject != "" && this.ticket_message != ""
       );
     },
-    allSellerCompletedContracts(){
-      return this.getSellerCompletedContracts
-    }
+    allSellerCompletedContracts() {
+      return this.getSellerCompletedContracts;
+    },
   },
   methods: {
     ...mapActions({
@@ -331,7 +349,7 @@ export default {
       closeContract: "contract_request/closeContract",
       sendReview: "contract_request/sendReview",
       sendTicket: "tickets/sendTicket",
-      sellerCompletedContracts : "contract_request/sellerCompletedContracts",
+      sellerCompletedContracts: "contract_request/sellerCompletedContracts",
     }),
     openUpload() {
       document.getElementById("file-field").click();
@@ -375,15 +393,15 @@ export default {
           this.$vs.notify({
             title: "Success",
             text: response.data.message,
-            position:'top-right',
+            position: "top-right",
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "success",
           });
           localStorage.removeItem("ticketInviteId");
           setTimeout(() => {
-              location.reload()
-            }, 500);
+            location.reload();
+          }, 500);
         })
         .catch((error) => {
           console.log(error);
@@ -392,7 +410,7 @@ export default {
           this.$vs.notify({
             title: "Error",
             text: error.response.data.messages.error,
-            position:'top-right',
+            position: "top-right",
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "danger",
@@ -428,7 +446,7 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .preview-image {
   /* width: 327px; */
   /* width: 35vw; */

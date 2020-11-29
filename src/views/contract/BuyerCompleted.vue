@@ -118,14 +118,16 @@
             </vs-td> -->
 
             <vs-td class="text-center">
-              <feather-icon
-                icon="EyeIcon"
-                svgClasses="w-10 text-center h-10 hover:text-primary stroke-current"
-                @click.stop="editData(tr)"
-              />
+              <vs-button
+                color="primary"
+                :to="{ name: 'buyer-completed-details', params: { invitation_id: tr.invitation_id } }"
+                type="border"
+                icon="remove_red_eye"
+                >View</vs-button
+              >
             </vs-td>
 
-            <vs-td class="whitespace-no-wrap">
+            <!-- <vs-td class="whitespace-no-wrap">
               <vs-button
               :style="hide" v-if="(tr.payment != 'made')"
               @click="openConfirm(tr)"
@@ -150,7 +152,7 @@
               type="gradient">
               Confirm Transaction
               </vs-button>
-            </vs-td>
+            </vs-td> -->
           </vs-tr>
         </tbody>
         <div class="">

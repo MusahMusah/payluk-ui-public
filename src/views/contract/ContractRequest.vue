@@ -411,7 +411,15 @@ export default {
     }
   },
   created() {
-    this.allInvites();
+    this.$vs.loading();
+    this.allInvites()
+    .then(() => {
+      this.$vs.loading.close();
+    })
+    .catch((error) => {
+      this.$vs.loading.close();
+      console.log(error)
+    })
   },
   components: {
     Quotation,

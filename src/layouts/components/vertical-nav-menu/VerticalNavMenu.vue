@@ -27,11 +27,12 @@
       <div @mouseenter="mouseEnter" @mouseleave="mouseLeave">
 
         <!-- Header -->
-        <div class="header-sidebar flex items-end justify-between" slot="header">
+        <div class="flex items-end justify-between header-sidebar" slot="header">
 
           <!-- Logo -->
-          <router-link tag="div" class="vx-logo cursor-pointer flex items-center" to="/">
-            <img :src="logo" alt="logo" class="w-10 mr-4" v-if="logo">
+          <router-link tag="div" class="flex items-center cursor-pointer vx-logo" to="/">
+            <!-- <img :src="logo" alt="logo" class="w-10 mr-4" v-if="logo"> -->
+            <img :src="logoImage" alt="logo" class="mr-4" style="width:3.8rem" v-if="logoImage">
             <!-- {{ title }} -->
             <span class="vx-logo-text" v-show="isMouseEnter || !reduce" v-if="title">Payluk</span>
           </router-link>
@@ -59,17 +60,17 @@
         <!-- /Header -->
 
         <!-- Header Shadow -->
-        <div class="shadow-bottom" v-show="showShadowBottom" />
+        <div class="shadow-bottom" v-show="showShadowBottom"/>
 
         <!-- Menu Items -->
-        <VuePerfectScrollbar ref="verticalNavMenuPs" class="scroll-area-v-nav-menu pt-2" :settings="settings" @ps-scroll-y="psSectionScroll">
+        <VuePerfectScrollbar ref="verticalNavMenuPs" class="pt-2 scroll-area-v-nav-menu" :settings="settings" @ps-scroll-y="psSectionScroll">
           <template v-for="(item, index) in menuItemsUpdated">
 
             <!-- Group Header -->
-            <span v-if="item.header && !verticalNavMenuItemsMin" class="navigation-header truncate" :key="`header-${index}`">
+            <span v-if="item.header && !verticalNavMenuItemsMin" class="truncate navigation-header" :key="`header-${index}`">
               {{ item.header }}
             </span>
-            
+
             <!-- /Group Header -->
 
             <template v-else-if="!item.header">
@@ -87,7 +88,6 @@
                   <span v-show="!verticalNavMenuItemsMin" class="truncate">{{ item.name }}</span>
                   <vs-chip class="ml-auto" :color="item.tagColor" v-if="item.tag && (isMouseEnter || !reduce)">{{ item.tag }}</vs-chip>
               </v-nav-menu-item>
-              
 
               <!-- Nav-Group -->
               <template v-else>
@@ -98,12 +98,19 @@
                   :groupIndex="index"
                   :open="isGroupActive(item)" />
               </template>
-              
+
               <!-- /Nav-Group -->
             </template>
           </template>
+
           <template v-if="windowWidth < 992">
-            <vs-button :to="{name: 'activate-account'}" icon="double_arrow" color="primary" v-if="userData.status == 'not activated'" class="ml-8 mt-3">Activate Account</vs-button>
+            <vs-button :to="{name: 'activate-account'}" icon="double_arrow" color="primary" v-if="userData.status == 'not activated'" class="mt-4 mb-10 ml-8">Activate Account</vs-button>
+          </template>
+
+          <template>
+            <div :key="`group-${index}`" clas="h-10" style="height: 8em">
+
+            </div>
           </template>
         </VuePerfectScrollbar>
         <!-- /Menu Items -->
@@ -142,6 +149,8 @@ export default {
     title:            { type: String },
   },
   data: () => ({
+    favicon : require('@/assets/images/favicon.png'),
+    logoImage: require('@/assets/images/payluk.jpg'),
     clickNotClose       : false, // disable close navMenu on outside click
     isMouseEnter        : false,
     reduce              : false, // determines if navMenu is reduce - component property

@@ -111,11 +111,13 @@
             </vs-td>
 
             <vs-td class="text-center">
-              <feather-icon
-                icon="EyeIcon"
-                svgClasses="w-10 text-center h-10 hover:text-primary stroke-current"
-                @click.stop="editData(tr)"
-              />
+              <vs-button
+                color="primary"
+                :to="{ name: 'seller-pending-details', params: { invitation_id: tr.invitation_id } }"
+                type="border"
+                icon="remove_red_eye"
+                >View</vs-button
+              >
             </vs-td>
 
             <vs-td class="whitespace-no-wrap">
@@ -246,7 +248,6 @@
 
 <script>
 import SellerDataViewSidebar from "../ui-elements/data-list/SellerDataViewSidebar";
-import axios from "axios";
 import vSelect from "vue-select";
 import { mapActions, mapGetters } from "vuex";
 // import moduleDataList from "@/store/data-list/moduleDataList.js"

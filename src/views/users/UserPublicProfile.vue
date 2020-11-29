@@ -204,7 +204,7 @@
             <div class="post-content h-10 p-5 m-5">
               <h2 class="mb-4">No Reviews Yet</h2>
             </div>
-            
+
           </div>
         </vx-card>
       </div>
@@ -232,7 +232,7 @@
         </vx-card>
       </div>
     </div>
-    <!-- 
+    <!--
         <div class="vx-row">
             <div class="vx-col w-full">
                 <div class="flex justify-center mt-base">
@@ -301,14 +301,14 @@ export default {
     }),
     async fetch(){
       let reviews = await axios.get(`https://payluk.com/backend/clients_review?wallet_id=${this.$route.params.wallet_id}&page=${this.page}`)
-      if (reviews.data.reviews != null) 
+      if (reviews.data.reviews != null)
       {
         this.allReviews = []
         this.allReviews.push(...reviews.data.reviews)
         this.lastPage = reviews.data.pagers[0].meta.last_page
         // console.log(this.lastPage)
       }
-      else 
+      else
       {
         // this.allReviews = null
         this.allReviews = []
@@ -417,21 +417,26 @@ export default {
   },
    watch: {
        '$route'() {
-            this.singleUserdata(this.$route.params.wallet_id)
-            .then(() => {})
-            .catch(() => {
-                this.$router.replace({name: 'page-error-404'}).catch(() => {})
-            })
-            this.fetch()
-            this.handleScrolledToBottom()
-        }, 
+          this.$vs.loading();
+          this.singleUserdata(this.$route.params.wallet_id)
+          .then(() => {
+            this.$vs.loading.close();
+          })
+          .catch(() => {
+              this.$router.replace({name: 'page-error-404'}).catch(() => {})
+          })
+          this.fetch()
+          this.handleScrolledToBottom()
+        },
    },
   created() {
-    //   this.$route.params.wallet_id
+    this.$vs.loading();
     this.singleUserdata(this.$route.params.wallet_id)
-    .then(() => {})
+    .then(() => {
+      this.$vs.loading.close();
+    })
     .catch(() => {
-        this.$router.replace({name: 'page-error-404'}).catch(() => {})
+        this.$router.replace({name: '404'}).catch(() => {})
     })
     this.topSellers();
     },

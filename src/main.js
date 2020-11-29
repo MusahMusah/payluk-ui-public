@@ -30,7 +30,6 @@ import './globalComponents.js'
 // Styles: SCSS
 import './assets/scss/main.scss'
 
-
 // Tailwind
 import '@/assets/css/main.css'
 
@@ -46,6 +45,9 @@ import store from './store/store'
 // Vuejs - Vue wrapper for hammerjs
 import { VueHammer } from 'vue2-hammer'
 Vue.use(VueHammer)
+
+// i18n
+import i18n from './i18n/i18n'
 
 
 // Tour
@@ -125,6 +127,7 @@ router.beforeEach((to, from, next) => {
 
 new Vue({
     router,
+    i18n,
     store,
     render: h => h(App),
 }).$mount('#app')

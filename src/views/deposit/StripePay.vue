@@ -15,11 +15,19 @@
                 <img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/chip.png" class="card-item__chip">
                 <div class="card-item__type">
                   <transition name="slide-fade-up">
-                    <img v-bind:src="'https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/' + getCardType + '.png'" v-if="getCardType" v-bind:key="getCardType" alt="" class="card-item__typeImg">
+                    <!-- <img v-bind:src="'https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/' + getCardType + '.png'" v-if="getCardType" v-bind:key="getCardType" alt="" class="card-item__typeImg"> -->
                   </transition>
                 </div>
               </div>
-              <label for="cardNumber" class="card-item__number" ref="cardNumber">
+              <div class="card-item__content">
+
+                <h2 class="mx-auto text-right text-white" style="font-weight:bold; font-size:2em">Amount To Deposit</h2>
+              </div>
+              <div class="card-item__content">
+
+                <h2 class="mx-auto text-right text-white" style="font-weight:bold; font-size:2.5em">${{amount}}</h2>
+              </div>
+              <!-- <label for="cardNumber" class="card-item__number" ref="cardNumber">
                 <template v-if="getCardType === 'amex'">
                  <span v-for="(n, $index) in amexCardMask" :key="$index">
                   <transition name="slide-fade-up">
@@ -63,8 +71,8 @@
                     </transition>
                   </span>
                 </template>
-              </label>
-              <div class="card-item__content">
+              </label> -->
+              <!-- <div class="card-item__content">
                 <label for="cardName" class="card-item__info" ref="cardName">
                   <div class="card-item__holder">Card Holder</div>
                   <transition name="slide-fade-up">
@@ -92,7 +100,7 @@
                     </transition>
                   </label>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
           <div class="card-item__side -back">
@@ -117,16 +125,25 @@
         </div>
       </div>
       <div class="card-form__inner">
+        <div class="error red center-align white-text" style="color:red">{{stripeValidationError}}</div>
         <div class="card-input">
           <label for="cardNumber" class="card-input__label">Card Number</label>
-          <input type="text" id="cardNumber" class="card-input__input" v-mask="generateCardNumberMask" v-model="cardNumber" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardNumber" autocomplete="off">
+          <div type="text" id="cardNumber" tabindex="-1" style="height: 2.2em;" class="card-input__input" @change="changeNumber" v-mask="generateCardNumberMask" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardNumber" autocomplete="off">
+          </div>
+          <!-- <input type="tel" class="card-input__input"  @input="changeNumber" v-mask="generateCardNumberMask" v-model="cardNumber" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardNumber" autocomplete="off"> -->
         </div>
-        <div class="card-input">
+        <!-- <div class="card-input">
           <label for="cardName" class="card-input__label">Card Holders</label>
           <input type="text" id="cardName" class="card-input__input" v-model="cardName" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardName" autocomplete="off">
+        </div> -->
+        <div class="card-input">
+          <label for="cardExpiryElement" class="card-input__label">Card Expiration Date</label>
+          <!-- <input type="text" id="cardExpiryElement" class="card-input__input" v-model="cardExpiryElement" placeholder="MM/YY" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardExpiryElement" autocomplete="off"> -->
+          <div type="text" style="height: 2.2em;" id="cardExpiryElement" class="card-input__input" placeholder="MM/YY" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardExpiryElement" autocomplete="off">
+          </div>
         </div>
-        <div class="card-form__row">
-          <div class="card-form__col">
+        <!-- <div class="card-form__row"> -->
+          <!-- <div class="card-form__col">
             <div class="card-form__group">
               <label for="cardMonth" class="card-input__label">Expiration Date</label>
               <select class="card-input__input -select" id="cardMonth" v-model="cardMonth" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardDate">
@@ -142,31 +159,47 @@
                 </option>
               </select>
             </div>
-          </div>
-          <div class="card-form__col -cvv">
+          </div> -->
+          <!-- <div class="card-form__col -cvv"> -->
             <div class="card-input">
-              <label for="cardCvv" class="card-input__label">CVV</label>
-              <input type="text" class="card-input__input" id="cardCvv" v-mask="'####'" maxlength="4" v-model="cardCvv" v-on:focus="flipCard(true)" v-on:blur="flipCard(false)" autocomplete="off">
+              <label for="cardCvv" class="card-input__label">CVC</label>
+              <!-- <input type="text" class="card-input__input" id="cardCvv" v-mask="'####'" maxlength="4" v-model="cardCvv" v-on:focus="flipCard(true)" v-on:blur="flipCard(false)" autocomplete="off"> -->
+              <div style="height: 2.2em;" class="card-input__input" id="cardCvc" v-mask="'####'" maxlength="4"  v-on:focus="flipCard(true)" v-on:blur="flipCard(false)" autocomplete="off">
+              </div>
             </div>
-          </div>
-        </div>
+          <!-- </div> -->
+        <!-- </div> -->
 
-        <button class="card-form__button">
+        <vs-button class="card-form__button" :disabled="validateForm" @click="invokeStripe">
           Submit
-        </button>
+        </vs-button>
       </div>
     </div>
 
-    <a href="https://github.com/muhammederdem/credit-card-form" target="_blank" class="github-btn">
-      See on GitHub
-    </a>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
- data() {
+  data () {
     return {
+      stripe: null,
+      cardNumberElement: null,
+      cardExpiryElement: null,
+      cardCVCElement: null,
+      stripeValidationError: "",
+      amount:localStorage.getItem("amount"),
+      purchase :  {
+      items: [
+          {
+            description: "deposit",
+            amount: localStorage.getItem("amount") * 100,
+          },
+        ],
+      },
+      clientSecret : null,
+
       currentCardBackground: Math.floor(Math.random()* 25 + 1), // just for fun :D
       cardName: "",
       cardNumber: "",
@@ -182,11 +215,36 @@ export default {
       isInputFocused: false
     };
   },
+  created(){
+    if (!localStorage.getItem("amount")) {
+      this.$router.replace({name:'dashboard-analytics'}).catch((err) => { console.log(err)})
+    }
+  },
   mounted() {
+    // let scriptTag2 = document.createElement("script");
+    // scriptTag2.src = "https://js.stripe.com/v3/";
+    // document.getElementsByTagName('head')[0].appendChild(scriptTag2);
+
+    // let scriptTag3 = document.createElement("script");
+    // scriptTag3.src = "https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch";
+    // document.getElementsByTagName('head')[0].appendChild(scriptTag3);
+
+    this.stripe = Stripe("pk_test_KPQoeXoc6SUDHanW1BjtpgpS003CqpjqHx");
+    this.initStripe(this.purchase)
+    .then((response) => {
+      this.createAndMountFormElements();
+      this.clientSecret = response.data.clientSecret
+    })
+
     this.cardNumberTemp = this.otherCardMask;
     document.getElementById("cardNumber").focus();
   },
   computed: {
+    validateForm() {
+      if (this.stripeValidationError != '') {
+        return this.stripeValidationError;
+      }
+    },
     getCardType () {
       let number = this.cardNumber;
       let re = new RegExp("^4");
@@ -219,9 +277,132 @@ export default {
       if (this.cardMonth < this.minCardMonth) {
         this.cardMonth = "";
       }
-    }
+    },
   },
   methods: {
+    async initStripe(purchase) {
+        return await axios({
+          method: 'post',
+          url: 'https://payluk.com/backend/stripe/invoke',
+          data: JSON.stringify(purchase),
+        });
+    },
+
+    createAndMountFormElements() {
+      var elements = this.stripe.elements();
+      this.cardNumberElement = elements.create("cardNumber");
+      this.cardNumberElement.mount("#cardNumber");
+
+      this.cardExpiryElement = elements.create("cardExpiry");
+      this.cardExpiryElement.mount("#cardExpiryElement");
+
+      this.cardCvcElement = elements.create("cardCvc");
+      this.cardCvcElement.mount("#cardCvc");
+
+      this.cardNumberElement.on("change", this.setValidationError);
+      this.cardExpiryElement.on("change", this.setValidationError);
+      this.cardCvcElement.on("change", this.setValidationError);
+    },
+
+    setValidationError(event) {
+      this.stripeValidationError = event.error ? event.error.message : "";
+    },
+
+    async try (paymentIntentId) {
+      return await axios({
+          method: 'get',
+          url: "https://payluk.com/backend/payment?paymentIntent=" + paymentIntentId,
+          headers: {
+          "Content-Type": "application/json",
+          },
+        })
+        .then((data) => {
+          // console.log(data)
+          this.$vs.loading.close();
+          this.$vs.notify({
+            title: "Success",
+            text: 'Payment Successfully Initiated',
+            position:'top-right',
+            iconPack: "feather",
+            icon: "icon-alert-circle",
+            color: "success",
+          });
+          window.location.href = `${data.data.result.receipt_url}`;
+
+        }).catch(() => {
+          this.$vs.loading.close();
+          this.$vs.notify({
+            title: "Error",
+            text: 'Transaction Failed',
+            position:'top-right',
+            iconPack: "feather",
+            icon: "icon-alert-circle",
+            color: "danger",
+          });
+        })
+    },
+
+    async invokeStripe() {
+      this.$vs.loading();
+      const res = await this.stripe
+        .confirmCardPayment(this.clientSecret, {
+          payment_method: {
+            card: this.cardNumberElement,
+          },
+        })
+
+        if (this.stripeValidationError || !res.paymentIntent) {
+          this.$vs.loading.close();
+            this.$vs.notify({
+              title: "Error",
+              text: 'Please Fill in all the fields',
+              position:'top-right',
+              iconPack: "feather",
+              icon: "icon-alert-circle",
+              color: "danger",
+            });
+
+        }
+        if (res.paymentIntent.status == 'succeeded') {
+          localStorage.removeItem("amount")
+          this.try(res.paymentIntent.id)
+        } else {
+          localStorage.removeItem("amount")
+          this.$vs.loading.close();
+          this.$vs.notify({
+            title: "Error",
+            text: 'Error Occured',
+            position:'top-right',
+            iconPack: "feather",
+            icon: "icon-alert-circle",
+            color: "danger",
+          });
+          this.try(res.error)
+        }
+    },
+
+    changeNumber (e) {
+      this.cardNumber = e.target.value
+      let value = this.cardNumber.replace(/\D/g, '')
+      // american express, 15 digits
+      if ((/^3[47]\d{0,13}$/).test(value)) {
+        this.cardNumber = value.replace(/(\d{4})/, '$1 ').replace(/(\d{4}) (\d{6})/, '$1 $2 ')
+        this.cardNumberMaxLength = 17
+      } else if ((/^3(?:0[0-5]|[68]\d)\d{0,11}$/).test(value)) { // diner's club, 14 digits
+        this.cardNumber = value.replace(/(\d{4})/, '$1 ').replace(/(\d{4}) (\d{6})/, '$1 $2 ')
+        this.cardNumberMaxLength = 16
+      } else if ((/^\d{0,16}$/).test(value)) { // regular cc number, 16 digits
+        this.cardNumber = value.replace(/(\d{4})/, '$1 ').replace(/(\d{4}) (\d{4})/, '$1 $2 ').replace(/(\d{4}) (\d{4}) (\d{4})/, '$1 $2 $3 ')
+        this.cardNumberMaxLength = 19
+      }
+      // eslint-disable-next-line eqeqeq
+      if (e.inputType == 'deleteContentBackward') {
+        let lastChar = this.cardNumber.substring(this.cardNumber.length, this.cardNumber.length - 1)
+        // eslint-disable-next-line eqeqeq
+        if (lastChar == ' ') { this.cardNumber = this.cardNumber.substring(0, this.cardNumber.length - 1) }
+      }
+      this.$emit('input-card-number', this.cardNumber)
+    },
     flipCard (status) {
       this.isCardFlipped = status;
     },
@@ -244,7 +425,11 @@ export default {
       }, 300);
       vm.isInputFocused = false;
     }
-  }
+  },
+  beforeDestroy () {
+    localStorage.removeItem("amount")
+  },
+  // beforeRouteLeave (to, from, next) {},
 }
 </script>
 

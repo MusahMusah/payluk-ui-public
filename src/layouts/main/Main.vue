@@ -13,7 +13,7 @@
 
     <vx-tour :steps="steps" v-if="!disableThemeTour && (windowWidth >= 1200 && mainLayoutType === 'vertical')" />
 
-    <the-customizer
+    <!-- <the-customizer
       v-if                    = "!disableCustomizer"
       :footerType             = "footerType"
       :hideScrollToTop        = "hideScrollToTop"
@@ -24,7 +24,7 @@
       @updateFooter           = "updateFooter"
       @updateNavbar           = "updateNavbar"
       @updateNavbarColor      = "updateNavbarColor"
-      @updateRouterTransition = "updateRouterTransition" />
+      @updateRouterTransition = "updateRouterTransition" /> -->
 
     <v-nav-menu
       :navMenuItems = "navMenuItems"
@@ -72,7 +72,7 @@
 
             <transition :name="routerTransition">
 
-              <div v-if="$route.meta.breadcrumb || $route.meta.pageTitle" class="router-header flex flex-wrap items-center mb-6">
+              <div v-if="$route.meta.breadcrumb || $route.meta.pageTitle" class="flex flex-wrap items-center mb-6 router-header">
                 <div
                   class="content-area__heading"
                   :class="{'pr-4 border-0 md:border-r border-solid border-grey-light' : $route.meta.breadcrumb}">
@@ -80,10 +80,10 @@
                 </div>
 
                 <!-- BREADCRUMB -->
-                <vx-breadcrumb class="ml-4 md:block hidden" v-if="$route.meta.breadcrumb" :route="$route" />
+                <vx-breadcrumb class="hidden ml-4 md:block" v-if="$route.meta.breadcrumb" :route="$route" />
 
                 <!-- DROPDOWN -->
-                <vs-dropdown vs-trigger-click class="ml-auto md:block hidden cursor-pointer">
+                <vs-dropdown vs-trigger-click class="hidden ml-auto cursor-pointer md:block">
                   <vs-button radius icon="icon-settings" icon-pack="feather" />
 
                   <vs-dropdown-menu class="w-32">
