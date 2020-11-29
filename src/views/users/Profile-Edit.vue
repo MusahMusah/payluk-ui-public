@@ -157,7 +157,7 @@
                           >
                             <!-- <vs-button type="border" to="/login" class="w-full mt-3 mb-8 sm:w-auto sm:mb-auto sm:mt-auto">Go Back To Login</vs-button> -->
                             <vs-button
-                              class="w-full mt-3 sm:w-auto"
+                              class="w-full mt-10 sm:w-auto"
                               @click="update_currency"
                               >Change Currency</vs-button
                             >

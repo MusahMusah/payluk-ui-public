@@ -190,67 +190,26 @@
         <!-- ABOUT CARD -->
         <vx-card title="About" class="mt-base">
           <!-- ACTION SLOT popupActivo=true -->
-          <template slot="actions">
-            <vs-button icon-pack="feather" @click="pop" radis icon="icon-edit-2"
-              >Edit</vs-button
-            >
-          </template>
 
           <!-- USER BIO -->
           <div class="user-bio">
-            <p v-if="userData_info.about !== 'null'">
-              {{ userData_info.about }}
-            </p>
+            <p v-if="userData_info.about !== 'null'">{{userData_info.about}}</p>
           </div>
 
           <!-- OTEHR DATA -->
           <div class="mt-5">
-            <h6>Default Currency:</h6>
-            <p>{{userData_info.currency}}</p>
+            <h6>Full Name:</h6>
+            <p>{{fullname}}</p>
           </div>
           <div class="mt-5">
             <h6>Joined:</h6>
-            <p>{{userData_info.created_at.date}}</p>
+            <p>November 15, 2015</p>
           </div>
           <div class="mt-5">
             <h6>Email:</h6>
-            <p>{{ userData_info.email }}</p>
+            <p>{{userData_info.email}}</p>
           </div>
         </vx-card>
-        <div class="centerx">
-          <vs-popup
-            class="holamundo"
-            title="Update Short Description About Yourself"
-            :style="visibility"
-            :active.sync="popupActivo"
-          >
-            <p>
-              <span class="text-sm text-danger">{{
-                errors.first("about")
-              }}</span>
-              <vs-textarea
-                counter="200"
-                v-validate="'required|max:50'"
-                data-vv-validate-on="blur"
-                label="Character Limit: 200"
-                name="about"
-                label-placeholder="About Your Self"
-                placeholder="About Your Self"
-                :counter-danger.sync="counterDanger"
-                v-model="textarea"
-              />
-            </p>
-            <vs-button
-              color="primary"
-              :disabled="!validateForm"
-              icon-pack="feather"
-              class="mt-4"
-              icon="icon-edit-2"
-              @click="update_aboutInfo"
-              >Update</vs-button
-            >
-          </vs-popup>
-        </div>
         <vx-card title="TOP SELLERS" class="mt-base">
           <template slot="actions">
             <feather-icon icon="MoreHorizontalIcon"></feather-icon>
@@ -406,14 +365,6 @@
         </vx-card>
       </div>
     </div>
-    <!--
-        <div class="vx-row">
-            <div class="w-full vx-col">
-                <div class="flex justify-center mt-base">
-                    <vs-button id="button-load-more-posts" class="vs-con-loading__container" @click="loadContent">Load More</vs-button>
-                </div>
-            </div>
-    </div>-->
   </div>
 </template>
 
@@ -426,6 +377,7 @@ import StarRating from "vue-star-rating";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
+  props: ["wallet_id"],
   data() {
     return {
       textarea: "",
@@ -448,16 +400,17 @@ export default {
   computed: {
     ...mapGetters({
       userData: "users/getUserData",
+      singleUserDataProfile : "users/getSingleUserData",
       top_sellers: "users/getTopSellers",
     }),
     validateForm() {
       return !this.errors.any() && this.textarea != "";
     },
     userData_info() {
-      return this.userData;
+      return this.singleUserDataProfile;
     },
-    wallet_id() {
-      return this.userData_info.wallet_id;
+    fullname() {
+        return `${this.userData_info.first_name + ' ' + this.userData_info.last_name}`
     },
     userReviews() {
       return this.userData_info.reviews;
@@ -491,9 +444,9 @@ export default {
   methods: {
     ...mapActions({
       activeUserInfo: "users/activeUserInfo",
-      updateAboutInfo: "users/updateAboutInfo",
       topSellers: "users/topSellers",
       sendInvite: "users/sendInvite",
+      singleUserdata: "users/UserPublicProfile",
     }),
     // async fetch1(page){
     //   if (page > this.lastPage) {  return  }
@@ -504,7 +457,8 @@ export default {
     //   // console.log(this.lastPage)
     // },
     async fetch(){
-      let reviews = await axios.get(`https://payluk.com/backend/reviews?page=${this.page}`)
+      // let reviews = await axios.get(`https://payluk.com/backend/reviews?page=${this.page}`)
+      let reviews = await axios.get(`https://payluk.com/backend/clients_review?wallet_id=${this.$route.params.wallet_id}&page=${this.page}`)
       if (reviews.data.reviews != null)
       {
 
@@ -649,8 +603,32 @@ export default {
       }, 3000);
     },
   },
+   watch: {
+       '$route'() {
+          this.$vs.loading();
+          this.singleUserdata(this.$route.params.wallet_id)
+          .then(() => {
+            this.$vs.loading.close();
+          })
+          .catch(() => {
+              this.$router.replace({name: 'page-error-404'}).catch(() => {})
+          })
+          this.fetch()
+          this.handleScrolledToBottom()
+        },
+   },
   created() {
-    this.activeUserInfo();
+    this.$vs.loading();
+    this.singleUserdata(this.$route.params.wallet_id)
+    .then(() => {
+      this.$vs.loading.close();
+    })
+    .catch(() => {
+        this.$router.replace({name: '404'}).catch(() => {})
+    })
+    this.fetch()
+    this.handleScrolledToBottom()
+    // this.activeUserInfo();
     this.topSellers();
   },
   components: {

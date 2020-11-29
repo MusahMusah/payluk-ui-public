@@ -13,14 +13,14 @@
     <!-- PROFILE HEADER -->
     <div class="profile-header">
       <div class="relative">
-        <div class="cover-container rounded-t-lg">
+        <div class="rounded-t-lg cover-container">
           <img
             v-if="userData_info.profile_image"
             key="onlineImage"
             v-bind:src="userData_info.profile_image"
             alt="user-profile-cover"
             style="object-fit:cover; height: 383px"
-            class="responsive block"
+            class="block responsive"
           />
           <img
             v-else
@@ -28,10 +28,10 @@
             :src="user_info.cover_img"
             alt="user-profile-cover"
             style="object-fit:cover; height: 383px"
-            class="responsive block"
+            class="block responsive"
           />
         </div>
-        <div class="profile-img-container pointer-events-none">
+        <div class="pointer-events-none profile-img-container">
           <div>
             <vs-avatar
               v-if="userData_info.profile_image"
@@ -41,27 +41,27 @@
             />
             <vs-avatar class="user-profile-img" v-else :src="user_info.profile_img" size="85px" />
           </div>
-          <div class="profile-actions pointer-events-auto flex"></div>
+          <div class="flex pointer-events-auto profile-actions"></div>
         </div>
       </div>
-      <div class="flex items-center justify-end flex-wrap profile-header-nav p-6">
+      <div class="flex flex-wrap items-center justify-end p-6 profile-header-nav">
         <div class="block sm:hidden">
           <feather-icon
             @click="isNavOpen = !isNavOpen"
             icon="AlignJustifyIcon"
             v-show="!isNavOpen"
-            class="vx-navbar-toggler cursor-pointer"
+            class="cursor-pointer vx-navbar-toggler"
           />
           <feather-icon
             icon="XIcon"
             v-show="isNavOpen"
             @click="isNavOpen = !isNavOpen"
-            class="vx-navbar-toggler cursor-pointer"
+            class="cursor-pointer vx-navbar-toggler"
           />
         </div>
-        <!-- <div :class="isNavOpen ? 'block': 'hidden'" class="w-full flex-grow sm:flex sm:items-center sm:w-auto">
+        <!-- <div :class="isNavOpen ? 'block': 'hidden'" class="flex-grow w-full sm:flex sm:items-center sm:w-auto">
                     <div class="text-sm sm:flex-grow">
-                        <ul class="sm:flex justify-around mt-8 w-full md:mt-0 md:ml-auto md:w-3/4">
+                        <ul class="justify-around w-full mt-8 sm:flex md:mt-0 md:ml-auto md:w-3/4">
                             <li class="p-2 sm:p-0"><router-link to="/pages/profile">Timeline</router-link></li>
                             <li class="p-2 sm:p-0"><router-link to="/pages/profile">About</router-link></li>
                             <li class="p-2 sm:p-0"><router-link to="/pages/profile">Photos</router-link></li>
@@ -79,7 +79,7 @@
     <!-- COL AREA -->
     <div class="vx-row">
       <!-- COL 1 -->
-      <div class="vx-col w-full lg:w-1/4">
+      <div class="w-full vx-col lg:w-1/4">
         <!-- ABOUT CARD -->
         <vx-card title="About" class="mt-base">
           <!-- ACTION SLOT popupActivo=true -->
@@ -109,7 +109,7 @@
           </template>
           <ul class="friend-suggesions-list">
             <li
-              class="friend-suggestion flex items-center mb-4"
+              class="flex items-center mb-4 friend-suggestion"
               v-for="(top_seller, index) in top_sellers"
               :key="index"
             >
@@ -140,11 +140,11 @@
       </div>
 
       <!-- COL 2 -->
-      <div  class="vx-col w-full lg:w-1/2" v-if="allReviews.length != 0">
+      <div  class="w-full vx-col lg:w-1/2" v-if="allReviews.length != 0">
         <vx-card class="mt-base" title="All Reviews">
           <div  v-for="(userReview, index) in allReviews" :key="index" class="mb-10">
             <!-- POST HEADER -->
-            <div class="post-header flex justify-between mb-4">
+            <div class="flex justify-between mb-4 post-header">
               <div class="flex items-center">
                 <div>
                   <vs-avatar
@@ -189,11 +189,11 @@
         </vx-card>
         <div v-if="userReviews != null" v-observe-visibility="handleScrolledToBottom"></div>
       </div>
-      <div class="vx-col w-full lg:w-1/2" v-else>
+      <div class="w-full vx-col lg:w-1/2" v-else>
         <vx-card class="mt-base" title="All Reviews">
           <div>
             <!-- POST HEADER -->
-            <div class="post-header flex justify-between mb-4">
+            <div class="flex justify-between mb-4 post-header">
               <div class="flex items-center"></div>
               <div class="flex">
                 <!-- CUSTOM SHAPE -->
@@ -201,7 +201,7 @@
             </div>
 
             <!-- POST CONTENT -->
-            <div class="post-content h-10 p-5 m-5">
+            <div class="h-10 p-5 m-5 post-content">
               <h2 class="mb-4">No Reviews Yet</h2>
             </div>
 
@@ -210,13 +210,13 @@
       </div>
 
       <!-- COL 3 -->
-      <div class="vx-col w-full lg:w-1/4">
+      <div class="w-full vx-col lg:w-1/4">
         <vx-card title="QR CODE" class="mt-base">
           <img :src="userData_info.qr" />
           <div class="mt-5">
             <h6>WALLET ID:</h6>
             <template>
-              <vs-input v-model="wallet_id" disabled class="inine-flex mt-3 w-full" />
+              <vs-input v-model="wallet_id" disabled class="w-full mt-3 inine-flex" />
               <vs-button
                 color="primary"
                 size="large"
@@ -234,7 +234,7 @@
     </div>
     <!--
         <div class="vx-row">
-            <div class="vx-col w-full">
+            <div class="w-full vx-col">
                 <div class="flex justify-center mt-base">
                     <vs-button id="button-load-more-posts" class="vs-con-loading__container" @click="loadContent">Load More</vs-button>
                 </div>
