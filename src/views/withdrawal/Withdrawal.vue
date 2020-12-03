@@ -145,7 +145,7 @@
               <div class="card-input">
                 <label for="cardName" class="card-input__label">Account Holders Name</label>
                 <!-- <input type="text" id="cardName" :disabled="accountNameDisable" @mouseover="validateAccount" class="card-input__input" v-model="cardName" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardName" autocomplete="off"> -->
-                <input type="text" id="cardName" :disabled="accountNameDisable" class="card-input__input" v-model="cardName" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardName" autocomplete="off">
+                <input type="text" id="cardName" :disabled="accountNameDisable" @mouseover="validateAccount" class="card-input__input" v-model="cardName" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardName" autocomplete="off">
               </div>
               <div class="card-input">
                 <label for="amount" class="card-input__label">Amount</label>
