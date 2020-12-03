@@ -140,7 +140,7 @@
                 <!-- <label for="cardNumber" class="card-input__label">Card Number</label>
                 <input type="text" id="cardNumber" class="card-input__input" v-mask="generateCardNumberMask" v-model="cardNumber" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardNumber" autocomplete="off"> -->
                 <label for="accountNumber" class="card-input__label">Account Number</label>
-                <input type="text" id="accountNumber" class="card-input__input" @mouseover="validateAccount" @keyup="validateAccount" v-mask="generateCardNumberMask" v-model="cardNumber" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardNumber" autocomplete="off">
+                <input type="text" id="accountNumber" class="card-input__input" @mouseout="validateAccount" @keyup="validateAccount" v-mask="generateCardNumberMask" v-model="cardNumber" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardNumber" autocomplete="off">
               </div>
               <div class="card-input">
                 <label for="cardName" class="card-input__label">Account Holders Name</label>
