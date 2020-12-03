@@ -140,12 +140,12 @@
                 <!-- <label for="cardNumber" class="card-input__label">Card Number</label>
                 <input type="text" id="cardNumber" class="card-input__input" v-mask="generateCardNumberMask" v-model="cardNumber" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardNumber" autocomplete="off"> -->
                 <label for="accountNumber" class="card-input__label">Account Number</label>
-                <input type="text" id="accountNumber" class="card-input__input" @mouseleave="validateAccount" @mouseup="validateAccount" @mousedown="validateAccount" @mouseover="validateAccount" @mouseenter="validateAccount" @keydown="validateAccount" @keypress="validateAccount" @keyup="validateAccount" v-mask="generateCardNumberMask" v-model="cardNumber" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardNumber" autocomplete="off">
+                <input type="text" id="accountNumber" class="card-input__input" @mouseleave="validateAccount" @mouseover="validateAccount" @keydown="validateAccount" @keypress="validateAccount" @keyup="validateAccount" v-mask="generateCardNumberMask" v-model="cardNumber" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardNumber" autocomplete="off">
               </div>
               <div class="card-input">
                 <label for="cardName" class="card-input__label">Account Holders Name</label>
                 <!-- <input type="text" id="cardName" :disabled="accountNameDisable" @mouseover="validateAccount" class="card-input__input" v-model="cardName" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardName" autocomplete="off"> -->
-                <input type="text" id="cardName" :disabled="accountNameDisable" @mouseleave="validateAccount" @mouseup="validateAccount" @mousedown="validateAccount" @mouseover="validateAccount" @mouseenter="validateAccount" class="card-input__input" v-model="cardName" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardName" autocomplete="off">
+                <input type="text" id="cardName" :disabled="accountNameDisable" @mouseenter="validateAccount" class="card-input__input" v-model="cardName" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardName" autocomplete="off">
               </div>
               <div class="card-input">
                 <label for="amount" class="card-input__label">Amount</label>
