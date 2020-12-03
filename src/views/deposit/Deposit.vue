@@ -50,14 +50,31 @@
         <div class="vx-row ">
           <div class="w-full mt-6 vx-col">
             <vs-button
+              v-if="this.activeUserCurrency == 'USD'"
               :disabled="!validateForm"
-              @click="completePayment"
+              @click="invokeStripe"
               icon-pack="feather"
               icon="feather icon-credit-card"
               class="mb-2"
               style="width: 100%"
               >Complete Payment</vs-button
             >
+            <paystack
+            v-else
+            id="paystack-button"
+            class="bg-primary"
+            :disabled="!validateForm"
+            :amount="amount * 100"
+            :email="activeUserEmail"
+            :paystackkey="PUBLIC_KEY"
+            :reference="reference"
+            :callback="creditUserAccount"
+            :close="paystackCloseWindow"
+            :embed="false"
+            >
+            <i class="fas fa-money-bill-alt"></i>
+            Make Payment
+            </paystack>
           </div>
         </div>
       </vx-card>
@@ -66,72 +83,45 @@
 </template>
 
 <script>
-import axios from 'axios'
 import { mapGetters, mapActions } from "vuex";
 import vSelect from "vue-select";
+import paystack from 'vue-paystack';
 export default {
   data() {
     return {
       amount: '',
+      email : '',
       payment_method: '',
+      PUBLIC_KEY: "pk_test_d236cd0f648a7429521cad6c3018cd4d920f49e0"
     };
   },
   components: {
     vSelect,
+    paystack
   },
   methods:{
     ...mapActions({
-      transactionDetailsData: "payments/transactionDetailsData",
       completePaystackPayment: "payments/completePaystackPayment"
     }),
-    completePayment(){
-      if (this.activeUserCurrency == 'NGN') {
-        this.payWithPaystack()
-      } else if(this.activeUserCurrency == 'USD'){
-        this.invokeStripe()
-      }
-    },
-    payWithPaystack(){
-      let handler = PaystackPop.setup({
-        key: 'pk_test_d236cd0f648a7429521cad6c3018cd4d920f49e0', // Replace with your public key
-        email: this.activeUserEmail,
-        amount: this.amount * 100,
-        reference: ''+Math.floor((Math.random() * 1000000000) + 1), // Replace with a reference you generated
-        callback: function(response) {
-          //  alert(response.reference);
-            //this happens after the payment is completed successfully
-            var reference = response.reference;
-            const formData = new FormData();
-            formData.append("reference", reference);
-
-            // alert('Payment complete! Reference: ' + reference);
-            // Make an AJAX call or axios to our backend with the reference as post server with the reference to verify the transaction
-            axios({
-                method: 'post',
-                url: '/paystack/invoke',
-                data: formData
-            })
-            .then(function () {
-                // console.log(response);
-                // check
-                window.location.reload()
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-        },
-        onClose: function() {
-            alert('Transaction was not completed, window closed.');
-        },
+    // Paystack Methods
+    paystackCloseWindow() {
+      this.$vs.notify({
+        title: "Info",
+        text: 'Deposit Payment Window Closed',
+        position:'top-right',
+        iconPack: "feather",
+        icon: "icon-alert-circle",
+        color: "primary",
       });
-      handler.openIframe();
     },
-    creditUserAccount(reference){
+
+    creditUserAccount(){
       // Loading
       this.$vs.loading();
-      this.completePaystackPayment(reference)
+      const formData = new FormData();
+      formData.append("reference", this.reference);
+      this.completePaystackPayment(formData)
         .then((response) => {
-          // console.log(response.data)
           this.$vs.loading.close();
           this.$vs.notify({
             title: "Success",
@@ -141,6 +131,7 @@ export default {
             icon: "icon-alert-circle",
             color: "success",
           });
+          this.$router.replace({name:'dashboard-analytics', params: { amount : this.amount }}).catch((err) => { console.log(err)})
         })
         .catch((error) => {
           console.log(error);
@@ -155,6 +146,7 @@ export default {
           });
         });
     },
+    // End Paystack Methods
     invokeStripe(){
       localStorage.setItem("amount", this.amount)
       this.$router.replace({name:'deposit-pay', params: { amount : this.amount }}).catch((err) => { console.log(err)})
@@ -182,10 +174,17 @@ export default {
     },
     validateForm() {
       return !this.errors.any() && this.amount != "";
-    }
-  },
-   created() {
-    this.transactionDetailsData();
+    },
+    reference() {
+      let text = "";
+      let possible =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+      for (let i = 0; i < 10; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+      return text;
+    },
   },
   mounted(){
     var scriptTag = document.createElement("script");
@@ -213,4 +212,13 @@ export default {
 </script>
 
 <style>
+#paystack-button {
+  /* background-color: #8ebf42; */
+  color: white;
+  padding: 14px 0;
+  /* margin: 10px 0; */
+  border: none;
+  cursor: grabbing;
+  width: 100%;
+}
 </style>

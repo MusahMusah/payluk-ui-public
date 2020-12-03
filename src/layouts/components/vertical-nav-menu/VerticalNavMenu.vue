@@ -27,14 +27,14 @@
       <div @mouseenter="mouseEnter" @mouseleave="mouseLeave">
 
         <!-- Header -->
-        <div class="flex items-end justify-between header-sidebar" slot="header">
+        <div class="flex items-end justify-between header-sidebar" style="margin-bottom: -.1em !important;margin-top: -1.2em !important;" slot="header">
 
           <!-- Logo -->
           <router-link tag="div" class="flex items-center cursor-pointer vx-logo" to="/">
             <!-- <img :src="logo" alt="logo" class="w-10 mr-4" v-if="logo"> -->
-            <img :src="logoImage" alt="logo" class="mr-4" style="width:3.8rem" v-if="logoImage">
+            <img :src="logoImage" alt="logo" class="mt-2 ml-16 text-center" style="width:6.8rem; margin-top: 0.6rem !important; height: 4rem; object-fit:cover;" v-if="logoImage">
             <!-- {{ title }} -->
-            <span class="vx-logo-text" v-show="isMouseEnter || !reduce" v-if="title">Payluk</span>
+            <!-- <span class="vx-logo-text" v-show="isMouseEnter || !reduce" v-if="title">Payluk</span> -->
           </router-link>
           <!-- /Logo -->
 

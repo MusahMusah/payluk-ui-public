@@ -9,7 +9,7 @@
 
 import axios from "axios"
 // import router from "@/router"
-const ApiLoginUrl = 'http://localhost:3000/login';
+// const ApiLoginUrl = 'http://localhost:3000/login';
 export default {
   namespaced: true,
 

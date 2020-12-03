@@ -52,7 +52,7 @@
           <vx-auto-suggest :autoFocus="true" :data="navbarSearchAndPinList" @selected="selected" @actionClicked="actionClicked" inputClassses="w-full" show-action show-pinned background-overlay></vx-auto-suggest>
           </div> -->
           <!-- <feather-icon icon="StarIcon" :svgClasses="['stoke-current text-warning', {'text-white': navbarColor != '#fff'}]" class="p-2 cursor-pointer" @click.stop="showBookmarkPagesDropdown = !showBookmarkPagesDropdown" /> -->
-            <vs-chip color="primary ml-1">
+            <vs-chip color="primary ml-1" id="tour_rankingSection">
               <!-- <vs-avatar icon-pack="feather" icon="icon-star" /> -->
               <span style="font-weight: bold; font-sze: 1.3em">RANKING :</span>
               <star-rating
@@ -73,7 +73,7 @@
               <span class="p-2" style="text-transform: uppercase;font-weight: bold; font-size: 1.2em">{{userData.rank}}</span>
               <!-- <vs-button class="p-1" style="text-transform: uppercase;font-weight: bold; font-size: 1.3em">{{userData.rank.toUpperCase()}}</vs-button> -->
             </vs-chip>
-            <vs-chip color="primary" class="ml-2 mr-2">
+            <vs-chip color="primary" class="ml-2 mr-2" id="tour_statusSection">
               <vs-avatar size="28px" v-if="userData.status == 'not activated'" icon="close" />
               <vs-avatar size="28px" v-else icon="check" />
               <span  style="text-transform: uppercase; font-weight: bold; font-size: 1.3em">ACCOUNT {{userData.status}}</span>
@@ -110,9 +110,9 @@
           <vx-auto-suggest :autoFocus="true" :data="navbarSearchAndPinList" @selected="selected" @actionClicked="actionClicked" inputClassses="w-full" show-action show-pinned background-overlay></vx-auto-suggest>
           </div> -->
           <!-- <feather-icon icon="StarIcon" :svgClasses="['stoke-current text-warning', {'text-white': navbarColor != '#fff'}]" class="p-2 cursor-pointer" @click.stop="showBookmarkPagesDropdown = !showBookmarkPagesDropdown" /> -->
-            <vs-chip color="primary ml1">
+            <vs-chip color="primary">
               <!-- <vs-avatar icon-pack="feather" icon="icon-star" /> -->
-              <span style="font-weight: bold; font-size: 1em; padding:1px">RANKING:</span>
+              <span style="font-weight: bold; font-size: .8em; padding:1px">RANK:</span>
               <star-rating
               :star-size="10"
               :read-only="true"
@@ -128,18 +128,9 @@
                 23,43, 38,50, 36,34,
                 46,19, 31,17]">
               </star-rating>
-              <span class="p" style="text-transform: uppercase;font-weight: bold; font-size: 1em">{{userData.rank}}</span>
+              <span class="p" style="text-transform: uppercase;font-weight: bold; font-size: .9em">{{userData.rank}}</span>
               <!-- <vs-button class="p-1" style="text-transform: uppercase;font-weight: bold; font-size: 1.3em">{{userData.rank.toUpperCase()}}</vs-button> -->
             </vs-chip>
-            <!-- <vs-chip color="primary" class="ml-2 mr-2">
-              <vs-avatar size="28px" v-if="userData.status == 'not activated'" icon="close" />
-              <vs-avatar size="28px" v-else icon="check" />
-              <span  style="text-transform: uppercase; font-weight: bold; font-size: 1.3em">ACCOUNT {{userData.status}}</span>
-            </vs-chip> -->
-            <!-- <vs-button v-if="userData.status == 'not activated'"
-            :to="{name: 'activate-account'}"
-            style="text-transform: uppercase; font-weight: bold; font-size: .7em"
-            size="medium" icon="double_arrow" color="primary">ACTIVATE</vs-button> -->
         </div>
       </template>
 
@@ -165,11 +156,11 @@
           </div>
       </div>
       <!-- <feather-icon icon="SearchIcon" @click="showFullSearch = true" class="mr-4 cursor-pointer navbar-fuzzy-search"></feather-icon> -->
-      <feather-icon icon="SearchIcon" @click="searchUsers" class="mr-4 cursor-pointer navbar-fuzzy-search"></feather-icon>
+      <feather-icon icon="SearchIcon" id="tour_searchSection" @click="searchUsers" class="mr-4 cursor-pointer navbar-fuzzy-search"></feather-icon>
 
       <!-- NOTIFICATIONS -->
       <!-- <vs-dropdown vs-custom-content :vs-trigger-click="change"  class="cursor-pointer"> -->
-      <div @click="notification_read">
+      <div @click="notification_read" id="tour_notificationSection">
         <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer">
         <feather-icon icon="BellIcon" class="mt-1 mr-2 cursor-pointer sm:mr-6" :badge="getNotifications.badge"></feather-icon>
         <vs-dropdown-menu class="notification-dropdown dropdown-custom vx-navbar-dropdown">
@@ -206,7 +197,7 @@
            <p class="font-semibold">{{ user_displayName }}</p>
           <small>{{ user_displayEmail }}</small>
         </div>
-        <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer">
+        <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer" id="tour_logout_profileSection">
           <div class="ml-3 con-img">
             <img
               v-if="activeUserImg"

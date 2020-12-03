@@ -111,26 +111,55 @@
                             <template>
                                 <div class="items-grid-view vx-row match-height">
                                       <!-- <h2>{{allUsers}}</h2> -->
-                                    <div class="w-full vx-col lg:w-1/3 sm:w-1/2" v-for="(item, index) in resultQuery" :key="index">
-                                        <item-grid-view :item="item">
+                                     <!-- <div class="w-full vx-col lg:w-1/3 sm:w-1/2" v-for="(item, index) in resultQuery" :key="index">
+                                      <item-grid-view :item="item">
+                                          <template slot="action-buttons">
+                                              <div class="flex flex-wrap">
+                                                  <div
+                                                      class="flex items-center justify-center flex-grow p-3 text-white cursor-pointer item-view-secondary-action-btn bg-primary"
+                                                      >
 
-                                            <!-- SLOT: ACTION BUTTONS -->
-                                            <template slot="action-buttons">
-                                                <div class="flex flex-wrap">
-
-                                                    <!-- PRIMARY BUTTON: ADD TO WISH LIST -->
-                                                    <!-- SECONDARY BUTTON: ADD-TO/VIEW-IN CART -->
-                                                    <div
-                                                        class="flex items-center justify-center flex-grow p-3 text-white cursor-pointer item-view-secondary-action-btn bg-primary"
-                                                       >
-                                                        <!-- <feather-icon icon="ShoppingBagIcon" svgClasses="h-4 w-4" /> -->
-                                                        <vs-button :to="{  name: 'user-public-profile', params: { wallet_id: item.wallet }}"  class="ml-2 text-sm font-semibold" size="small">
-                                                          VIEW PROFILE
-                                                        </vs-button>
+                                                      <vs-button :to="{  name: 'user-public-profile', params: { wallet_id: item.wallet }}"  class="ml-2 text-sm font-semibold" size="small">
+                                                        VIEW PROFILE
+                                                      </vs-button>
+                                                  </div>
+                                              </div>
+                                          </template>
+                                      </item-grid-view>
+                                  </div> -->
+                                    <div class="w-full vx-col sm:w-1/2 lg:w-1/3 mb-base" v-for="(item, index) in resultQuery" :key="index">
+                                        <vx-card class="p-2">
+                                            <div class="text-center">
+                                                <h4>{{ `${item.first_name + ' ' + item.last_name}` }}</h4>
+                                                <p class="text-grey">{{ item.email }}</p>
+                                            </div>
+                                            <vs-avatar v-if="item.profile_image" class="block mx-auto my-6" size="80px" :src="item.profile_image" />
+                                            <vs-avatar v-else class="block mx-auto my-6" size="80px" :src="cover_img" />
+                                            <div class="flex flex-wrap justify-between">
+                                                <vs-button :to="{  name: 'user-public-profile', params: { wallet_id: item.wallet }}" class="mt-4 mr-2 shadow-lg w-ful" type="border" icon="person" color="primary" gradient-color-secondary="#CE9FFC">Profile</vs-button>
+                                                <vs-button @click="send_invite(item.wallet)" class="mt-4 shadow-lg w-ful" type="border" color="primary" icon="send">Invite</vs-button>
+                                            </div>
+                                            <template slot="footer">
+                                                <vs-divider />
+                                                <div class="flex items-center justify-between">
+                                                    <div class="flex px-2 py-1 text-white rounded bg-primary">
+                                                        <span class="mr-2 text-sm">4</span>
+                                                        <feather-icon icon="StarIcon" svgClasses="h-4 w-4" />
                                                     </div>
+
                                                 </div>
+                                                <!-- <div class="flex justify-between">
+                                                    <span class="flex items-center">
+                                                        <feather-icon icon="StarIcon" svgClasses="h-5 w-5 text-primary stroke-current" />
+                                                        <span class="ml-2">5</span>
+                                                    </span>
+                                                    <span class="flex items-center">
+                                                        <feather-icon icon="StarIcon" svgClasses="h-5 w-5 text-primary stroke-current" />
+                                                        <span class="ml-2">5</span>
+                                                    </span>
+                                                </div> -->
                                             </template>
-                                        </item-grid-view>
+                                        </vx-card>
                                     </div>
                                     <vx-card  title="User Not Found"
                                     title-color="#fff"
@@ -148,31 +177,6 @@
 
                         </div>
                     </ais-hits>
-
-                    <!-- PAGINATION -->
-                    <!-- <ais-pagination>
-                        <div slot-scope="{
-                                currentRefinement,
-                                nbPages,
-                                pages,
-                                isFirstPage,
-                                isLastPage,
-                                refine,
-                                createURL
-                            }"
-                        >
-
-                        <vs-pagination
-
-                            :total="nbPages"
-                            :max="7"
-                            :value="currentRefinement + 1"
-                            @input="(val) => { refine(val - 1) }" />
-                        </div>
-                    </ais-pagination> -->
-
-                    <!-- ALGOLIA LOGO -->
-                    <!-- <img class="flex h-8 mx-auto mt-4" src="@/assets/images/pages/eCommerce/Algolia-logo.png" alt="algolia-logo"> -->
                 </div>
             </div>
         </ais-instant-search>
@@ -219,6 +223,7 @@ export default {
   data() {
     return {
       searchQuery: null,
+      cover_img: require("@/assets/images/noimage.svg"),
       resources:[
           {title:"ABE Attendance",uri:"aaaa.com",category:"a",icon:null},
           {title:"Accounting Services",uri:"aaaa.com",category:"a",icon:null},
@@ -311,7 +316,71 @@ export default {
   methods: {
     ...mapActions({
       searchDB : "users/searchUserData",
+      sendInvite: "users/sendInvite",
     }),
+        send_invite(wallet_id) {
+      // Loading
+      this.$vs.loading();
+      this.sendInvite(wallet_id)
+        .then((response) => {
+          this.$vs.loading.close();
+          if (response.data.errorcode == 711) {
+            // Account Not Activated
+            this.$vs.notify({
+              title: "Info",
+              text: response.data.message,
+              position:'top-right',
+              iconPack: "feather",
+              icon: "icon-alert-circle",
+              color: "danger",
+            });
+          } else if(response.data.errorcode == 712){
+            // Cant send your self request
+             this.$vs.notify({
+              title: "Info",
+              text: response.data.message,
+              position:'top-right',
+              iconPack: "feather",
+              icon: "icon-alert-circle",
+              color: "success",
+            });
+          } else if(response.data.errorcode == 704){
+            // Seller Account Not Approved
+            this.$vs.notify({
+              title: "Info",
+              text: response.data.message,
+              position:'top-right',
+              iconPack: "feather",
+              icon: "icon-alert-circle",
+              color: "danger",
+            });
+          }
+          else {
+            // Request Successfully Sent
+            this.$vs.notify({
+              title: "Success",
+              text: response.data.message,
+              position:'top-right',
+              iconPack: "feather",
+              icon: "icon-alert-circle",
+              color: "success",
+            });
+          }
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+          this.$vs.loading.close();
+          this.$vs.notify({
+            title: "Error",
+            text: error.response.data.message,
+            position:'top-right',
+            // text: error.response.data,
+            iconPack: "feather",
+            icon: "icon-alert-circle",
+            color: "danger",
+          });
+        });
+    },
     setSidebarWidth() {
       if (this.windowWidth < 992) {
         this.isFilterSidebarActive = this.clickNotClose = false

@@ -29,7 +29,7 @@
                                 <span class="mr-2 text-sm">4</span>
                                 <feather-icon icon="StarIcon" svgClasses="h-4 w-4" />
                             </div>
-                            <!-- <h6 class="font-bold">$4000</h6> -->
+
                         </div>
 
                         <!-- TITLE & DESCRIPTION -->

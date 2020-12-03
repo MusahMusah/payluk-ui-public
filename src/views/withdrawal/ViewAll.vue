@@ -10,33 +10,41 @@
                             </h3>
                         </template>
                         <template slot="thead">
-                            <vs-th sort-key="amount"> Amount </vs-th>
-                            <vs-th sort-key="card_number"> Card Number </vs-th>
-                            <!-- <vs-th sort-key="card_type"> Card Type </vs-th> -->
-                            <vs-th sort-key="status"> Status </vs-th>
                             <vs-th sort-key="date"> Date </vs-th>
+                            <vs-th sort-key="amount"> Amount </vs-th>
+                            <vs-th sort-key="charges"> Charges</vs-th>
+                            <vs-th sort-key="bank_name"> Bank Name</vs-th>
+                            <vs-th sort-key="account_number"> Account Number </vs-th>
+                            <vs-th sort-key="account_name"> Account Name </vs-th>
+                            <vs-th sort-key="currency"> Currency </vs-th>
+                            <vs-th sort-key="reference"> Ref Code </vs-th>
                         </template>
 
                         <template slot-scope="{data}">
                             <vs-tr :key="indextr" v-for="(tr, indextr) in data">
-                                <vs-td :data="data[indextr].amount"> {{ data[indextr].amount }} </vs-td>
-
-                                <vs-td :data="data[indextr].card_number">
-                                    {{ data[indextr].card_number }}
-                                </vs-td>
-
-                                <!-- <vs-td style="text-transform: uppercase" :data="data[indextr].card_type">
-                    {{ data[indextr].card_type | capitalize }}
-                  </vs-td> -->
-                                <vs-td :data="data[indextr].status">
-                                    <vs-chip color="primary">
-                                        <vs-avatar icon="check" />
-                                        <span>{{ data[indextr].status }}</span>
-                                    </vs-chip>
-                                </vs-td>
                                 <vs-td :data="data[indextr].date">
                                     {{ data[indextr].date }}
                                 </vs-td>
+                                <vs-td :data="data[indextr].amount"> {{ data[indextr].amount }} </vs-td>
+                                <vs-td :data="data[indextr].charges">
+                                    {{ data[indextr].charges }}
+                                </vs-td>
+                                <vs-td :data="data[indextr].bank_name">
+                                    {{ data[indextr].bank_name }}
+                                </vs-td>
+                                <vs-td :data="data[indextr].account_number">
+                                    {{ data[indextr].account_number }}
+                                </vs-td>
+                                <vs-td :data="data[indextr].account_name">
+                                    {{ data[indextr].account_name }}
+                                </vs-td>
+                                <vs-td :data="data[indextr].currency">
+                                    {{ data[indextr].currency }}
+                                </vs-td>
+                                <vs-td :data="data[indextr].reference">
+                                    {{ data[indextr].reference }}
+                                </vs-td>
+
                             </vs-tr>
                         </template>
                     </vs-table>

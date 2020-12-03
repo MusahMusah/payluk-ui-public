@@ -494,6 +494,7 @@ export default {
       updateAboutInfo: "users/updateAboutInfo",
       topSellers: "users/topSellers",
       sendInvite: "users/sendInvite",
+      runMigration: "users/runMigration",
     }),
     // async fetch1(page){
     //   if (page > this.lastPage) {  return  }
@@ -650,7 +651,14 @@ export default {
     },
   },
   created() {
-    this.activeUserInfo();
+    this.$vs.loading();
+    this.activeUserInfo()
+    .then(() => {
+      this.$vs.loading.close();
+    })
+    .catch(() => {
+        this.$router.replace({name: '404'}).catch(() => {})
+    })
     this.topSellers();
   },
   components: {

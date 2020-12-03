@@ -84,7 +84,7 @@
 
                 <!-- DROPDOWN -->
                 <vs-dropdown vs-trigger-click class="hidden ml-auto cursor-pointer md:block">
-                  <vs-button radius icon="icon-settings" icon-pack="feather" />
+                  <!-- <vs-button radius icon="icon-settings" icon-pack="feather" />
 
                   <vs-dropdown-menu class="w-32">
                     <vs-dropdown-item>
@@ -105,7 +105,7 @@
                         <span>Inbox</span>
                       </div>
                     </vs-dropdown-item>
-                  </vs-dropdown-menu>
+                  </vs-dropdown-menu> -->
 
                 </vs-dropdown>
 
@@ -172,23 +172,27 @@ export default {
           content : 'Toggle Collapse Sidebar.'
         },
         {
-          target  : '.vx-navbar__starred-pages',
-          content : 'Create your own bookmarks. You can also re-arrange them using drag & drop.'
+          target  : '#tour_rankingSection',
+          content : 'Check Out Your Current Ranking Status here.'
         },
         {
-          target  : '.i18n-locale',
-          content : 'You can change language from here.'
+          target  : '#tour_statusSection',
+          content : 'Check Out Your Account Activation Status here.'
         },
         {
-          target  : '.navbar-fuzzy-search',
-          content : 'Try fuzzy search to visit pages in flash.'
+          target  : '#tour_searchSection',
+          content : 'Search For Users On the Platform from here.'
         },
         {
-          target  : '.customizer-btn',
-          content : 'Customize template based your preference',
-          params  : {
-            placement: 'left'
-          }
+          target  : '#tour_notificationSection',
+          content : 'Check Out Your Most Recent Notifications from here.',
+        },
+        {
+          target  : '#tour_logout_profileSection',
+          content : 'You Can Check Your Profile Or Log Out Of The Platform from here.',
+          // params  : {
+          //   placement: 'left'
+          // }
         },
       ],
     }

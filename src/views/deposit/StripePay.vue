@@ -21,11 +21,11 @@
               </div>
               <div class="card-item__content">
 
-                <h2 class="mx-auto text-right text-white" style="font-weight:bold; font-size:2em">Amount To Deposit</h2>
+                <h2 class="mx-auto text-white" style="font-weight:bold; text-align:center;font-size:1.5em">Amount To Deposit</h2>
               </div>
               <div class="card-item__content">
 
-                <h2 class="mx-auto text-right text-white" style="font-weight:bold; font-size:2.5em">${{amount}}</h2>
+                <h2 class="mx-auto text-white" style="font-weight:bold; font-size:2.2em">${{amount}}</h2>
               </div>
               <!-- <label for="cardNumber" class="card-item__number" ref="cardNumber">
                 <template v-if="getCardType === 'amex'">

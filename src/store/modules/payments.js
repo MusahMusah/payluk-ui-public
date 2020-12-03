@@ -55,7 +55,7 @@ export default {
       }
     },
     async completePaystackPayment(_, payload) {
-        return await axios.post('/paystack/invoke', {reference : payload})
+        return await axios.post('/paystack/invoke', payload)
     },
 
   }

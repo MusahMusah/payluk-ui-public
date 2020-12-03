@@ -140,7 +140,7 @@
                 <!-- <label for="cardNumber" class="card-input__label">Card Number</label>
                 <input type="text" id="cardNumber" class="card-input__input" v-mask="generateCardNumberMask" v-model="cardNumber" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardNumber" autocomplete="off"> -->
                 <label for="accountNumber" class="card-input__label">Account Number</label>
-                <input type="text" id="accountNumber" class="card-input__input" @mouseleave="validateAccount" v-mask="generateCardNumberMask" v-model="cardNumber" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardNumber" autocomplete="off">
+                <input type="text" id="accountNumber" class="card-input__input" @keyup="validateAccount" v-mask="generateCardNumberMask" v-model="cardNumber" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardNumber" autocomplete="off">
               </div>
               <div class="card-input">
                 <label for="cardName" class="card-input__label">Account Holders Name</label>
@@ -205,7 +205,7 @@ export default {
       minCardYear: new Date().getFullYear(),
       amexCardMask: "#### ###### #####",
       // otherCardMask: "#### #### #### ####",
-      otherCardMask: "### ### ### #",
+      otherCardMask: "### ### ##",
       cardNumberTemp: "",
       isCardFlipped: false,
       focusElementStyle: null,
@@ -289,15 +289,26 @@ export default {
         .then((response) => {
             this.$vs.loading.close();
             console.log(response.data);
-            this.$vs.notify({
-              title: "Success",
-              text: response.data.message,
-              position:'top-right',
-              iconPack: "feather",
-              icon: "icon-alert-circle",
-              color: "success",
-            });
-            this.$router.replace({name:'dashboard-analytics'}).catch((err) => { console.log(err)})
+            if (response.status == 200) {
+              this.$vs.notify({
+                title: "Success",
+                text: response.data.message,
+                position:'top-right',
+                iconPack: "feather",
+                icon: "icon-alert-circle",
+                color: "success",
+              });
+              this.$router.replace({name:'dashboard-analytics'}).catch((err) => { console.log(err)})
+            }else {
+              this.$vs.notify({
+                title: "Error",
+                text: response.data.message,
+                position:'top-right',
+                iconPack: "feather",
+                icon: "icon-alert-circle",
+                color: "danger",
+              });
+            }
         })
         .catch((error) => {
           console.log(error);
@@ -313,49 +324,51 @@ export default {
         });
     },
     validateAccount () {
-      const payload = {
-        code : this.selectedOption.code,
-        accountNumber : this.cardNumber
-      }
-      this.$vs.loading();
-      this.validateBankCredentials(payload)
-        .then((response) => {
-          this.$vs.loading.close();
-          if (response.status == 200) {
-            console.log(response.data.data.account_name);
-            this.accountNameDisable = true
-            this.cardName = response.data.data.account_name
-            this.$vs.notify({
-              title: "Success",
-              text: "Account Found",
-              position:'top-right',
-              iconPack: "feather",
-              icon: "icon-alert-circle",
-              color: "success",
-            });
-          } else {
+      //  && this.selectedOption != 'Choose Bank'
+      if (this.cardNumber.length == 10) {
+        const payload = {
+          code : this.selectedOption.code,
+          accountNumber : this.cardNumber
+        }
+        this.$vs.loading();
+        this.validateBankCredentials(payload)
+          .then((response) => {
+            this.$vs.loading.close();
+            if (response.status == 200) {
+              this.accountNameDisable = true
+              this.cardName = response.data.data.account_name
+              this.$vs.notify({
+                title: "Success",
+                text: "Account Found",
+                position:'top-right',
+                iconPack: "feather",
+                icon: "icon-alert-circle",
+                color: "success",
+              });
+            } else {
+              this.$vs.notify({
+                title: "Error",
+                text: response.data.message,
+                position:'top-right',
+                iconPack: "feather",
+                icon: "icon-alert-circle",
+                color: "danger",
+              });
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+            this.$vs.loading.close();
             this.$vs.notify({
               title: "Error",
-              text: response.data.message,
+              text: error.response.data.messages.error,
               position:'top-right',
               iconPack: "feather",
               icon: "icon-alert-circle",
               color: "danger",
             });
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-          this.$vs.loading.close();
-          this.$vs.notify({
-            title: "Error",
-            text: error.response.data.messages.error,
-            position:'top-right',
-            iconPack: "feather",
-            icon: "icon-alert-circle",
-            color: "danger",
           });
-        });
+      }
     },
     flipCard (status) {
       this.isCardFlipped = status;
