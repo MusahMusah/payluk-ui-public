@@ -3,24 +3,24 @@
     <div class="content-area__conten">
       <div id="item-detail-page">
         <div class="vx-row">
-          <div class="vx-col lg:w-5/5 w-full mb-5">
+          <div class="w-full mb-5 vx-col lg:w-5/5">
             <vx-card>
               <vs-collapse v-if="details.modification_message1">
 
               <vs-collapse-item icon-pack="feather" icon-arrow="icon-arrow-down">
-                <div slot="header" class="text-primary font-bold">
+                <div slot="header" class="font-bold text-primary">
                   OPEN YOUR MODIFICATION REQUEST
                 </div>
 
                 <vs-list>
                   <vs-list-header v-if="details.modification_message1" title="MODIFICATION MESSAGE 1"></vs-list-header>
-                  <vs-list-item v-if="details.modification_message1" title="3 hours ago" :subtitle="details.modification_message1"></vs-list-item>
+                  <vs-list-item v-if="details.modification_message1" :title="details.message_time1" :subtitle="details.modification_message1"></vs-list-item>
 
                   <vs-list-header v-if="details.modification_message2" title="MODIFICATION MESSAGE 2"></vs-list-header>
-                  <vs-list-item v-if="details.modification_message2" title="1 mins ago" :subtitle="details.modification_message2"></vs-list-item>
+                  <vs-list-item v-if="details.modification_message2" :title="details.message_time2" :subtitle="details.modification_message2"></vs-list-item>
 
                   <vs-list-header v-if="details.modification_message3" title="MODIFICATION MESSAGE 3"></vs-list-header>
-                  <vs-list-item v-if="details.modification_message3" title="1 day ago" :subtitle="details.modification_message3"></vs-list-item>
+                  <vs-list-item v-if="details.modification_message3" :title="details.message_time3" :subtitle="details.modification_message3"></vs-list-item>
                 </vs-list>
               </vs-collapse-item>
 
@@ -29,20 +29,20 @@
           </div>
         </div>
         <div class="vx-row">
-          <div class="vx-col lg:w-2/3 relative">
-            <div class="vx-card mb-5">
+          <div class="relative vx-col lg:w-2/3">
+            <div class="mb-5 vx-card">
               <!---->
               <div
                 class="vx-card__collapsible-content vs-con-loading__container"
               >
                 <div class="item-content">
-                  <div class="product-details p-6">
-                    <div class="vx-row mt-6">
+                  <div class="p-6 product-details">
+                    <div class="mt-6 vx-row">
                       <div
-                        class="vx-col md:w-2/5 w-full flex items-center justify-center"
+                        class="flex items-center justify-center w-full vx-col md:w-2/5"
                       >
                         <div
-                          class="product-img-container w-3/5 mx-auto mb-10 md:mb-0"
+                          class="w-3/5 mx-auto mb-10 product-img-container md:mb-0"
                         >
                           <img
                             :src="cover_img"
@@ -51,23 +51,27 @@
                           />
                         </div>
                       </div>
-                      <div class="vx-col md:w-3/5 w-full">
-                        <h3 style="text-transform: uppercase">{{ details.item_name }}</h3>
+                      <div class="w-full vx-col md:w-3/5">
+                        <h3 style="text-transform: uppercase">
+                          <span v-for="(item, index) in details.item_name" :key="index">
+                            <span style="text-transform: uppercase">{{ item }},</span>
+                          </span>
+                        </h3>
                         <p class="my-2">
                           <span class="mr-2">by</span
                           ><span style="text-transform: uppercase">{{ details.company_name }}</span>
                         </p>
-                        <p class="flex items-center flex-wrap">
+                        <p class="flex flex-wrap items-center">
                           <span v-if="details.currency == 'USD' "
-                            class="text-2xl leading-none font-medium text-primary mr-4 mt-2"
+                            class="mt-2 mr-4 text-2xl font-medium leading-none text-primary"
                             >${{ details.total_cost }}</span
                           >
                           <span v-else-if="details.currency == 'NGN' "
-                            class="text-2xl leading-none font-medium text-primary mr-4 mt-2"
+                            class="mt-2 mr-4 text-2xl font-medium leading-none text-primary"
                             >₦{{ details.total_cost }}</span
                           >
                           <span
-                            class="pl-4 mr-2 mt-2 border border-solid d-theme-border-grey-light border-t-0 border-b-0 border-r-0"
+                            class="pl-4 mt-2 mr-2 border border-t-0 border-b-0 border-r-0 border-solid d-theme-border-grey-light"
                           >
                             <div data-v-34cbeed1="" class="vue-star-rating">
                               <div data-v-34cbeed1="" class="vue-star-rating">
@@ -466,7 +470,7 @@
                               </div>
                             </div>
                           </span>
-                          <span class="cursor-pointer leading-none mt-2"
+                          <span class="mt-2 leading-none cursor-pointer"
                             >424 ratings</span
                           >
                         </p>
@@ -509,8 +513,8 @@
                           ></span>
                         </div>
 
-                        <div class="vx-row mt-3">
-                          <span class="text-xl font-medium ml-3"
+                        <div class="mt-3 vx-row">
+                          <span class="ml-3 text-xl font-medium"
                             >Wallet ID :
                           </span>
                           <vs-chip
@@ -539,19 +543,19 @@
                         </div>
 
                         <!-- <div class="vx-row">
-                          <div class="vx-col w-full">
-                            <div class="flex flex-wra items-sta mb-4">
+                          <div class="w-full vx-col">
+                            <div class="flex mb-4 flex-wra items-sta">
                               <vs-button> ACCEPT & PAY</vs-button>
                               <vs-button class="ml-2"> COMPLETE PAY </vs-button>
                             </div>
                           </div>
-                          <div class="vx-col w-full">
-                            <div class="fle flex-wra items-sta mb-4">
+                          <div class="w-full vx-col">
+                            <div class="mb-4 fle flex-wra items-sta">
                               <vs-button> REQUEST MODIFICATION </vs-button>
                             </div>
                           </div>
-                          <div class="vx-col w-full">
-                            <div class="fle flex-wra items-sta mb-4">
+                          <div class="w-full vx-col">
+                            <div class="mb-4 fle flex-wra items-sta">
                               <vs-button> OPEN TICKET </vs-button>
                             </div>
                           </div>
@@ -574,13 +578,13 @@
               </div>
             </div>
           </div>
-          <div class="vx-col lg:w-1/3 w-full">
+          <div class="w-full vx-col lg:w-1/3">
             <vx-card>
-              <!-- <p class="text-grey mb-3">Contract Details</p> -->
-              <p class="font-semibold mb-3">Contract Details</p>
+              <!-- <p class="mb-3 text-grey">Contract Details</p> -->
+              <p class="mb-3 font-semibold">Contract Details</p>
               <div class="flex justify-between">
                 <!-- <span class="font-semibold">Coupons</span> -->
-                <span class="font-medium text-primary cursor-pointer"
+                <span class="font-medium cursor-pointer text-primary"
                   >All Contracts</span
                 >
               </div>
@@ -642,63 +646,42 @@ export default {
   computed : {
     ...mapGetters({
       getBuyerCompletedContracts: "contract_request/getBuyerCompletedContracts",
+      getSingleContract: "contract_request/getSingleContract",
     }),
     allBuyerCompletedContracts () {
       return this.getBuyerCompletedContracts
-    }
+    },
+    singleContractDetails () {
+      return this.getSingleContract
+    },
   },
 
   methods : {
     ...mapActions({
       buyerCompletedContracts: "contract_request/buyerCompletedContracts",
+      singleContract: "contract_request/singleContract",
     }),
   },
 
   watch: {
     '$route'() {
-      this.$vs.loading();
-      this.buyerCompletedContracts()
-      .then(() => {
-        this.$vs.loading.close();
-        if (this.allBuyerCompletedContracts != null) {
-          for(var i = 0; i  < this.allBuyerCompletedContracts.length; i++) {
-            if(this.allBuyerCompletedContracts[i].invitation_id == this.$route.params.invitation_id) {
-              this.details = this.allBuyerCompletedContracts[0]
-              break;
-            } else{
-              this.$router.replace({name: '404'}).catch(() => {})
-            }
-          }
-        }
-      })
-      .catch(() => {
-        this.$router.replace({name: '404'}).catch(() => {})
-      })
     },
   },
 
   created() {
     this.$vs.loading();
-    this.buyerCompletedContracts()
+    this.singleContract(this.$route.params.invitation_id)
     .then(() => {
       this.$vs.loading.close();
-      if (this.allBuyerCompletedContracts != null) {
-          for(var i = 0; i  < this.allBuyerCompletedContracts.length; i++) {
-            if(this.allBuyerCompletedContracts[i].invitation_id == this.$route.params.invitation_id) {
-              this.details = this.allBuyerCompletedContracts[0]
-              break;
-            } else{
-              this.$router.replace({name: '404'}).catch(() => {})
-            }
-          }
-      }
+      this.details = this.singleContractDetails[0]
     })
     .catch(() => {
+      this.$vs.loading.close();
       this.$router.replace({name: '404'}).catch(() => {})
     })
   },
   mounted () {
-    this.buyerCompletedContracts();
+    // this.buyerCompletedContracts();
   }
 };
 </script>

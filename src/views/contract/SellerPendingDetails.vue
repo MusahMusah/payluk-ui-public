@@ -14,15 +14,15 @@
 
                 <vs-list>
                   <vs-list-header v-if="details.modification_message1" title="MODIFICATION MESSAGE 1"></vs-list-header>
-                  <vs-list-item v-if="details.modification_message1" title="3 hours ago" :subtitle="details.modification_message1"></vs-list-item>
+                  <vs-list-item v-if="details.modification_message1" :title="details.message_time1" :subtitle="details.modification_message1"></vs-list-item>
 
                   <vs-list-header v-if="details.modification_message2" title="MODIFICATION MESSAGE 2"></vs-list-header>
-                  <vs-list-item v-if="details.modification_message2" title="1 mins ago" :subtitle="details.modification_message2"></vs-list-item>
+                  <vs-list-item v-if="details.modification_message2" :title="details.message_time2" :subtitle="details.modification_message2"></vs-list-item>
 
                   <vs-list-header v-if="details.modification_message3" title="MODIFICATION MESSAGE 3"></vs-list-header>
-                  <vs-list-item v-if="details.modification_message3" title="1 day ago" :subtitle="details.modification_message3"></vs-list-item>
+                  <vs-list-item v-if="details.modification_message3" :title="details.message_time3" :subtitle="details.modification_message3"></vs-list-item>
                 </vs-list>
-                <vs-button color="primary" @click="popupActive=true" type="border" v-if="details.state == 'open' && details.status == 'pending'" class="w-full mt-6">MODIFY CONTRACT</vs-button>
+                <vs-button color="primary" @click="popupActive=true" type="border" v-if="details.state == 'open' && details.status == 'request_modification'" class="w-full mt-6">MODIFY CONTRACT</vs-button>
               </vs-collapse-item>
 
             </vs-collapse>
@@ -53,7 +53,11 @@
                         </div>
                       </div>
                       <div class="w-full vx-col md:w-3/5">
-                        <h3 style="text-transform: uppercase">{{ details.item_name }}</h3>
+                        <h3 style="text-transform: uppercase">
+                          <span v-for="(item, index) in details.item_name" :key="index">
+                            <span style="text-transform: uppercase">{{ item }},</span>
+                          </span>
+                        </h3>
                         <p class="my-2">
                           <span class="mr-2">by</span
                           ><span style="text-transform: uppercase">{{ details.company_name }}</span>
@@ -543,7 +547,7 @@
                           <div class="w-full vx-col">
                             <div class="mb-4 fle flex-wra items-sta">
                               <!-- @click="ticketPopUp(details.invitation_id)" -->
-                               <vs-button type="border" color="primary" @click="popupActivo = true" v-if="!(details.expired_time >  details.delivered_before_date && details.seller_ticket != 1)"> OPEN TICKET </vs-button>
+                               <vs-button type="border" color="primary" @click="popupActivo = true" v-if="(details.current_date >  details.delivered_before_date && details.seller_ticket != 1 && details.status != 'request_modification')"> OPEN TICKET </vs-button>
                             </div>
                           </div>
                         </div>
@@ -611,7 +615,7 @@
               <vs-divider />
 
 
-              <vs-button color="primary" v-if="details.state == 'open' && details.status == 'pending'" @click="popupActive=true" type="border" class="w-full">MODIFY CONTRACT</vs-button>
+              <vs-button color="primary" v-if="details.state == 'open' && details.status == 'request_modification'" @click="popupActive=true" type="border" class="w-full">MODIFY CONTRACT</vs-button>
             </vx-card>
           </div>
         </div>
@@ -626,7 +630,7 @@
         <!-- <form data-vv-scope="add-new-address"> -->
         <div class="vx-row">
           <div class="w-full vx-col sm:w-1/2">
-            <vs-input
+            <!-- <vs-input
               v-validate="'required|min:3'"
               data-vv-validate-on="blur"
               label="Item Name:"
@@ -638,6 +642,11 @@
               icon-pack="feather"
               icon="icon-mail"
             />
+            <span class="text-sm text-danger">{{
+              errors.first("Item Name")
+            }}</span> -->
+            <label for="">Add Item(s) Name</label>
+            <v-select data-vv-validate-on="blur" v-validate="'required|min:3'" name="Item Name" v-model="details.item_name" class="w-full"  taggable multiple push-tags />
             <span class="text-sm text-danger">{{
               errors.first("Item Name")
             }}</span>
@@ -949,15 +958,20 @@ export default {
     },
     ...mapGetters({
       getSellerPendingContracts: "contract_request/getSellerPendingContracts",
+      getSingleContract: "contract_request/getSingleContract",
     }),
     allSellerPendingContracts () {
       return this.getSellerPendingContracts
-    }
+    },
+    singleContractDetails () {
+      return this.getSingleContract
+    },
   },
 
   methods : {
     ...mapActions({
       sellerPendingContracts: "contract_request/sellerPendingContracts",
+      singleContract: "contract_request/singleContract",
       sendTicket: "tickets/sendTicket",
       sendQuotation: "contract_request/sendQuotation",
     }),
@@ -1082,45 +1096,27 @@ export default {
   },
 
   watch: {
-    '$route'() {
-      this.$vs.loading();
-      this.sellerPendingContracts()
-      .then(() => {
-        this.$vs.loading.close();
-        if (this.allSellerPendingContracts != null) {
-          for(var i = 0; i  < this.allSellerPendingContracts.length; i++) {
-            if(this.allSellerPendingContracts[i].invitation_id == this.$route.params.invitation_id) {
-              this.details = this.allSellerPendingContracts[0]
-              break;
-            } else{
-              this.$router.replace({name: '404'}).catch(() => {})
-            }
-          }
-        }
-      })
-      .catch(() => {
-        this.$router.replace({name: '404'}).catch(() => {})
-      })
-    },
+    // '$route'() {
+    //   this.$vs.loading();
+    //   this.singleContract(this.$route.params.invitation_id)
+    //   .then(() => {
+    //     this.$vs.loading.close();
+    //   })
+    //   .catch(() => {
+    //     this.$router.replace({name: '404'}).catch(() => {})
+    //   })
+    // },
   },
 
   created() {
     this.$vs.loading();
-    this.sellerPendingContracts()
+    this.singleContract(this.$route.params.invitation_id)
     .then(() => {
+      this.details = this.singleContractDetails[0]
       this.$vs.loading.close();
-      if (this.allSellerPendingContracts != null) {
-          for(var i = 0; i  < this.allSellerPendingContracts.length; i++) {
-            if(this.allSellerPendingContracts[i].invitation_id == this.$route.params.invitation_id) {
-              this.details = this.allSellerPendingContracts[0]
-              break;
-            } else{
-              this.$router.replace({name: '404'}).catch(() => {})
-            }
-          }
-      }
     })
     .catch(() => {
+      this.$vs.loading.close();
       this.$router.replace({name: '404'}).catch(() => {})
     })
   },

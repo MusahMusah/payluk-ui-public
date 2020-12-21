@@ -3,24 +3,24 @@
     <div class="content-area__conten">
       <div id="item-detail-page">
         <div class="vx-row">
-          <div class="vx-col lg:w-5/5 w-full mb-5">
+          <div class="w-full mb-5 vx-col lg:w-5/5">
             <vx-card>
               <vs-collapse v-if="details.modification_message1">
 
               <vs-collapse-item icon-pack="feather" icon-arrow="icon-arrow-down">
-                <div slot="header" class="text-primary font-bold">
+                <div slot="header" class="font-bold text-primary">
                   OPEN YOUR MODIFICATION REQUEST
                 </div>
 
                 <vs-list>
                   <vs-list-header v-if="details.modification_message1" title="MODIFICATION MESSAGE 1"></vs-list-header>
-                  <vs-list-item v-if="details.modification_message1" title="3 hours ago" :subtitle="details.modification_message1"></vs-list-item>
+                  <vs-list-item v-if="details.modification_message1" :title="details.message_time1" :subtitle="details.modification_message1"></vs-list-item>
 
                   <vs-list-header v-if="details.modification_message2" title="MODIFICATION MESSAGE 2"></vs-list-header>
-                  <vs-list-item v-if="details.modification_message2" title="1 mins ago" :subtitle="details.modification_message2"></vs-list-item>
+                  <vs-list-item v-if="details.modification_message2" :title="details.message_time2" :subtitle="details.modification_message2"></vs-list-item>
 
                   <vs-list-header v-if="details.modification_message3" title="MODIFICATION MESSAGE 3"></vs-list-header>
-                  <vs-list-item v-if="details.modification_message3" title="1 day ago" :subtitle="details.modification_message3"></vs-list-item>
+                  <vs-list-item v-if="details.modification_message3" :title="details.message_time3" :subtitle="details.modification_message3"></vs-list-item>
                 </vs-list>
               </vs-collapse-item>
 
@@ -29,20 +29,20 @@
           </div>
         </div>
         <div class="vx-row">
-          <div class="vx-col lg:w-2/3 relative">
-            <div class="vx-card mb-5">
+          <div class="relative vx-col lg:w-2/3">
+            <div class="mb-5 vx-card">
               <!---->
               <div
                 class="vx-card__collapsible-content vs-con-loading__container"
               >
                 <div class="item-content">
-                  <div class="product-details p-6">
-                    <div class="vx-row mt-6">
+                  <div class="p-6 product-details">
+                    <div class="mt-6 vx-row">
                       <div
-                        class="vx-col md:w-2/5 w-full flex items-center justify-center"
+                        class="flex items-center justify-center w-full vx-col md:w-2/5"
                       >
                         <div
-                          class="product-img-container w-3/5 mx-auto mb-10 md:mb-0"
+                          class="w-3/5 mx-auto mb-10 product-img-container md:mb-0"
                         >
                           <img
                             :src="cover_img"
@@ -51,23 +51,27 @@
                           />
                         </div>
                       </div>
-                      <div class="vx-col md:w-3/5 w-full">
-                        <h3 style="text-transform: uppercase">{{ details.item_name }}</h3>
+                      <div class="w-full vx-col md:w-3/5">
+                        <h3 style="text-transform: uppercase">
+                          <span v-for="(item, index) in details.item_name" :key="index">
+                            <span style="text-transform: uppercase">{{ item }},</span>
+                          </span>
+                        </h3>
                         <p class="my-2">
                           <span class="mr-2">by</span
                           ><span style="text-transform: uppercase">{{ details.company_name }}</span>
                         </p>
-                        <p class="flex items-center flex-wrap">
+                        <p class="flex flex-wrap items-center">
                           <span v-if="details.currency == 'USD' "
-                            class="text-2xl leading-none font-medium text-primary mr-4 mt-2"
+                            class="mt-2 mr-4 text-2xl font-medium leading-none text-primary"
                             >${{ details.total_cost }}</span
                           >
                           <span v-else-if="details.currency == 'NGN' "
-                            class="text-2xl leading-none font-medium text-primary mr-4 mt-2"
+                            class="mt-2 mr-4 text-2xl font-medium leading-none text-primary"
                             >₦{{ details.total_cost }}</span
                           >
                           <span
-                            class="pl-4 mr-2 mt-2 border border-solid d-theme-border-grey-light border-t-0 border-b-0 border-r-0"
+                            class="pl-4 mt-2 mr-2 border border-t-0 border-b-0 border-r-0 border-solid d-theme-border-grey-light"
                           >
                             <div data-v-34cbeed1="" class="vue-star-rating">
                               <div data-v-34cbeed1="" class="vue-star-rating">
@@ -466,7 +470,7 @@
                               </div>
                             </div>
                           </span>
-                          <span class="cursor-pointer leading-none mt-2"
+                          <span class="mt-2 leading-none cursor-pointer"
                             >424 ratings</span
                           >
                         </p>
@@ -509,8 +513,8 @@
                           ></span>
                         </div>
 
-                        <div class="vx-row mt-3">
-                          <span class="text-xl font-medium ml-3"
+                        <div class="mt-3 vx-row">
+                          <span class="ml-3 text-xl font-medium"
                             >Wallet ID :
                           </span>
                           <vs-chip
@@ -539,20 +543,20 @@
                         </div>
 
                         <div class="vx-row">
-                          <div class="vx-col w-full">
-                            <div class="flex flex-wra items-sta mb-4">
-                              <vs-button v-if="(details.payment != 'made')" type="border" color="primary" @click="openConfirm(details)"> ACCEPT & PAY</vs-button>
-                              <vs-button type="border" color="primary" v-if=" (details.payment == 'made')" @click="openConfirm2(details.invitation_id)" class="ml2"> CONFIRM TRNSACTION </vs-button>
+                          <div class="w-full vx-col">
+                            <div class="flex mb-4 flex-wra items-sta">
+                              <vs-button v-if="(details.payment != 'made' && details.status != 'request_modification')" type="border" color="primary" @click="openConfirm(details)"> ACCEPT & PAY</vs-button>
+                              <vs-button type="border" color="primary" v-if=" (details.payment == 'made' && details.status != 'request_modification')" @click="openConfirm2(details.invitation_id)" class="ml2"> CONFIRM TRNSACTION </vs-button>
                             </div>
                           </div>
-                          <div class="vx-col w-full">
-                            <div class="fle flex-wra items-sta mb-4">
+                          <div class="w-full vx-col">
+                            <div class="mb-4 fle flex-wra items-sta">
                               <vs-button @click="popupActivo4 = true" v-if="(details.flow == 'buyer' && details.status != 'request_modification')" type="border" color="primary" > REQUEST MODIFICATION </vs-button>
                             </div>
                           </div>
-                          <div class="vx-col w-full">
-                            <div class="fle flex-wra items-sta mb-4">
-                              <vs-button type="border" color="primary" @click="ticketPopUp(details.invitation_id)" v-if="(details.expired_time >  details.delivered_before_date && details.buyer_ticket != 1)"> OPEN TICKET </vs-button>
+                          <div class="w-full vx-col">
+                            <div class="mb-4 fle flex-wra items-sta">
+                              <vs-button type="border" color="primary" @click="ticketPopUp(details.invitation_id)" v-if="(details.current_date >  details.delivered_before_date && details.buyer_ticket != 1 && details.status != 'request_modification')"> OPEN TICKET </vs-button>
                             </div>
                           </div>
                         </div>
@@ -582,8 +586,8 @@
               title="REQUEST MODIFICATION OF SELLER QUOTATION"
               :active.sync="popupActivo4"
             >
-              <div class="vx-row mt-5">
-                <div class="vx-col w-full">
+              <div class="mt-5 vx-row">
+                <div class="w-full vx-col">
                   <vs-textarea
                     label="Modification Message"
                     name="Message"
@@ -591,7 +595,7 @@
                     v-validate="'required'"
                     v-model="modification_message"
                   />
-                  <span class="text-danger text-sm">{{
+                  <span class="text-sm text-danger">{{
                     errors.first("Message")
                   }}</span>
                 </div>
@@ -599,7 +603,7 @@
               <!-- :disabled="!validateForm" -->
               <vs-button
                 :disabled="!validateForm"
-                class="mt-6 ml-auto flex"
+                class="flex mt-6 ml-auto"
                 @click="send_request_modification(details.invitation_id)"
                 >SUBMIT REQUEST</vs-button
               >
@@ -615,8 +619,8 @@
               :style="visibility2"
               :active.sync="popupActivo2"
             >
-              <div class="vx-row mt-5">
-                <div class="vx-col w-full">
+              <div class="mt-5 vx-row">
+                <div class="w-full vx-col">
                   <label style="font-weight:bold">Star Rating</label>
                   <v-select
                     data-vv-validate-on="blur"
@@ -628,19 +632,19 @@
                   ></v-select>
                 </div>
               </div>
-              <div class="vx-row mt-5">
+              <div class="mt-5 vx-row">
                   <label for="" class="m-2" style="font-weight:bold">Are You Satisfied :</label>
                   <vs-switch class="m-2" style="width: 20%;" color="primary" vs-icon-on="check_box" vs-icon-off="block" v-model="satisfied">
                     <span slot="on">YES</span>
                     <span slot="off">NO</span>
                   </vs-switch>
               </div>
-              <div class="vx-row mt-5">
-                <div class="vx-col w-full">
+              <div class="mt-5 vx-row">
+                <div class="w-full vx-col">
                   <vs-textarea label="Remark Message" v-model="message" />
                 </div>
               </div>
-              <vs-button :disabled="!validateForm2" class="mt-6 ml-auto flex" @click="send_review"
+              <vs-button :disabled="!validateForm2" class="flex mt-6 ml-auto" @click="send_review"
                 >SUBMIT REVIEW</vs-button
               >
               <!-- </form> -->
@@ -655,7 +659,7 @@
               :active.sync="popupActivo3"
             >
               <div class="vx-row">
-                <div class="vx-col w-full">
+                <div class="w-full vx-col">
                   <label for="">Ticket Subject:</label>
                   <vs-select
                     data-vv-validate-on="blur"
@@ -671,29 +675,29 @@
                       v-for="(item, index) in addressTypeOptions"
                     />
                   </vs-select>
-                  <span class="text-danger text-sm">{{
+                  <span class="text-sm text-danger">{{
                     errors.first("Ticket Subject")
                   }}</span>
                 </div>
               </div>
-              <div class="vx-row mt-5">
-                <div class="vx-col w-full">
+              <div class="mt-5 vx-row">
+                <div class="w-full vx-col">
                   <vs-textarea
                     data-vv-validate-on="blur"
                     v-validate="'required'"
                     label="Message"
                     v-model="ticket_message"
                   />
-                  <span class="text-danger text-sm">{{
+                  <span class="text-sm text-danger">{{
                     errors.first("Ticket Mesage")
                   }}</span>
                 </div>
               </div>
-              <div class="vx-row mt-5">
-                <div class="vx-col w-full">
+              <div class="mt-5 vx-row">
+                <div class="w-full vx-col">
                   <img
                     v-bind:src="imagePreview"
-                    class="preview-imag w-full"
+                    class="w-full preview-imag"
                     v-on:click="openUpload"
                     style="height: 57vh !important; object-fit: cover"
                   />
@@ -713,20 +717,20 @@
 
               <vs-button
                 :disabled="!validateForm3"
-                class="mt-6 ml-auto flex"
+                class="flex mt-6 ml-auto"
                 @click="send_ticket"
                 >SUBMIT TICKET</vs-button
               >
             </vs-popup>
           </div>
 
-          <div class="vx-col lg:w-1/3 w-full">
+          <div class="w-full vx-col lg:w-1/3">
             <vx-card>
-              <!-- <p class="text-grey mb-3">Contract Details</p> -->
-              <p class="font-semibold mb-3">Contract Details</p>
+              <!-- <p class="mb-3 text-grey">Contract Details</p> -->
+              <p class="mb-3 font-semibold">Contract Details</p>
               <div class="flex justify-between">
                 <!-- <span class="font-semibold">Coupons</span> -->
-                <span class="font-medium text-primary cursor-pointer"
+                <span class="font-medium cursor-pointer text-primary"
                   >All Contracts</span
                 >
               </div>
@@ -829,6 +833,7 @@ export default {
   computed : {
     ...mapGetters({
       getBuyerPendingContracts: "contract_request/getBuyerPendingContracts",
+      getSingleContract: "contract_request/getSingleContract",
     }),
     validateForm() {
       return !this.errors.any() && this.modification_message != "";
@@ -841,9 +846,12 @@ export default {
         !this.errors.any() && this.subject != "" && this.ticket_message != ""
       );
     },
-    allBuyerPendingContracts () {
-      return this.getBuyerPendingContracts
-    }
+    singleContractDetails () {
+      return this.getSingleContract
+    },
+    // allBuyerPendingContracts () {
+    //   return this.getBuyerPendingContracts
+    // }
   },
 
   methods : {
@@ -855,6 +863,7 @@ export default {
       sendBuyerTicket: "tickets/sendBuyerTicket",
       sendRequestModification: "contract_request/sendRequestModification",
       declineContract: "contract_request/declineContract",
+      singleContract: "contract_request/singleContract",
     }),
 
     decline_contract(invitation_id) {
@@ -1155,45 +1164,27 @@ export default {
   },
 
   watch: {
-    '$route'() {
-      this.$vs.loading();
-      this.buyerPendingContracts()
-      .then(() => {
-        this.$vs.loading.close();
-        if (this.allBuyerPendingContracts != null) {
-          for(var i = 0; i  < this.allBuyerPendingContracts.length; i++) {
-            if(this.allBuyerPendingContracts[i].invitation_id == this.$route.params.invitation_id) {
-              this.details = this.allBuyerPendingContracts[0]
-              break;
-            } else{
-              this.$router.replace({name: '404'}).catch(() => {})
-            }
-          }
-        }
-      })
-      .catch(() => {
-        this.$router.replace({name: '404'}).catch(() => {})
-      })
-    },
+    // '$route'() {
+    //   this.$vs.loading();
+    //   this.singleContract(this.$route.params.invitation_id)
+    //   .then(() => {
+    //     this.$vs.loading.close();
+    //   })
+    //   .catch(() => {
+    //     this.$router.replace({name: '404'}).catch(() => {})
+    //   })
+    // },
   },
 
   created() {
     this.$vs.loading();
-    this.buyerPendingContracts()
+    this.singleContract(this.$route.params.invitation_id)
     .then(() => {
       this.$vs.loading.close();
-      if (this.allBuyerPendingContracts != null) {
-          for(var i = 0; i  < this.allBuyerPendingContracts.length; i++) {
-            if(this.allBuyerPendingContracts[i].invitation_id == this.$route.params.invitation_id) {
-              this.details = this.allBuyerPendingContracts[0]
-              break;
-            } else{
-              this.$router.replace({name: '404'}).catch(() => {})
-            }
-          }
-      }
+      this.details = this.singleContractDetails[0]
     })
     .catch(() => {
+      this.$vs.loading.close();
       this.$router.replace({name: '404'}).catch(() => {})
     })
   },

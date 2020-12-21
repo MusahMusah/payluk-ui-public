@@ -193,18 +193,18 @@ export default {
     revenueComparisonLine: {
         series: [{
                 name: "This Month",
-                // data: [45000, 47000, 44800, 47500, 45500, 48000, 46500, 48600]
-                data: [46000, 48000,30048,46000, 28809, 10038, 46600, 44500, 46500,
-                  45000, 47000,46000, 48000, 45500, 46600, 44500,
-                  46500, 45000, 47000,46000, 7893, 2762, 46600, 44500, 46500, 45000,
-                   47000,46000, 48000, 45500, 46600]
+                data: [45000, 47000, 44800, 47500, 45500, 48000, 46500, 48600]
+                // data: [46000, 48000,30048,46000, 28809, 10038, 46600, 44500, 46500,
+                //   45000, 47000,46000, 48000, 45500, 46600, 44500,
+                //   46500, 45000, 47000,46000, 7893, 2762, 46600, 44500, 46500, 45000,
+                //    47000,46000, 48000, 45500, 46600]
             },
             {
                 name: "Last Month",
-                // data: [46000, 48000, 45500, 46600, 44500, 46500, 45000, 47000]
-                data: [46000, 48000,46600,20034, 1234, 4000, 46600, 44500, 46500,
-                   45000, 47000,46000, 48000, 45500, 46600, 44500,
-                   46500, 45000, 1200,46000, 9200, 45500, 16000, 44500, 46500, 45000, 8000,2000, 48000, 45500, 46600]
+                data: [46000, 48000, 45500, 46600, 44500, 46500, 45000, 47000]
+                // data: [46000, 48000,46600,20034, 1234, 4000, 46600, 44500, 46500,
+                //    45000, 47000,46000, 48000, 45500, 46600, 44500,
+                //    46500, 45000, 1200,46000, 9200, 45500, 16000, 44500, 46500, 45000, 8000,2000, 48000, 45500, 46600]
             }
         ],
         chartOptions: {
@@ -258,9 +258,7 @@ export default {
                 axisTicks: {
                     show: false,
                 },
-                // categories: ['01', '05', '09', '13', '17', '21', '26', '31'],
-                categories: ['01','02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12',
-                '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'],
+                categories: ['01', '05', '09', '13', '17', '21', '26', '31'],
                 axisBorder: {
                     show: false,
                 },
@@ -555,7 +553,7 @@ export default {
     },
     // RADIAL BAR
     goalOverviewRadialBar: {
-        series: [600, 500],
+        // series: [600, 500],
         chartOptions :{
             colors: ['#7367f0', '#7367f0'],
             plotOptions: {
@@ -565,13 +563,44 @@ export default {
                         show: true,
                         fontSize: '14px',
                         formatter: function (val) {
-                          return  '$' + val
+                          try {
+                            let decimalCount = Math.abs(2);
+                            decimalCount = isNaN(decimalCount) ? 2 : decimalCount;
+
+                            const negativeSign = val < 0 ? "-" : "";
+
+                            let i = parseInt(val = Math.abs(Number(val) || 0).toFixed(decimalCount)).toString();
+                            let j = (i.length > 3) ? i.length % 3 : 0;
+                            return `₦${negativeSign + (j ? i.substr(0, j) + ',' : '')
+                            + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + ',')
+                            + (decimalCount ? '.' + Math.abs(val - i).toFixed(decimalCount).slice(2) : "")}`;
+
+                          } catch (e) {
+                            console.log(e)
+                          }
                         }
                     },
                     total: {
                     show: true,
                     formatter: function (w ) {
-                        return `$${w.config.series[0] + w.config.series[1]}`
+                        try {
+                          let total = w.config.series[0] + w.config.series[1]
+                          let decimalCount = Math.abs(2);
+                          decimalCount = isNaN(decimalCount) ? 2 : decimalCount;
+
+                          const negativeSign = total < 0 ? "-" : "";
+
+                          let i = parseInt(total = Math.abs(Number(total) || 0).toFixed(decimalCount)).toString();
+                          let j = (i.length > 3) ? i.length % 3 : 0;
+                          return `₦${negativeSign + (j ? i.substr(0, j) + ',' : '')
+                          + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + ',')
+                          + (decimalCount ? '.' + Math.abs(total - i).toFixed(decimalCount).slice(2) : "")}`;
+
+                        } catch (e) {
+                          console.log(e)
+                        }
+                        // return `₦${w.config.series[0] + w.config.series[1]}`
+                        // return '₦' + total
                       },
                     label: 'TOTAL'
                     },
@@ -641,13 +670,14 @@ export default {
     statisticsRadar: {
         series: [{
             name: 'Visits',
-            data: [90, 50, 86, 40, 100, 20],
+            data: [90, 50, 86, 40, 100, 20,100,90,80,30,40,100],
         }, {
             name: 'Sales',
-            data: [70, 75, 70, 76, 20, 85],
+            data: [70, 75, 70, 76, 20, 85,80,90,80,30,40,100],
         }],
         chartOptions: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+            // labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
             dataLabels: {
                 style: {
                     colors: ['#b9c3cd', '#b9c3cd', '#b9c3cd', '#b9c3cd', '#b9c3cd', '#b9c3cd']
@@ -736,13 +766,13 @@ export default {
     // Product Orders
     productOrdersRadialBar: {
         analyticsData: [
-            { 'orderType': 'Finished', 'counts': 23043, color: 'primary' },
+            { 'orderType': 'Completed', 'counts': 23043, color: 'primary' },
             { 'orderType': 'Pending', 'counts': 14658, color: 'warning' },
-            { 'orderType': 'Rejected ', 'counts': 4758, color: 'danger' },
+            // { 'orderType': 'Rejected ', 'counts': 4758, color: 'danger' },
         ],
         series: [70, 52, 26],
         chartOptions: {
-            labels: ['Finished', 'Pending', 'Rejected'],
+            labels: ['Completed', 'Pending', 'Rejected'],
             plotOptions: {
                 radialBar: {
                     size: 165,
@@ -763,13 +793,16 @@ export default {
                         value: {
                             fontSize: '16px',
                             color: "#636a71",
-                            offsetY: 11
+                            offsetY: 11,
+                            formatter: function (val) {
+                              return val
+                            }
                         },
                         total: {
                             show: true,
                             label: 'Total',
-                            formatter: function() {
-                                return 42459
+                            formatter: function (w ) {
+                              return `${w.config.series[0] + w.config.series[1]}`
                             }
                         }
                     }

@@ -27,7 +27,7 @@
     >
       <div
         slot="header"
-        class="flex flex-wrap-reverse items-center flex-grow justify-between"
+        class="flex flex-wrap-reverse items-center justify-between flex-grow"
       >
         <!-- <vs-button
           type="border"
@@ -39,9 +39,9 @@
         <!-- {{pendingContracts}} -->
 
         <!-- ITEMS PER PAGE -->
-        <vs-dropdown vs-trigger-click class="cursor-pointer mb-4 mr-4">
+        <vs-dropdown vs-trigger-click class="mb-4 mr-4 cursor-pointer">
           <div
-            class="p-4 border border-solid d-theme-border-grey-light rounded-full d-theme-dark-bg cursor-pointer flex items-center justify-between font-medium"
+            class="flex items-center justify-between p-4 font-medium border border-solid rounded-full cursor-pointer d-theme-border-grey-light d-theme-dark-bg"
           >
             <span class="mr-2"
               >{{ currentPage * itemsPerPage - (itemsPerPage - 1) }} -
@@ -86,7 +86,7 @@
         <!-- <vs-th sort-key="price">Ship Date</vs-th>
         <vs-th sort-key="price">Delivered Before</vs-th> -->
         <vs-th sort-key="price">Details</vs-th>
-        <vs-th>Action</vs-th>
+        <!-- <vs-th>Action</vs-th> -->
       </template>
 
       <template slot-scope="{ data }">
@@ -102,14 +102,16 @@
             </vs-td>
 
             <vs-td>
-              <p class="product-name font-medium truncate">
+              <p class="font-medium truncate product-name">
                 {{ tr.company_name }}
               </p>
             </vs-td>
 
             <vs-td>
-              <p class="product-name font-medium truncate">
-                {{ tr.item_name }}
+              <p class="font-medium truncate product-name">
+                <span v-for="(item, index) in tr.item_name" :key="index">
+                  <span v-if="index <= 2">{{ item }},</span>
+                </span>
               </p>
             </vs-td>
 
@@ -131,7 +133,7 @@
                 >View</vs-button
               >
             </vs-td>
-
+<!--
             <vs-td class="whitespace-no-wrap">
               <vs-button
                 :style="hide"
@@ -145,9 +147,7 @@
               >
                 Open Ticket
               </vs-button>
-              <!-- close_transaction(tr.invitation_id) -->
-              <!-- open_ticket_popop -->
-            </vs-td>
+            </vs-td> -->
           </vs-tr>
         </tbody>
         <div class="">
@@ -158,7 +158,7 @@
             :active.sync="popupActivo2"
           >
             <div class="vx-row">
-              <div class="vx-col w-full">
+              <div class="w-full vx-col">
                 <label for="">Ticket Subject:</label>
                 <vs-select
                   data-vv-validate-on="blur"
@@ -174,29 +174,29 @@
                     v-for="(item, index) in addressTypeOptions"
                   />
                 </vs-select>
-                <span class="text-danger text-sm">{{
+                <span class="text-sm text-danger">{{
                   errors.first("Ticket Subject")
                 }}</span>
               </div>
             </div>
-            <div class="vx-row mt-5">
-              <div class="vx-col w-full">
+            <div class="mt-5 vx-row">
+              <div class="w-full vx-col">
                 <vs-textarea
                   data-vv-validate-on="blur"
                   v-validate="'required'"
                   label="Message"
                   v-model="ticket_message"
                 />
-                <span class="text-danger text-sm">{{
+                <span class="text-sm text-danger">{{
                   errors.first("Ticket Mesage")
                 }}</span>
               </div>
             </div>
-            <div class="vx-row mt-5">
-              <div class="vx-col w-full">
+            <div class="mt-5 vx-row">
+              <div class="w-full vx-col">
                 <img
                   v-bind:src="imagePreview"
-                  class="review-image w-full"
+                  class="w-full review-image"
                   v-on:click="openUpload"
                   style="heght: 60vh !important; object-fit: contain"
                 />
@@ -216,7 +216,7 @@
 
             <vs-button
               :disabled="!validateForm3"
-              class="mt-6 ml-auto flex"
+              class="flex mt-6 ml-auto"
               @click="send_ticket"
               >SUBMIT TICKET</vs-button
             >
@@ -231,8 +231,8 @@
             :style="visibility"
             :active.sync="popupActivo"
           >
-            <div class="vx-row mt-5">
-              <div class="vx-col w-full">
+            <div class="mt-5 vx-row">
+              <div class="w-full vx-col">
                 <label>Select Contract Type</label>
                 <v-select
                   data-vv-validate-on="blur"
@@ -242,14 +242,14 @@
                   class="w-full"
                   :options="['Pending', 'Completed']"
                 ></v-select>
-                <span class="text-danger text-sm">{{
+                <span class="text-sm text-danger">{{
                   errors.first("Contract Type")
                 }}</span>
               </div>
             </div>
             <vs-button
               :disabled="!validateForm"
-              class="mt-6 ml-auto flex"
+              class="flex mt-6 ml-auto"
               @click="open_contracts"
               >OPEN</vs-button
             >
@@ -319,8 +319,7 @@ export default {
   computed: {
     ...mapGetters({
       getAllPendingRequests: "contract_request/getAllPendingRequest",
-      getSellerCompletedContracts:
-        "contract_request/getSellerCompletedContracts",
+      getSellerCompletedContracts: "contract_request/getSellerCompletedContracts",
     }),
     currentPage() {
       if (this.isMounted) {
@@ -340,7 +339,11 @@ export default {
       );
     },
     allSellerCompletedContracts() {
-      return this.getSellerCompletedContracts;
+      if (this.getSellerCompletedContracts == null) {
+          return [];
+      } else {
+          return this.getSellerCompletedContracts;
+      }
     },
   },
   methods: {
@@ -438,8 +441,16 @@ export default {
     },
   },
   created() {
-    // this.completed();
-    this.sellerCompletedContracts();
+    if (!this.allSellerCompletedContracts.length > 0) {
+      this.$vs.loading();
+      this.sellerCompletedContracts()
+      .then(() => {
+        this.$vs.loading.close();
+      })
+      .catch(() => {
+        this.$vs.loading.close();
+      })
+    }
   },
   mounted() {
     this.isMounted = true;

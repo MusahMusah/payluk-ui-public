@@ -9,8 +9,25 @@
 ========================================================================================== -->
 
 <template>
+<!-- Icons => PlusIcon, MailIcon -->
   <ul class="vx-timeline">
-      <li v-for="item in data" :key="item.title">
+      <li v-for="(item, index) in data" :key="index">
+        <template v-if="(index <= 5)">
+          <div v-if="index % 2 == 0" class="timeline-icon bg-primary">
+              <feather-icon icon="MailIcon" svgClasses="text-white stroke-current w-5 h-5" />
+          </div>
+          <div v-else class="timeline-icon bg-warning">
+              <feather-icon icon="MailIcon" svgClasses="text-white stroke-current w-5 h-5" />
+          </div>
+          <div class="timeline-info">
+              <p class="font-semibold">{{ item.title }}</p>
+              <span class="activity-desc">{{ item.message }}</span>
+          </div>
+          <small class="text-grey activity-e-time">{{ item.created_at }}</small>
+        </template>
+      </li>
+<!--
+       <li v-for="item in data" :key="item.title">
           <div class="timeline-icon" :class="`bg-${item.color}`">
               <feather-icon :icon="item.icon" svgClasses="text-white stroke-current w-5 h-5" />
           </div>
@@ -19,7 +36,7 @@
               <span class="activity-desc">{{ item.desc }}</span>
           </div>
           <small class="text-grey activity-e-time">{{ item.time }}</small>
-      </li>
+      </li> -->
   </ul>
 </template>
 

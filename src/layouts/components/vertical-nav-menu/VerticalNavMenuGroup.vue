@@ -21,7 +21,7 @@
     @mouseout  = "mouseout">
 
       <!-- Group Label -->
-      <div @click="clickGroup" class="group-header w-full">
+      <div @click="clickGroup" class="w-full group-header">
         <span class="flex items-center w-full">
 
           <!-- Group Icon -->
@@ -31,7 +31,7 @@
             :svgClasses = "{ 'w-3 h-3' : this.groupIndex % 1 != 0 }" />
 
           <!-- Group Name -->
-          <span v-show="!verticalNavMenuItemsMin" class="truncate mr-3 select-none">{{ group.name }}</span>
+          <span v-show="!verticalNavMenuItemsMin" class="mr-3 truncate select-none">{{ group.name }}</span>
 
           <!-- Group Tag -->
           <vs-chip class="ml-auto mr-4" :color="group.tagColor" v-if="group.tag && !verticalNavMenuItemsMin">{{ group.tag }}</vs-chip>
@@ -72,7 +72,12 @@
             :slug   = "groupItem.slug"
             :target = "groupItem.target">
               <span class="truncate">{{ groupItem.name }}</span>
+              <!-- <span v-if="group.name == 'Buyer'">{{getBuyerPendingCount}}</span> -->
               <vs-chip class="ml-auto" :color="groupItem.tagColor" v-if="groupItem.tag">{{ groupItem.tag }}</vs-chip>
+              <vs-chip class="ml-auto" color="warning" v-else-if="group.name == 'Buyer' && groupItem.name == 'Pending'">{{getBuyerPendingCount}}</vs-chip>
+              <vs-chip class="ml-auto" color="warning" v-else-if="group.name == 'Buyer' && groupItem.name == 'Completed'">{{getBuyerCompletedCount}}</vs-chip>
+              <vs-chip class="ml-auto" color="warning" v-else-if="group.name == 'Seller' && groupItem.name == 'Pending'">{{getSellerPendingCount}}</vs-chip>
+              <vs-chip class="ml-auto" color="warning" v-else-if="group.name == 'Seller' && groupItem.name == 'Completed'">{{getSellerCompletedCount}}</vs-chip>
           </v-nav-menu-item>
 
         </li>
@@ -84,6 +89,7 @@
 
 <script>
 import VNavMenuItem from './VerticalNavMenuItem.vue'
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name  : 'v-nav-menu-group',
@@ -101,6 +107,12 @@ export default {
     openItems : false
   }),
   computed: {
+    ...mapGetters({
+      getBuyerPendingCount: "contract_request/getBuyerPendingCount",
+      getBuyerCompletedCount: "contract_request/getBuyerCompletedCount",
+      getSellerPendingCount: "contract_request/getSellerPendingCount",
+      getSellerCompletedCount: "contract_request/getSellerCompletedCount",
+    }),
     verticalNavMenuItemsMin() { return this.$store.state.verticalNavMenuItemsMin },
     styleItems() {
       return { maxHeight: this.maxHeight }
@@ -184,6 +196,12 @@ export default {
     }
   },
   methods: {
+    // ...mapActions({
+    //   buyerPendingCount: "contract_request/buyerPendingCount",
+    //   buyerCompletedCount: "contract_request/buyerCompletedCount",
+    //   sellerPendingCount: "contract_request/sellerPendingCount",
+    //   sellerCompletedCount: "contract_request/sellerCompletedCount",
+    // }),
     clickGroup() {
       if (!this.openHover) {
 
@@ -225,6 +243,12 @@ export default {
         this.maxHeight   = `${scrollHeight}px`
       }
     }
+  },
+  created() {
+    // this.buyerPendingCount()
+    // this.buyerCompletedCount()
+    // this.sellerPendingCount()
+    // this.sellerCompletedCount()
   },
   mounted() {
     this.openItems = this.open

@@ -9,17 +9,23 @@
 
 
 <template>
-    <div class="h-screen flex w-full bg-img vx-row no-gutter items-center justify-center">
-        <div class="vx-col sm:w-1/2 md:w-1/2 lg:w-3/4 xl:w-3/5 sm:m-0 m-4">
+<div>
+    <div class="flex items-center justify-center w-full h-screen bg-img vx-row no-gutter" style="height: 120vh !important;">
+      <div class="flex items-center justify-center w-full vx-row no-gutter">
+          <div class="text-center" style="margin-bottom: -4em">
+            <img src="@/assets/images/small-logo-white.png" style="height: 120px;" alt="login" class="mx-auto">
+          </div>
+      </div>
+        <div class="m-4 vx-col sm:w-1/2 md:w-1/2 lg:w-3/4 xl:w-3/5 sm:m-0">
             <vx-card>
                 <div slot="no-body" class="full-page-bg-color">
                     <div class="vx-row no-gutter">
-                        <div class="vx-col hidden sm:hidden md:hidden lg:block lg:w-1/2 mx-auto self-center">
+                        <div class="self-center hidden mx-auto vx-col sm:hidden md:hidden lg:block lg:w-1/2">
                             <img src="@/assets/images/pages/register.jpg" alt="register" class="mx-auto">
                         </div>
-                        <div class="vx-col sm:w-full md:w-full lg:w-1/2 mx-auto self-center  d-theme-dark-bg">
+                        <div class="self-center mx-auto vx-col sm:w-full md:w-full lg:w-1/2 d-theme-dark-bg">
                             <div class="px-8 pt-8 register-tabs-container">
-                                <div class="vx-card__title mb-4">
+                                <div class="mb-4 vx-card__title">
                                     <h4 class="mb-4">Create Account</h4>
                                     <p>Fill the below form to create a new account.</p>
                                 </div>
@@ -32,7 +38,7 @@
                                     placeholder="First Name"
                                     v-model="first_name"
                                     class="w-full" />
-                                  <span class="text-danger text-sm">{{ errors.first('first_name') }}</span>
+                                  <span class="text-sm text-danger">{{ errors.first('first_name') }}</span>
 
                                   <vs-input
                                     v-validate="'required|min:3'"
@@ -42,7 +48,7 @@
                                     placeholder="Last Name"
                                     v-model="last_name"
                                     class="w-full" />
-                                  <span class="text-danger text-sm">{{ errors.first('last_name') }}</span>
+                                  <span class="text-sm text-danger">{{ errors.first('last_name') }}</span>
 
                                   <vs-input
                                     v-validate="'required|email'"
@@ -53,9 +59,9 @@
                                     placeholder="Email"
                                     v-model="email"
                                     class="w-full mt-6 mb-2" />
-                                  <span class="text-danger text-sm">{{ errors.first('email') }}</span>
+                                  <span class="text-sm text-danger">{{ errors.first('email') }}</span>
 
-                                  <label>Country</label>
+                                  <!-- <label>Country</label>
                                   <v-select
                                     v-validate="'required'"
                                     name="Country"
@@ -64,7 +70,7 @@
                                     class="w-full"
                                     :options="['Nigeria']"
                                   ></v-select>
-                                  <span class="text-danger text-sm">{{ errors.first("Country") }}</span>
+                                  <span class="text-sm text-danger">{{ errors.first("Country") }}</span> -->
 
                                   <vs-input
                                     v-validate="'required'"
@@ -75,7 +81,7 @@
                                     placeholder="Phone Number"
                                     v-model="phone"
                                     class="w-full mt-6" />
-                                  <span class="text-danger text-sm">{{ errors.first('phone') }}</span>
+                                  <span class="text-sm text-danger">{{ errors.first('phone') }}</span>
 
                                   <vs-input
                                     ref="password"
@@ -87,7 +93,7 @@
                                     placeholder="Password"
                                     v-model="pass"
                                     class="w-full mt-6" />
-                                  <span class="text-danger text-sm">{{ errors.first('pass') }}</span>
+                                  <span class="text-sm text-danger">{{ errors.first('pass') }}</span>
 
                                   <vs-input
                                     type="password"
@@ -99,7 +105,7 @@
                                     placeholder="Confirm Password"
                                     v-model="confirm_password"
                                     class="w-full mt-6" />
-                                  <span class="text-danger text-sm">{{ errors.first('confirm_password') }}</span>
+                                  <span class="text-sm text-danger">{{ errors.first('confirm_password') }}</span>
 
                                   <vs-checkbox v-model="terms" class="mt-3">I accept the terms & conditions.</vs-checkbox>
                                   <vs-button  type="border" to="/login" class="mt-2 mb-6">Login</vs-button>
@@ -112,6 +118,7 @@
             </vx-card>
         </div>
     </div>
+</div>
 </template>
 
 <script>
@@ -123,7 +130,7 @@ export default {
             first_name: '',
             last_name: '',
             email : '',
-            country: '',
+            country: 'Nigeria',
             pass: '',
             confirm_password: '',
             phone : '',
@@ -161,7 +168,7 @@ export default {
           return true
         },
         register_User() {
-          
+
           let payload = {
               first_name: this.first_name,
               last_name : this.last_name,
@@ -199,7 +206,7 @@ export default {
             // this.serverErrors = Object.values(error.response.data.errors)
           })
         },
-        
+
     },
     components: {
     "v-select": vSelect,

@@ -20,6 +20,8 @@ export default {
     notifications : [],
     currencies:[],
     allUsers : [],
+    dashBoardAnalytics : [],
+    dashBoardContractsOverview: [],
   },
 
   getters : {
@@ -41,6 +43,12 @@ export default {
     getAllUsers(state){
       return state.allUsers
     },
+    getDashBoardAnalytics(state){
+      return state.dashBoardAnalytics
+    },
+    getDashBoardContractsOverView(state){
+      return state.dashBoardContractsOverview
+    },
   },
 
   mutations : {
@@ -61,6 +69,13 @@ export default {
     },
     SET_ALL_USERS(state, data){
       state.allUsers = data
+    },
+    SET_DASHBOARD_ANALYTICS(state, data) {
+      state.dashBoardAnalytics = data
+    },
+    SET_DASHBOARD_CONTRACT_OVERVIEW(state, data)
+    {
+      state.dashBoardContractsOverview = data
     },
   },
 
@@ -165,6 +180,21 @@ export default {
       // .then((response) => {
       //   router.push({ name: 'verify-otp', params: { dataMessage: response.data.message } })
       // })
+    },
+
+    // DashBoard Schedule Analysis
+    async dashBoardAnalytics({commit}) {
+      let response = await axios.get('/dashboard/chart')
+      if (response) {
+        commit('SET_DASHBOARD_ANALYTICS', response.data)
+      }
+    },
+    // DashBoard Schedule Analysis
+    async dashBoardContractsOverview({commit}) {
+      let response = await axios.get('/dashboard/invoice/activities')
+      if (response) {
+        commit('SET_DASHBOARD_CONTRACT_OVERVIEW', response.data.data)
+      }
     },
 
   }

@@ -14,13 +14,13 @@
 
                 <vs-list>
                   <vs-list-header v-if="details.modification_message1" title="MODIFICATION MESSAGE 1"></vs-list-header>
-                  <vs-list-item v-if="details.modification_message1" title="3 hours ago" :subtitle="details.modification_message1"></vs-list-item>
+                  <vs-list-item v-if="details.modification_message1" :title="details.message_time1" :subtitle="details.modification_message1"></vs-list-item>
 
                   <vs-list-header v-if="details.modification_message2" title="MODIFICATION MESSAGE 2"></vs-list-header>
-                  <vs-list-item v-if="details.modification_message2" title="1 mins ago" :subtitle="details.modification_message2"></vs-list-item>
+                  <vs-list-item v-if="details.modification_message2" :title="details.message_time2" :subtitle="details.modification_message2"></vs-list-item>
 
                   <vs-list-header v-if="details.modification_message3" title="MODIFICATION MESSAGE 3"></vs-list-header>
-                  <vs-list-item v-if="details.modification_message3" title="1 day ago" :subtitle="details.modification_message3"></vs-list-item>
+                  <vs-list-item v-if="details.modification_message3" :title="details.message_time3" :subtitle="details.modification_message3"></vs-list-item>
                 </vs-list>
               </vs-collapse-item>
 
@@ -52,7 +52,11 @@
                         </div>
                       </div>
                       <div class="w-full vx-col md:w-3/5">
-                        <h3 style="text-transform: uppercase">{{ details.item_name }}</h3>
+                        <h3 style="text-transform: uppercase">
+                           <span v-for="(item, index) in details.item_name" :key="index">
+                            <span style="text-transform: uppercase">{{ item }},</span>
+                          </span>
+                        </h3>
                         <p class="my-2">
                           <span class="mr-2">by</span
                           ><span style="text-transform: uppercase">{{ details.company_name }}</span>
@@ -942,16 +946,18 @@ export default {
     },
     ...mapGetters({
       getSellerCompletedContracts: "contract_request/getSellerCompletedContracts",
+      getSingleContract: "contract_request/getSingleContract",
     }),
-    allSellerCompletedContracts () {
-      return this.getSellerCompletedContracts
-    }
+    singleContractDetails () {
+      return this.getSingleContract
+    },
   },
 
   methods : {
     ...mapActions({
       sellerCompletedContracts: "contract_request/sellerCompletedContracts",
       sendTicket: "tickets/sendTicket",
+      singleContract: "contract_request/singleContract",
     }),
     openUpload() {
       document.getElementById("file-field").click();
@@ -1019,49 +1025,23 @@ export default {
 
   watch: {
     '$route'() {
-      this.$vs.loading();
-      this.sellerCompletedContracts()
-      .then(() => {
-        this.$vs.loading.close();
-        if (this.allSellerCompletedContracts != null) {
-          for(var i = 0; i  < this.allSellerCompletedContracts.length; i++) {
-            if(this.allSellerCompletedContracts[i].invitation_id == this.$route.params.invitation_id) {
-              this.details = this.allSellerCompletedContracts[0]
-              break;
-            } else{
-              this.$router.replace({name: '404'}).catch(() => {})
-            }
-          }
-        }
-      })
-      .catch(() => {
-        this.$router.replace({name: '404'}).catch(() => {})
-      })
-    },
+    }
   },
 
   created() {
     this.$vs.loading();
-    this.sellerCompletedContracts()
+    this.singleContract(this.$route.params.invitation_id)
     .then(() => {
       this.$vs.loading.close();
-      if (this.allSellerCompletedContracts != null) {
-          for(var i = 0; i  < this.allSellerCompletedContracts.length; i++) {
-            if(this.allSellerCompletedContracts[i].invitation_id == this.$route.params.invitation_id) {
-              this.details = this.allSellerCompletedContracts[0]
-              break;
-            } else{
-              this.$router.replace({name: '404'}).catch(() => {})
-            }
-          }
-      }
+      this.details = this.singleContractDetails[0]
     })
     .catch(() => {
+      this.$vs.loading.close();
       this.$router.replace({name: '404'}).catch(() => {})
     })
   },
   mounted () {
-    this.sellerCompletedContracts();
+    // this.sellerCompletedContracts();
   }
 };
 </script>

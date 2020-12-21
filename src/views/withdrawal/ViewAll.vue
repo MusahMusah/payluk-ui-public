@@ -84,7 +84,16 @@
             },
         },
         created() {
-            this.withdrawalDetailsData();
+          if (!this.user_transactions.length > 0) {
+            this.$vs.loading();
+            this.withdrawalDetailsData()
+            .then(() => {
+              this.$vs.loading.close();
+            })
+            .catch(() => {
+              this.$vs.loading.close();
+            })
+          }
         },
         filters: {
             capitalize: function (value) {

@@ -21,18 +21,27 @@
                         <div class="flex">
                             <div class="mr-6">
                                 <p class="mb-1 font-semibold" style="color: #7367f0;">This Month</p>
-                                <p class="text-3xl" style="color: #7367f0;"><sup class="mr-1 text-base">$</sup>782187</p>
+                                <p class="text-3xl" style="color: #7367f0;" v-if="!ScheduleAnalytics.data"><sup class="mr-1 text-base">₦</sup>{{this_monthAnalytics}}</p>
+                                <p class="text-3xl" style="color: #7367f0;" v-else><sup class="mr-1 text-base">₦</sup>0</p>
                             </div>
                             <div>
                                 <p class="mb-1 font-semibold" style="color: #7367f0;">Last Month</p>
-                                <p class="text-3xl" style="color: #7367f0;"><sup class="mr-1 text-base">$</sup>666635</p>
+                                <p class="text-3xl" style="color: #7367f0;" v-if="!ScheduleAnalytics.data"><sup class="mr-1 text-base">₦</sup>{{last_monthAnalytics}}</p>
+                                <p class="text-3xl" style="color: #7367f0;" v-else><sup class="mr-1 text-base">₦</sup>0</p>
                             </div>
                         </div>
+                          <!-- v-if="ScheduleAnalytics.series" -->
                         <vue-apex-charts
                           type=line
                           height=266
                           :options="analyticsData.revenueComparisonLine.chartOptions"
-                          :series="analyticsData.revenueComparisonLine.series" />
+                          :series="ScheduleAnalytics.series" />
+                        <!-- <vue-apex-charts
+                          v-else
+                          type=line
+                          height=266
+                          :options="analyticsData.revenueComparisonLine.chartOptions"
+                          :series="[]" /> -->
                     </div>
                 </vx-card>
             </div>
@@ -47,19 +56,20 @@
                     <!-- CHART -->
                     <template slot="no-body">
                         <div class="mt-10">
-                            <vue-apex-charts type=radialBar height=240 :options="analyticsData.goalOverviewRadialBar.chartOptions"  :series="analyticsData.goalOverviewRadialBar.series" />
+                          <!-- :series="analyticsData.goalOverviewRadialBar.series" -->
+                            <vue-apex-charts type=radialBar height=240 :options="analyticsData.goalOverviewRadialBar.chartOptions"  :series="[non_formated_main_balance, non_formated_lain_balance]" />
                         </div>
                     </template>
 
                     <!-- DATA -->
                     <div class="flex justify-between text-center mt-" slot="no-body-bottom">
                         <div class="w-1/2 border border-b-0 border-l-0 border-r-0 border-solid d-theme-border-grey-light">
-                            <p class="mt-4" style="color: #7367f0; font-size: 1.1em; font-weight: bold">Main Balance</p>
-                            <p class="mb-4 text-3xl font-semibold" style="color: #7367f0;">{{main_balance}}</p>
+                            <p class="mt-4" style="color: #7367f0; font-size: 1.2em; font-weight: bold">Main Balance</p>
+                            <p class="mb-4 text-3xl font-semibold" style="color: #7367f0; font-size: 1.2em !important;">₦{{main_balance}}</p>
                         </div>
                         <div class="w-1/2 border border-b-0 border-r-0 border-solid d-theme-border-grey-light">
-                            <p class="mt-4" style="color: #7367f0; font-size: 1.1em; font-weight: bold">Lain Balance</p>
-                            <p class="mb-4 text-3xl font-semibold" style="color: #7367f0;">{{lain_balance}}</p>
+                            <p class="mt-4" style="color: #7367f0; font-size: 1.2em; font-weight: bold;">Lain Balance</p>
+                            <p class="mb-4 text-3xl font-semibold" style="color: #7367f0; font-size: 1.2em !important;">₦{{lain_balance}}</p>
                         </div>
                     </div>
                 </vx-card>
@@ -68,16 +78,17 @@
 
         <div class="vx-row">
             <!-- CARD 6: Product Orders -->
-            <div class="w-full vx-col lg:w-1/3 mb-base">
+            <div class="w-full vx-col lg:w-1/2 mb-base">
                 <vx-card title="Contracts Overview">
                     <!-- CARD ACTION -->
                     <template slot="actions">
-                        <change-time-duration-dropdown />
+                        <!-- <change-time-duration-dropdown /> -->
                     </template>
 
                     <!-- Chart -->
                     <div slot="no-body">
-                        <vue-apex-charts type=radialBar height=435 :options="analyticsData.productOrdersRadialBar.chartOptions" :series="analyticsData.productOrdersRadialBar.series" />
+                        <!-- <vue-apex-charts type=radialBar height=435 :options="analyticsData.productOrdersRadialBar.chartOptions" :series="analyticsData.productOrdersRadialBar.series" /> -->
+                        <vue-apex-charts type=radialBar height=435 :options="analyticsData.productOrdersRadialBar.chartOptions" :series="[getContractsOverView['completed'], getContractsOverView['pending']]" />
                     </div>
 
                     <ul>
@@ -87,41 +98,18 @@
                                     <span class="inline-block w-4 h-4 mr-2 bg-white border-solid rounded-full border-3" :class="`border-${orderData.color}`"></span>
                                     <span class="font-semibold">{{ orderData.orderType }}</span>
                             </span>
-                            <span>{{ orderData.counts }}</span>
+                            <span v-if="orderData.orderType == 'Completed'">{{ getContractsOverView['completed'] }}</span>
+                            <span v-else>{{ getContractsOverView['pending'] }}</span>
                         </li>
                     </ul>
                 </vx-card>
             </div>
 
             <!-- CARD 7: Sales Stats -->
-            <div class="w-full vx-col lg:w-1/3 mb-base">
-              <vx-card title="Sales Stats" subtitle="Last 6 Months">
-                <template slot="actions">
-                  <feather-icon icon="MoreVerticalIcon" svgClasses="w-6 h-6 text-grey"></feather-icon>
-                </template>
-                <div class="flex">
-                  <span class="flex items-center"><div class="w-3 h-3 mr-1 rounded-full bg-primary"></div><span>Sales</span></span>
-                  <span class="flex items-center ml-4"><div class="w-3 h-3 mr-1 rounded-full bg-warning"></div><span>Visits</span></span>
-                </div>
-                <div slot="no-body-bottom">
-                  <vue-apex-charts type=radar height=400 :options="analyticsData.statisticsRadar.chartOptions" :series="analyticsData.statisticsRadar.series" />
-                </div>
-              </vx-card>
-            </div>
-
-            <!-- CARD 8: Activity Timeline -->
-            <div class="w-full vx-col lg:w-1/3 mb-base">
-                <vx-card title="Activity Timeline">
-                    <vx-timeline :data="timelineData" />
-                </vx-card>
-            </div>
-        </div>
-
-        <div class="vx-row">
-            <div class="w-full vx-col">
-                <vx-card title="Recent Transactions">
-                <div slot="no-body" class="mt-4">
-                    <vs-table :data="dispatchedOrders" class="table-dark-inverted">
+            <!-- <div class="w-full h-full vx-col lg:w-1/3 mb-base"> -->
+               <!-- <vx-card title="Recent Transactions">
+                <div slot="no-body" class="h-full mt-4">
+                    <vs-table :data="dispatchedOrders" class="h-full table-dark-inverted">
                     <template slot="thead">
                         <vs-th>ORDER NO.</vs-th>
                         <vs-th>STATUS</vs-th>
@@ -161,6 +149,64 @@
                         </vs-td>
                         <vs-td :data="data[indextr].orderNo">
                             <span>{{data[indextr].estDelDate}}</span>
+                        </vs-td>
+                        </vs-tr>
+                    </template>
+                    </vs-table>
+                </div>
+
+                </vx-card> -->
+
+
+              <!-- <vx-card title="Sales Stats" subtitle="Last 6 Months">
+                <template slot="actions">
+                  <feather-icon icon="MoreVerticalIcon" svgClasses="w-6 h-6 text-grey"></feather-icon>
+                </template>
+                <div class="flex">
+                  <span class="flex items-center"><div class="w-3 h-3 mr-1 rounded-full bg-primary"></div><span>Sales</span></span>
+                  <span class="flex items-center ml-4"><div class="w-3 h-3 mr-1 rounded-full bg-warning"></div><span>Visits</span></span>
+                </div>
+                <div slot="no-body-bottom">
+                  <vue-apex-charts type=radar height=400 :options="analyticsData.statisticsRadar.chartOptions" :series="analyticsData.statisticsRadar.series" />
+                </div>
+              </vx-card> -->
+            <!-- </div> -->
+
+            <!-- CARD 8: Activity Timeline -->
+            <div class="w-full vx-col lg:w-1/2 mb-base">
+                <vx-card title="Activity Timeline" style="height: 86vh;marginbottom: 7.5rem !important;">
+                    <!-- {{getNotifications}} -->
+                    <!-- <vx-timeline :data="timelineData" /> -->
+                    <vx-timeline v-if="getNotifications.data" :data="getNotifications.data" style="margin-bottom: 5.8rem;" />
+                    <p v-else>No Timeline Data Yet</p>
+                </vx-card>
+            </div>
+        </div>
+
+        <div class="vx-row">
+            <div class="w-full vx-col">
+                <vx-card title="Recent Deposit Transactions">
+                <div slot="no-body" class="mt-4">
+                    <vs-table :data="user_transactions" max-items="5" pagination stripe class="table-dark-inverted stripe">
+                    <template slot="thead">
+                        <vs-th>TRANSACTION DATE</vs-th>
+                        <vs-th>TRANSACTION AMOUNT</vs-th>
+                        <vs-th>TRANSACTION STATUS</vs-th>
+                    </template>
+
+                    <template slot-scope="{data}">
+                        <vs-tr :key="indextr" v-for="(tr, indextr) in data">
+                        <vs-td :data="data[indextr].date">
+                            <span>{{data[indextr].date}}</span>
+                        </vs-td>
+                        <vs-td :data="data[indextr].amount">
+                            <span>{{data[indextr].amount}}</span>
+                        </vs-td>
+                        <vs-td :data="data[indextr].status">
+                            <vs-chip color="primary" class="text-center">
+                                <vs-avatar icon="check" />
+                                <span>{{ data[indextr].status }}</span>
+                            </vs-chip>
                         </vs-td>
                         </vs-tr>
                     </template>
@@ -261,14 +307,51 @@ export default{
     computed : {
       ...mapGetters({
           userData : 'users/getUserData',
+          scheduleAnalysis : 'users/getDashBoardAnalytics',
+          contractsOverView : 'users/getDashBoardContractsOverView',
+          notificationsData : 'users/getNotifications',
+          getTransactionsDetails: "payments/getTransactionsData",
       }),
+      user_transactions() {
+          if (this.getTransactionsDetails == null) {
+              return [];
+          } else {
+              return this.getTransactionsDetails;
+          }
+          // return []
+      },
+      getNotifications(){
+        return this.notificationsData
+      },
+      getContractsOverView()
+      {
+        return this.contractsOverView
+      },
+      ScheduleAnalytics() {
+        return this.scheduleAnalysis
+      },
+      this_monthAnalytics() {
+        return this.formatMoney(this.scheduleAnalysis.series[0].total_amount)
+      },
+      last_monthAnalytics() {
+        return this.formatMoney(this.scheduleAnalysis.series[1].total_amount)
+      },
       user_data() {
-            return this.userData
+        return this.userData
       },
       lain_balance () {
         return this.formatMoney(this.userData.lain_balance)
 
       },
+
+      non_formated_main_balance () {
+        return Number(this.main_balance.replace(/[^0-9.-]+/g,""))
+      },
+
+      non_formated_lain_balance () {
+        return Number(this.lain_balance.replace(/[^0-9.-]+/g,""))
+      },
+
       main_balance () {
         return this.formatMoney(this.userData.main_balance)
 
@@ -276,7 +359,10 @@ export default{
     },
     methods : {
       ...mapActions({
-          activeUserInfo : "users/activeUserInfo",
+        activeUserInfo : "users/activeUserInfo",
+        dashBoardAnalytics : "users/dashBoardAnalytics",
+        dashBoardContractsOverview : "users/dashBoardContractsOverview",
+        transactionDetailsData: "payments/transactionDetailsData",
       }),
       formatMoney(amount, decimalCount = 2, decimal = ".", thousands = ",") {
         try {
@@ -305,63 +391,11 @@ export default{
         this.$refs.chatLogPS.$el.scrollTop = this.$refs.chatLog.scrollHeight;
     },
     created() {
-      this.activeUserInfo()
-      this.test()
-      this.formatMoney()
-      // Subscribers gained - Statistics
-      // axios.get("/api/card/card-statistics/subscribers")
-      //   .then((response) => { this.subscribersGained = response.data })
-      //   .catch((error) => { console.log(error) })
-
-      // // Revenue Generated
-      // axios.get("/api/card/card-statistics/revenue")
-      //   .then((response) => { this.revenueGenerated = response.data })
-      //   .catch((error) => { console.log(error) })
-
-      // // Sales
-      // axios.get("/api/card/card-statistics/sales")
-      //   .then((response) => { this.quarterlySales = response.data })
-      //   .catch((error) => { console.log(error) })
-
-      // // Orders - Statistics
-      // axios.get("/api/card/card-statistics/orders")
-      //   .then((response) => { this.ordersRecevied = response.data })
-      //   .catch((error) => { console.log(error) })
-
-      // // Revenue Comparison
-      // axios.get("/api/card/card-analytics/revenue-comparison")
-      //   .then((response) => { this.revenueComparisonLine = response.data })
-      //   .catch((error) => { console.log(error) })
-
-      // // Goal Overview
-      // axios.get("/api/card/card-analytics/goal-overview")
-      //   .then((response) => { this.goalOverview = response.data })
-      //   .catch((error) => { console.log(error) })
-
-      // // Browser Analytics
-      // axios.get("/api/card/card-analytics/browser-analytics")
-      //   .then((response) => { this.browserStatistics = response.data })
-      //   .catch((error) => { console.log(error) })
-
-      // // Client Retention
-      // axios.get("/api/card/card-analytics/client-retention")
-      //   .then((response) => { this.clientRetentionBar = response.data })
-      //   .catch((error) => { console.log(error) })
-
-      // // Sessions By Device
-      // axios.get("/api/card/card-analytics/session-by-device")
-      //   .then((response) => { this.sessionsData = response.data })
-      //   .catch((error) => { console.log(error) })
-
-      // // Chat Log
-      // axios.get("/api/chat/demo-1/log")
-      //   .then((response) => { this.chatLog = response.data })
-      //   .catch((error) => { console.log(error) })
-
-      // // Customers
-      // axios.get("/api/card/card-analytics/customers")
-      //   .then((response) => { this.customersData = response.data })
-      //   .catch((error) => { console.log(error) })
+      this.activeUserInfo();
+      this.dashBoardAnalytics();
+      this.dashBoardContractsOverview();
+      this.transactionDetailsData();
+      this.formatMoney();
     }
 }
 </script>

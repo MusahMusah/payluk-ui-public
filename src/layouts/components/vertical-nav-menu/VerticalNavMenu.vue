@@ -31,8 +31,8 @@
 
           <!-- Logo -->
           <router-link tag="div" class="flex items-center cursor-pointer vx-logo" to="/">
-            <!-- <img :src="logo" alt="logo" class="w-10 mr-4" v-if="logo"> -->
-            <img :src="logoImage" alt="logo" class="mt-2 ml-16 text-center" style="width:6.8rem; margin-top: 0.6rem !important; height: 4rem; object-fit:cover;" v-if="logoImage">
+            <!-- <img :src="logoImage" alt="logo" class="w-10 mr-4" v-if="logoImage"> -->
+            <img :src="logoImage" alt="logo" class="mt-2 ml-16 text-center" style="width:6.8rem; margintop: 0.6rem !important; height: 3rem; object-fit:contain;" v-if="logoImage">
             <!-- {{ title }} -->
             <!-- <span class="vx-logo-text" v-show="isMouseEnter || !reduce" v-if="title">Payluk</span> -->
           </router-link>
@@ -107,11 +107,11 @@
             <vs-button :to="{name: 'activate-account'}" icon="double_arrow" color="primary" v-if="userData.status == 'not activated'" class="mt-4 mb-10 ml-8">Activate Account</vs-button>
           </template>
 
-          <template>
+          <!-- <template>
             <div :key="`group-${index}`" clas="h-10" style="height: 8em">
 
             </div>
-          </template>
+          </template> -->
         </VuePerfectScrollbar>
         <!-- /Menu Items -->
       </div>
@@ -150,7 +150,7 @@ export default {
   },
   data: () => ({
     favicon : require('@/assets/images/favicon.png'),
-    logoImage: require('@/assets/images/payluk.jpg'),
+    logoImage: require('@/assets/images/logo.png'),
     clickNotClose       : false, // disable close navMenu on outside click
     isMouseEnter        : false,
     reduce              : false, // determines if navMenu is reduce - component property
@@ -234,6 +234,10 @@ export default {
     // },
     ...mapActions({
       activeUserInfo : "users/activeUserInfo",
+      buyerPendingCount: "contract_request/buyerPendingCount",
+      buyerCompletedCount: "contract_request/buyerCompletedCount",
+      sellerPendingCount: "contract_request/sellerPendingCount",
+      sellerCompletedCount: "contract_request/sellerCompletedCount",
     }),
     onSwipeLeft() {
       if (this.isVerticalNavMenuActive && this.showCloseButton) this.isVerticalNavMenuActive = false
@@ -294,46 +298,6 @@ export default {
       // Remove Only Icon in Menu
       this.$store.commit('UPDATE_VERTICAL_NAV_MENU_ITEMS_MIN', false)
 
-
-
-      // if(this.layoutType === 'vertical' || (this.layoutType === 'horizontal' && this.windowWidth < 1200))
-      // if (this.windowWidth < 1200) {
-
-      //   // Close NavMenu
-      //   this.$store.commit('TOGGLE_IS_VERTICAL_NAV_MENU_ACTIVE', false)
-
-      //   // Reduce button
-      //   if (this.reduceButton) this.reduce = false
-
-      //   // Menu Action buttons
-      //   this.showCloseButton = true
-      //   this.clickNotClose   = false
-
-      //   // Update NavMenu Width
-      //   this.$store.dispatch('updateVerticalNavMenuWidth', 'no-nav-menu')
-
-      //   // Remove Only Icon in Menu
-      //   this.$store.commit('UPDATE_VERTICAL_NAV_MENU_ITEMS_MIN', false)
-
-      // } else {
-
-      //   // Set reduce
-      //   this.reduce = this.reduceButton ? true : false
-
-      //   // Open NavMenu
-      //   this.$store.commit('TOGGLE_IS_VERTICAL_NAV_MENU_ACTIVE', true)
-
-      //   // Set Menu Items Only Icon Mode
-      //   const verticalNavMenuItemsMin = (this.reduceButton && !this.isMouseEnter) ? true : false
-      //   this.$store.commit('UPDATE_VERTICAL_NAV_MENU_ITEMS_MIN', verticalNavMenuItemsMin)
-
-      //   // Menu Action buttons
-      //   this.clickNotClose   = true
-      //   this.showCloseButton = false
-
-      //   const verticalNavMenuWidth   = this.isVerticalNavMenuReduced ? "reduced" : "default"
-      //   this.$store.dispatch('updateVerticalNavMenuWidth', verticalNavMenuWidth)
-      // }
     },
     toggleReduce(val) {
       this.reduceButton = val
@@ -342,6 +306,10 @@ export default {
   },
   created(){
     this.activeUserInfo()
+    this.buyerPendingCount()
+    this.buyerCompletedCount()
+    this.sellerPendingCount()
+    this.sellerCompletedCount()
   },
   mounted() {
     this.setVerticalNavMenuWidth()

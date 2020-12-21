@@ -76,7 +76,16 @@
             },
         },
         created() {
-            this.transactionDetailsData();
+          if (!this.user_transactions.length > 0) {
+            this.$vs.loading();
+            this.transactionDetailsData()
+            .then(() => {
+              this.$vs.loading.close();
+            })
+            .catch(() => {
+              this.$vs.loading.close();
+            })
+          }
         },
         filters: {
             capitalize: function (value) {

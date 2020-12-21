@@ -48,11 +48,12 @@
           </div>
           <div class="flex pointer-events-auto profile-actions">
             <!-- <vs-button icon-pack="feather" radius icon="icon-edit-2"></vs-button> -->
+              <!-- to="/profile-view" -->
             <vs-button
               type="button"
+              to="/profile-update"
               name="button"
               size="small"
-              to="/profile-view"
               class="p-3 mr-4 vs-component vs-button vs-button-primary vs-button-filled includeIcon"
             >
               <span
@@ -71,7 +72,7 @@
                 class="vs-icon notranslate icon-scale feather icon-edit null"
                 style="order: 0; margin-right: 5px; margin-left: 0px"
               ></i>
-              <span class="vs-button-text vs-button--text" style="font-size: 1.2em;">View Profile</span>
+              <span class="vs-button-text vs-button--text" style="font-size: 1.2em;">Update Profile</span>
               <span
                 class="vs-button-linex"
                 style="
@@ -119,76 +120,12 @@
       <!-- <vx-navbar> -->
       <!-- </vx-navbar> -->
     </div>
-
-        <!-- <InfiniteScroll :items="allReviews" @refresh="fetch">
-          <template v-slot:item="{ item }">
-            <vx-card
-              class="mt-base"
-            >
-              <div>
-                <div class="flex justify-between mb-4 post-header">
-                  <div class="flex items-center">
-                    <div>
-                      <vs-avatar
-                        v-if="userReview.client_profile"
-                        :src="userReview.client_profile"
-                        class="m-0"
-                        size="45px"
-                      ></vs-avatar>
-                      <vs-avatar v-else class="m-0" size="45px"></vs-avatar>
-                    </div>
-                    <div class="ml-4">
-            {{item.date}}
-                      <h6>{{ userReview.clients_name }}</h6>
-                      <small>{{ userReview.date }}</small>
-                    </div>
-                  </div>
-                  <div class="flex">
-                    <star-rating
-                      :star-size="20"
-                      :read-only="true"
-                      :rating="parseFloat(userReview.star)"
-                      :border-width="1"
-                      border-color="#d8d8d8"
-                      :rounded-corners="true"
-                      :star-points="[
-                        23,
-                        2,
-                        14,
-                        17,
-                        0,
-                        19,
-                        10,
-                        34,
-                        7,
-                        50,
-                        23,
-                        43,
-                        38,
-                        50,
-                        36,
-                        34,
-                        46,
-                        19,
-                        31,
-                        17,
-                      ]"
-                    ></star-rating>
-                  </div>
-                </div>
-                <div class="post-content">
-                  <p>{{ userReview.message }}</p>
-                </div>
-              </div>
-            </vx-card>
-          </template>
-        </InfiniteScroll> -->
     <!-- COL AREA -->
     <div class="vx-row">
       <!-- COL 1 -->
       <div class="w-full vx-col lg:w-1/4">
         <!-- ABOUT CARD -->
-        <vx-card title="About" class="mt-base">
+        <vx-card title="About Me" class="mt-base">
           <!-- ACTION SLOT popupActivo=true -->
           <template slot="actions">
             <vs-button icon-pack="feather" @click="pop" radis icon="icon-edit-2"
@@ -332,15 +269,16 @@
                 <star-rating
                   :star-size="20"
                   :read-only="true"
+                  :show-rating="false"
                   :rating="parseFloat(userReview.star)"
                   :border-width="1"
                   border-color="#d8d8d8"
                   :rounded-corners="true"
                   :star-points="
-                                [23,2, 14,17, 0,19,
-                                 10,34, 7,50,
-                                 23,43, 38,50, 36,34,
-                                  46,19, 31,17]"
+                  [23,2, 14,17, 0,19,
+                    10,34, 7,50,
+                    23,43, 38,50, 36,34,
+                    46,19, 31,17]"
                 ></star-rating>
                 <!-- <feather-icon class="ml-4" icon="HeartIcon" :svgClasses="{'text-danger fill-current stroke-current': post.isLiked}"></feather-icon> -->
               </div>
@@ -357,6 +295,7 @@
       </div>
       <div class="w-full vx-col lg:w-1/2" v-else>
         <vx-card class="mt-base" title="No Reviews Available"
+          style="height:70vh"
           title-color="#fff"
           card-background="primary"
           content-color="#fff">
@@ -496,19 +435,10 @@ export default {
       sendInvite: "users/sendInvite",
       runMigration: "users/runMigration",
     }),
-    // async fetch1(page){
-    //   if (page > this.lastPage) {  return  }
-    //   let reviews = await axios.get(`https://payluk.com/backend/account?page=${page}`)
-    //   console.log(reviews.data.data.reviews.review)
-    //   this.allReviews.push(...reviews.data.data.reviews)
-    //   this.lastPage = reviews.data.data.reviews.pager.meta.last_page
-    //   // console.log(this.lastPage)
-    // },
     async fetch(){
       let reviews = await axios.get(`https://payluk.com/backend/reviews?page=${this.page}`)
       if (reviews.data.reviews != null)
       {
-
         this.allReviews.push(...reviews.data.reviews)
         this.lastPage = reviews.data.pagers[0].meta.last_page
       }else

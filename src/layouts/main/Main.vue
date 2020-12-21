@@ -164,13 +164,15 @@ export default {
       navbarColor       : themeConfig.navbarColor || '#fff',
       navbarType        : themeConfig.navbarType  || 'floating',
       navMenuItems      : navMenuItems,
-      navMenuLogo       : require('@/assets/images/logo/logo.png'),
+      navMenuLogo       : require('@/assets/images/logo.png'),
+      // navMenuLogo       : require('@/assets/images/logo/logo.png'),
       routerTransition  : themeConfig.routerTransition || 'none',
       routeTitle        : this.$route.meta.pageTitle,
-      steps: [{
-          target  : '#btnVNavMenuMinToggler',
-          content : 'Toggle Collapse Sidebar.'
-        },
+      steps: [
+        // {
+        //   target  : '#btnVNavMenuMinToggler',
+        //   content : 'Toggle Collapse Sidebar.'
+        // },
         {
           target  : '#tour_rankingSection',
           content : 'Check Out Your Current Ranking Status here.'

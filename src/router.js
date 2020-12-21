@@ -253,6 +253,7 @@ const router = new Router({
                 path: '/buyer-pending',
                 name: 'buyer-pending',
                 component: () => import('./views/contract/BuyerPending.vue'),
+                // component: () => import('./views/contract/PendingTest.vue'),
                 meta: {
                   breadcrumb: [
                       { title: 'Home', url: '/' },

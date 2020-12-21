@@ -131,7 +131,7 @@
                                         <vx-card class="p-2">
                                             <div class="text-center">
                                                 <h4>{{ `${item.first_name + ' ' + item.last_name}` }}</h4>
-                                                <p class="text-grey">{{ item.email }}</p>
+                                                <p v-if="item.email == userData.email" class="text-grey">{{ item.email }}</p>
                                             </div>
                                             <vs-avatar v-if="item.profile_image" class="block mx-auto my-6" size="80px" :src="item.profile_image" />
                                             <vs-avatar v-else class="block mx-auto my-6" size="80px" :src="cover_img" />
@@ -261,11 +261,13 @@ export default {
   computed: {
     ...mapGetters({
       getAllUsers: "users/getAllUsers",
+      userData : 'users/getUserData',
     }),
     allUsers () {
       return this.getAllUsers
     },
     resultQuery(){
+      this.$vs.loading.close();
       if(this.searchQuery){
       // return this.allUsers.filter((item)=>{
       //   return this.searchQuery.toLowerCase().split(' ').every(v => item.first_name.toLowerCase().includes(v)
@@ -317,6 +319,7 @@ export default {
     ...mapActions({
       searchDB : "users/searchUserData",
       sendInvite: "users/sendInvite",
+      activeUserInfo : "users/activeUserInfo",
     }),
         send_invite(wallet_id) {
       // Loading
@@ -368,7 +371,6 @@ export default {
           }
         })
         .catch((error) => {
-          console.log(error.response.data);
           this.$vs.loading.close();
           this.$vs.notify({
             title: "Error",
@@ -405,6 +407,8 @@ export default {
     }
   },
   created() {
+      // Loading
+    this.$vs.loading();
     this.setSidebarWidth()
   }
 }

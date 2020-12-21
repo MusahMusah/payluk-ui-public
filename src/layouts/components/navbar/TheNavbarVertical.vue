@@ -173,14 +173,16 @@
           <VuePerfectScrollbar ref="mainSidebarPs" class="p-0 mb-10 scroll-area--nofications-dropdown" :settings="settings">
           <ul class="bordered-items">
             <li v-for="(ntf, index) in getNotifications.data" :key="index" class="flex justify-between px-4 py-4 cursor-pointer notification">
-              <div class="flex items-start">
-                <feather-icon icon="PackageIcon" svgClasses="text-primary stroke-current mr-1 h-6 w-6"></feather-icon>
-                <div class="mx-2">
-                  <span class="block font-medium notification-title text-primary">New Collaboration Request</span>
-                  <small>{{ ntf.message }}</small>
+              <template v-if="index <= 5">
+                <div class="flex items-start">
+                  <feather-icon icon="PackageIcon" svgClasses="text-primary stroke-current mr-1 h-6 w-6"></feather-icon>
+                  <div class="mx-2">
+                    <span class="block font-medium notification-title text-primary">{{ntf.title}}</span>
+                    <small>{{ ntf.message }}</small>
+                  </div>
                 </div>
-              </div>
-              <small class="mt-1 whitespace-no-wrap">{{ ntf.created_at }}</small>
+                <small class="mt-1 whitespace-no-wrap">{{ ntf.created_at }}</small>
+              </template>
             </li>
           </ul>
           </VuePerfectScrollbar>
@@ -456,7 +458,21 @@ export default {
         }
     },
     created () {
+      this.$vs.loading();
       this.activeUserInfo()
+      .then(() => {
+        this.$vs.loading.close();
+      })
+      .catch(() => {
+        this.$vs.loading.close();
+        this.logOutAction()
+        .then(() => {
+          this.$router.push('/login').catch(() => {})
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+      })
       this.searchUserData()
       this.notifications()
       setInterval(() => this.notifications(), 300000);

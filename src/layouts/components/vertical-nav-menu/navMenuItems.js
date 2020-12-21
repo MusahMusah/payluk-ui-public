@@ -42,7 +42,7 @@ export default [
       {
         url: '/request',
         icon: "GitPullRequestIcon",
-        name: "Request",
+        name: "Invoice Request",
         slug: "request",
         i18n: "Request",
       },
@@ -149,32 +149,32 @@ export default [
       },
     ]
   },
-  {
-    header: "SUPPORT",
-    icon: "PackageIcon",
-    i18n: "Apps",
-    items: [
-      {
-        url: '/contact-us',
-        slug: 'contact-us',
-        name: "Contact Us",
-        icon: "PhoneIcon",
-        i18n: "FAQ",
-      },
-      {
-        url: '/faq',
-        slug: 'faq',
-        name: "FAQ",
-        icon: "HelpCircleIcon",
-        i18n: "FAQ",
-      },
-      {
-        url: '/knowledge-base',
-        slug: 'knowledge-base',
-        name: "Knowledge Base",
-        icon: "InfoIcon",
-        i18n: "FAQ",
-      },
-    ]
-  },
+  // {
+  //   header: "SUPPORT",
+  //   icon: "PackageIcon",
+  //   i18n: "Apps",
+  //   items: [
+  //     {
+  //       url: '/contact-us',
+  //       slug: 'contact-us',
+  //       name: "Contact Us",
+  //       icon: "PhoneIcon",
+  //       i18n: "FAQ",
+  //     },
+  //     {
+  //       url: '/faq',
+  //       slug: 'faq',
+  //       name: "FAQ",
+  //       icon: "HelpCircleIcon",
+  //       i18n: "FAQ",
+  //     },
+  //     {
+  //       url: '/knowledge-base',
+  //       slug: 'knowledge-base',
+  //       name: "Knowledge Base",
+  //       icon: "InfoIcon",
+  //       i18n: "FAQ",
+  //     },
+  //   ]
+  // },
 ]

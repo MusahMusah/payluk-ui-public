@@ -9,21 +9,23 @@
 
 
 <template>
-  <div class="h-screen flex w-full bg-img vx-row no-gutter items-center justify-center" id="page-login">
-    <div class="vx-col sm:w-1/2 md:w-1/2 lg:w-3/4 xl:w-3/5 sm:m-0 m-4">
+  <div class="flex items-center justify-center w-full h-screen bg-img vx-row no-gutter" id="page-login">
+    <div class="m-4 vx-col sm:w-1/2 md:w-1/2 lg:w-3/4 xl:w-3/5 sm:m-0">
+          <div class="text-center">
+            <img src="@/assets/images/small-logo-white.png" style="height: 120px;" alt="login" class="mx-auto">
+          </div>
       <vx-card>
         <div slot="no-body" class="full-page-bg-color">
+          <div class="items-center justify-center vx-row no-gutter">
 
-          <div class="vx-row no-gutter justify-center items-center">
-
-            <div class="vx-col hidden lg:block lg:w-1/2">
+            <div class="hidden vx-col lg:block lg:w-1/2">
               <img src="@/assets/images/pages/login.png" alt="login" class="mx-auto">
             </div>
 
             <div class="vx-col sm:w-full md:w-full lg:w-1/2 d-theme-dark-bg">
               <div class="p-8 login-tabs-container">
 
-                <div class="vx-card__title mb-4">
+                <div class="mb-4 vx-card__title">
                   <h4 class="mb-4">Login</h4>
                    <vs-alert v-if="successMessage" active="true" color="success">
                       {{successMessage}}
@@ -42,7 +44,7 @@
                       label-placeholder="Email"
                       v-model="formData.email"
                       class="w-full"/>
-                     <span class="text-danger text-sm">{{ errors.first('email') }}</span>
+                     <span class="text-sm text-danger">{{ errors.first('email') }}</span>
                   <vs-input
                       data-vv-validate-on="blur"
                       v-validate="'required|min:6'"
@@ -54,7 +56,7 @@
                       label-placeholder="Password"
                       v-model="formData.password"
                       class="w-full mt-6" />
-                      <span class="text-danger text-sm">{{ errors.first('password') }}</span>
+                      <span class="text-sm text-danger">{{ errors.first('password') }}</span>
 
                   <div class="flex flex-wrap justify-between my-5">
                       <vs-checkbox v-model="formData.checkbox_remember_me" class="mb-3">Remember Me</vs-checkbox>
@@ -168,7 +170,7 @@ export default {
                 // position: ' top-right'
               })
             }
-          
+
           }
 
       })

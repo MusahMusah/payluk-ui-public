@@ -12,20 +12,20 @@
     <div class="vx-row" v-if="allRequests.data">
       <!-- USER PROFILE CARD 2 - MINIMAL -->
       <div
-        class="vx-col w-full sm:w-1/2 lg:w-1/3 mb-base"
+        class="w-full vx-col sm:w-1/2 lg:w-1/3 mb-base"
         v-for="(request, index) in allRequests.data"
         :key="index"
       >
         <vx-card class="p-2">
           <vs-avatar
             v-if="request.image"
-            class="mx-auto mb-6 block"
+            class="block mx-auto mb-6"
             size="80px"
             :src="request.image"
           />
           <vs-avatar
             v-else
-            class="mx-auto mb-6 block"
+            class="block mx-auto mb-6"
             size="80px"
             :src="profile_img"
           />
@@ -33,7 +33,7 @@
             <h4>{{ request.first_name + " " + request.last_name }}</h4>
             <p class="text-grey">{{ request.email }}</p>
           </div>
-          <div class="flex justify-between flex-wrap">
+          <div class="flex flex-wrap justify-between">
             <vs-button
               icon="check"
               class="mt-4 mr-2 shadow-lg"
@@ -70,7 +70,7 @@
       </div>
     </div>
     <div class="vx-row" v-else>
-      <div class="vx-col w-full mx20 my-20">
+      <div class="w-full my-20 vx-col mx20">
         <vx-card
           title="No Invites Available"
           title-color="#fff"
@@ -94,8 +94,8 @@
     >
       <!-- <form data-vv-scope="add-new-address"> -->
       <div class="vx-row">
-        <div class="vx-col sm:w-1/2 w-full">
-          <vs-input
+        <div class="w-full vx-col sm:w-1/2">
+          <!-- <vs-input
             v-validate="'required|min:3'"
             data-vv-validate-on="blur"
             label="Item Name:"
@@ -106,13 +106,15 @@
             v-model="item_name"
             icon-pack="feather"
             icon="icon-mail"
-          />
-          <span class="text-danger text-sm">{{
+          /> -->
+          <label for="">Add Item(s) Name</label>
+          <v-select data-vv-validate-on="blur" v-validate="'required|min:3'" name="Item Name" v-model="items_name" class="w-full" :options="[]" taggable multiple push-tags />
+          <span class="text-sm text-danger">{{
             errors.first("Item Name")
           }}</span>
         </div>
 
-        <div class="vx-col sm:w-1/2 w-full">
+        <div class="w-full vx-col sm:w-1/2">
           <vs-input
             v-validate="'required'"
             data-vv-validate-on="blur"
@@ -122,17 +124,17 @@
             icon-pack="feather"
             icon="icon-smartphone"
             icon-no-border
-            label="Item Quantity"
+            label="Item(s) Quantity"
             v-model="item_quantity"
           />
-          <span class="text-danger text-sm">{{
-            errors.first("Item Quantity")
+          <span class="text-sm text-danger">{{
+            errors.first("Item(s) Quantity")
           }}</span>
         </div>
       </div>
 
       <div class="vx-row">
-        <div class="vx-col sm:w-1/2 w-full">
+        <div class="w-full vx-col sm:w-1/2">
           <vs-input
             v-validate="'required'"
             data-vv-validate-on="blur"
@@ -145,12 +147,12 @@
             label="Total Cost"
             v-model="total_cost"
           />
-          <span class="text-danger text-sm">{{
+          <span class="text-sm text-danger">{{
             errors.first("Total Cost")
           }}</span>
         </div>
 
-        <div class="vx-col sm:w-1/2 w-full mt-5">
+        <div class="w-full mt-5 vx-col sm:w-1/2">
           <label for="">Currency</label>
           <v-select
             v-validate="'required'"
@@ -161,14 +163,14 @@
             class="w-full"
             :options="['USD', 'NGN', 'EUR']"
           ></v-select>
-          <span class="text-danger text-sm">{{
+          <span class="text-sm text-danger">{{
             errors.first("Currency")
           }}</span>
         </div>
       </div>
 
       <div class="vx-row">
-        <div class="vx-col sm:w-1/2 w-full mt-5">
+        <div class="w-full mt-5 vx-col sm:w-1/2">
           <label for="">Ship From</label>
           <v-select
             v-validate="'required'"
@@ -178,12 +180,12 @@
             class="w-full"
             :options="['Kano', 'Abuja']"
           ></v-select>
-          <span class="text-danger text-sm">{{
+          <span class="text-sm text-danger">{{
             errors.first("Ship From")
           }}</span>
         </div>
 
-        <div class="vx-col sm:w-1/2 w-full mt-5">
+        <div class="w-full mt-5 vx-col sm:w-1/2">
           <label for="">Ship To</label>
           <v-select
             v-validate="'required'"
@@ -193,12 +195,12 @@
             class="w-full"
             :options="['Kano', 'Abuja']"
           ></v-select>
-          <span class="text-danger text-sm">{{ errors.first("Ship To") }}</span>
+          <span class="text-sm text-danger">{{ errors.first("Ship To") }}</span>
         </div>
       </div>
 
       <div class="vx-row">
-        <div class="vx-col w-full mt-5">
+        <div class="w-full mt-5 vx-col">
           <datepicker
             v-validate="'required'"
             data-vv-validate-on="blur"
@@ -206,12 +208,12 @@
             name="Ship Date"
             v-model="ship_date"
           ></datepicker>
-          <span class="text-danger text-sm">{{
+          <span class="text-sm text-danger">{{
             errors.first("Ship Date")
           }}</span>
         </div>
 
-        <div class="vx-col w-full mt-5">
+        <div class="w-full mt-5 vx-col">
           <datepicker
             v-validate="'required'"
             data-vv-validate-on="blur"
@@ -219,7 +221,7 @@
             name="Delivered Before Date"
             v-model="delivered_before_date"
           ></datepicker>
-          <span class="text-danger text-sm">{{
+          <span class="text-sm text-danger">{{
             errors.first("Delivered Before Date")
           }}</span>
           <!-- <vs-select label="Address Type:" v-model="addressType" class="w-full">
@@ -228,7 +230,7 @@
         </div>
       </div>
       <div class="vx-row">
-        <div class="vx-col w-full">
+        <div class="w-full vx-col">
           <vs-input
             v-validate="'required'"
             data-vv-validate-on="blur"
@@ -241,13 +243,13 @@
             name="Company Name"
             v-model="company_name"
           />
-          <span class="text-danger text-sm">{{
+          <span class="text-sm text-danger">{{
             errors.first("Company Name")
           }}</span>
         </div>
       </div>
-      <div class="vx-row mt-5">
-        <div class="vx-col w-full">
+      <div class="mt-5 vx-row">
+        <div class="w-full vx-col">
           <vs-textarea
             v-validate="'required'"
             data-vv-validate-on="blur"
@@ -255,13 +257,13 @@
             label="Company Address"
             v-model="company_address"
           />
-          <span class="text-danger text-sm">{{
+          <span class="text-sm text-danger">{{
             errors.first("Company Address")
           }}</span>
         </div>
       </div>
       <!-- @click.prevent="submitNewAddressForm" :disabled="!validateForm" -->
-      <vs-button class="mt-6 ml-auto flex" :disabled="!validateForm" @click="send_quotation"
+      <vs-button class="flex mt-6 ml-auto" :disabled="!validateForm" @click="send_quotation"
         >SAVE AND SEND QUOTATION</vs-button
       >
       <!-- </form> -->
@@ -280,6 +282,7 @@ export default {
     return {
       // card 1
       item_name: "",
+      items_name : [],
       item_quantity: "",
       total_cost: "",
       currency: "",
@@ -301,7 +304,7 @@ export default {
       getAllPendingRequests: "contract_request/getAllPendingRequest"
     }),
     validateForm() {
-      return !this.errors.any() && this.item_name != "" && this.item_quantity != ""
+      return !this.errors.any() && this.items_name != "" && this.item_quantity != ""
       && this.total_cost != "" && this.currency != ""
       && this.ship_from != "" && this.ship_to != "" && this.ship_date != ""
       && this.delivered_before_date != "" && this.company_name != "";
@@ -359,7 +362,7 @@ export default {
     send_quotation() {
       let payload = {
         invitation_id: localStorage.getItem("invite_id"),
-        item_name: this.item_name,
+        item_name: this.items_name,
         item_quantity: this.item_quantity,
         total_cost: this.total_cost,
         currency: this.currency,
