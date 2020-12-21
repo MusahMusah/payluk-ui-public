@@ -89,7 +89,7 @@
 
 <script>
 import VNavMenuItem from './VerticalNavMenuItem.vue'
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name  : 'v-nav-menu-group',

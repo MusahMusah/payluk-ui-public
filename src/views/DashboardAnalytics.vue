@@ -79,7 +79,7 @@
         <div class="vx-row">
             <!-- CARD 6: Product Orders -->
             <div class="w-full vx-col lg:w-1/2 mb-base">
-                <vx-card title="Contracts Overview">
+                <vx-card title="Contracts Overview" style="height: 90vh;">
                     <!-- CARD ACTION -->
                     <template slot="actions">
                         <!-- <change-time-duration-dropdown /> -->
@@ -174,7 +174,7 @@
 
             <!-- CARD 8: Activity Timeline -->
             <div class="w-full vx-col lg:w-1/2 mb-base">
-                <vx-card title="Activity Timeline" style="height: 86vh;marginbottom: 7.5rem !important;">
+                <vx-card title="Activity Timeline" style="height: 90vh;marginbottom: 7.5rem !important;">
                     <!-- {{getNotifications}} -->
                     <!-- <vx-timeline :data="timelineData" /> -->
                     <vx-timeline v-if="getNotifications.data" :data="getNotifications.data" style="margin-bottom: 5.8rem;" />

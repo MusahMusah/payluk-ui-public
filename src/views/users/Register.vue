@@ -12,7 +12,7 @@
 <div>
     <div class="flex items-center justify-center w-full h-screen bg-img vx-row no-gutter" style="height: 120vh !important;">
       <div class="flex items-center justify-center w-full vx-row no-gutter">
-          <div class="text-center" style="margin-bottom: -4em">
+          <div class="text-center" style="margin-bottom: -7em">
             <img src="@/assets/images/small-logo-white.png" style="height: 120px;" alt="login" class="mx-auto">
           </div>
       </div>

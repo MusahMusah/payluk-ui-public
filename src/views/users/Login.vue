@@ -10,7 +10,7 @@
 
 <template>
   <div class="flex items-center justify-center w-full h-screen bg-img vx-row no-gutter" id="page-login">
-    <div class="m-4 vx-col sm:w-1/2 md:w-1/2 lg:w-3/4 xl:w-3/5 sm:m-0">
+    <div style="margin-top: -2rem !important;" class="m-4 vx-col sm:w-1/2 md:w-1/2 lg:w-3/4 xl:w-3/5 sm:m-0">
           <div class="text-center">
             <img src="@/assets/images/small-logo-white.png" style="height: 120px;" alt="login" class="mx-auto">
           </div>
