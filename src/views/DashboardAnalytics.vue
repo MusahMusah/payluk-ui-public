@@ -13,7 +13,7 @@
 
             <!-- LINE CHART -->
             <div class="w-full vx-col md:w-2/3 mb-base">
-                <vx-card title="Schedule Analysis">
+                <vx-card title="Schedule Analysis" styl="height: 68vh;">
                     <template slot="actions">
                         <feather-icon icon="SettingsIcon" svgClasses="w-6 h-6 text-grey"></feather-icon>
                     </template>
@@ -21,12 +21,12 @@
                         <div class="flex">
                             <div class="mr-6">
                                 <p class="mb-1 font-semibold" style="color: #7367f0;">This Month</p>
-                                <p class="text-3xl" style="color: #7367f0;" v-if="!ScheduleAnalytics.data"><sup class="mr-1 text-base">₦</sup>{{this_monthAnalytics}}</p>
+                                <p class="text-3xl" style="color: #7367f0;" v-if="ScheduleAnalytics.series"><sup class="mr-1 text-base">₦</sup>{{this_monthAnalytics}}</p>
                                 <p class="text-3xl" style="color: #7367f0;" v-else><sup class="mr-1 text-base">₦</sup>0</p>
                             </div>
                             <div>
                                 <p class="mb-1 font-semibold" style="color: #7367f0;">Last Month</p>
-                                <p class="text-3xl" style="color: #7367f0;" v-if="!ScheduleAnalytics.data"><sup class="mr-1 text-base">₦</sup>{{last_monthAnalytics}}</p>
+                                <p class="text-3xl" style="color: #7367f0;" v-if="ScheduleAnalytics.series"><sup class="mr-1 text-base">₦</sup>{{last_monthAnalytics}}</p>
                                 <p class="text-3xl" style="color: #7367f0;" v-else><sup class="mr-1 text-base">₦</sup>0</p>
                             </div>
                         </div>
@@ -48,7 +48,7 @@
 
             <!-- RADIAL CHART -->
             <div class="w-full vx-col md:w-1/3 mb-base">
-                <vx-card title="Goal Overview">
+                <vx-card title="Goal Overview" styl="height: 68vh;">
                     <template slot="actions">
                         <feather-icon icon="HelpCircleIcon" svgClasses="w-6 h-6 text-grey"></feather-icon>
                     </template>
@@ -56,8 +56,7 @@
                     <!-- CHART -->
                     <template slot="no-body">
                         <div class="mt-10">
-                          <!-- :series="analyticsData.goalOverviewRadialBar.series" -->
-                            <vue-apex-charts type=radialBar height=240 :options="analyticsData.goalOverviewRadialBar.chartOptions"  :series="[non_formated_main_balance, non_formated_lain_balance]" />
+                            <vue-apex-charts type=radialBar height=240 :options="analyticsData.goalOverviewRadialBar.chartOptions"  :series="[Number(this.userData.info.main_balance), Number(this.userData.info.lain_balance)]" />
                         </div>
                     </template>
 
@@ -68,7 +67,7 @@
                             <p class="mb-4 text-3xl font-semibold" style="color: #7367f0; font-size: 1.2em !important;">₦{{main_balance}}</p>
                         </div>
                         <div class="w-1/2 border border-b-0 border-r-0 border-solid d-theme-border-grey-light">
-                            <p class="mt-4" style="color: #7367f0; font-size: 1.2em; font-weight: bold;">Lain Balance</p>
+                            <p class="mt-4" style="color: #7367f0; font-size: 1.2em; font-weight: bold;">Lein Balance</p>
                             <p class="mb-4 text-3xl font-semibold" style="color: #7367f0; font-size: 1.2em !important;">₦{{lain_balance}}</p>
                         </div>
                     </div>
@@ -105,79 +104,12 @@
                 </vx-card>
             </div>
 
-            <!-- CARD 7: Sales Stats -->
-            <!-- <div class="w-full h-full vx-col lg:w-1/3 mb-base"> -->
-               <!-- <vx-card title="Recent Transactions">
-                <div slot="no-body" class="h-full mt-4">
-                    <vs-table :data="dispatchedOrders" class="h-full table-dark-inverted">
-                    <template slot="thead">
-                        <vs-th>ORDER NO.</vs-th>
-                        <vs-th>STATUS</vs-th>
-                        <vs-th>OPERATORS</vs-th>
-                        <vs-th>LOCATION</vs-th>
-                        <vs-th>DISTANCE</vs-th>
-                        <vs-th>START DATE</vs-th>
-                        <vs-th>EST DELIVERY DATE</vs-th>
-                    </template>
-
-                    <template slot-scope="{data}">
-                        <vs-tr :key="indextr" v-for="(tr, indextr) in data">
-                        <vs-td :data="data[indextr].orderNo">
-                            <span>#{{data[indextr].orderNo}}</span>
-                        </vs-td>
-                        <vs-td :data="data[indextr].status">
-                            <span class="flex items-center px-2 py-1 rounded"><div class="w-3 h-3 mr-2 rounded-full" :class="'bg-' + data[indextr].statusColor"></div>{{data[indextr].status}}</span>
-                        </vs-td>
-                        <vs-td :data="data[indextr].orderNo">
-                            <ul class="users-liked user-list">
-                                <li v-for="(user, userIndex) in data[indextr].usersLiked" :key="userIndex">
-                                    <vx-tooltip :text="user.name" position="bottom">
-                                        <vs-avatar :src="user.img" size="30px" class="-m-1 border-2 border-white border-solid"></vs-avatar>
-                                    </vx-tooltip>
-                                </li>
-                            </ul>
-                        </vs-td>
-                        <vs-td :data="data[indextr].orderNo">
-                            <span>{{data[indextr].location}}</span>
-                        </vs-td>
-                        <vs-td :data="data[indextr].orderNo">
-                            <span>{{data[indextr].distance}}</span>
-                            <vs-progress :percent="data[indextr].distPercent" :color="data[indextr].statusColor"></vs-progress>
-                        </vs-td>
-                        <vs-td :data="data[indextr].orderNo">
-                            <span>{{data[indextr].startDate}}</span>
-                        </vs-td>
-                        <vs-td :data="data[indextr].orderNo">
-                            <span>{{data[indextr].estDelDate}}</span>
-                        </vs-td>
-                        </vs-tr>
-                    </template>
-                    </vs-table>
-                </div>
-
-                </vx-card> -->
-
-
-              <!-- <vx-card title="Sales Stats" subtitle="Last 6 Months">
-                <template slot="actions">
-                  <feather-icon icon="MoreVerticalIcon" svgClasses="w-6 h-6 text-grey"></feather-icon>
-                </template>
-                <div class="flex">
-                  <span class="flex items-center"><div class="w-3 h-3 mr-1 rounded-full bg-primary"></div><span>Sales</span></span>
-                  <span class="flex items-center ml-4"><div class="w-3 h-3 mr-1 rounded-full bg-warning"></div><span>Visits</span></span>
-                </div>
-                <div slot="no-body-bottom">
-                  <vue-apex-charts type=radar height=400 :options="analyticsData.statisticsRadar.chartOptions" :series="analyticsData.statisticsRadar.series" />
-                </div>
-              </vx-card> -->
-            <!-- </div> -->
-
             <!-- CARD 8: Activity Timeline -->
             <div class="w-full vx-col lg:w-1/2 mb-base">
                 <vx-card title="Activity Timeline" style="height: 90vh;marginbottom: 7.5rem !important;">
                     <!-- {{getNotifications}} -->
                     <!-- <vx-timeline :data="timelineData" /> -->
-                    <vx-timeline v-if="getNotifications.data" :data="getNotifications.data" style="margin-bottom: 5.8rem;" />
+                    <vx-timeline v-if="getNotifications.data.length > 0" :data="getNotifications.data" styl="margin-bottom: 5.8rem;" />
                     <p v-else>No Timeline Data Yet</p>
                 </vx-card>
             </div>
@@ -313,19 +245,19 @@ export default{
           getTransactionsDetails: "payments/getTransactionsData",
       }),
       user_transactions() {
-          if (this.getTransactionsDetails == null) {
+          if (this.userData.deposit.transactions == null) {
               return [];
           } else {
-              return this.getTransactionsDetails;
+              return this.userData.deposit.transactions;
           }
-          // return []
+          // return this.userData.deposit.transactions
       },
       getNotifications(){
-        return this.notificationsData
+        return this.userData.notification
       },
       getContractsOverView()
       {
-        return this.contractsOverView
+        return this.userData.invoice
       },
       ScheduleAnalytics() {
         return this.scheduleAnalysis
@@ -340,21 +272,24 @@ export default{
         return this.userData
       },
       lain_balance () {
-        return this.formatMoney(this.userData.lain_balance)
-
+        return this.formatMoney(this.userData.info.lain_balance)
       },
 
       non_formated_main_balance () {
-        return Number(this.main_balance.replace(/[^0-9.-]+/g,""))
+        return 0
+        // return Number(this.userData.info.main_balance)
+        // return parseInt(this.userData.info.main_balance)
+        // return Number(this.main_balance.replace(/[^0-9.-]+/g,""))
       },
 
       non_formated_lain_balance () {
-        return Number(this.lain_balance.replace(/[^0-9.-]+/g,""))
+        return 0
+        // return parseInt(this.userData.info.lain_balance)
+        // return Number(this.lain_balance.replace(/[^0-9.-]+/g,""))
       },
 
       main_balance () {
-        return this.formatMoney(this.userData.main_balance)
-
+        return this.formatMoney(this.userData.info.main_balance)
       },
     },
     methods : {
@@ -388,14 +323,28 @@ export default{
         VxTimeline
     },
     mounted() {
-        this.$refs.chatLogPS.$el.scrollTop = this.$refs.chatLog.scrollHeight;
+        // this.$refs.chatLogPS.$el.scrollTop = this.$refs.chatLog.scrollHeight;
     },
     created() {
-      this.activeUserInfo();
-      this.dashBoardAnalytics();
-      this.dashBoardContractsOverview();
-      this.transactionDetailsData();
       this.formatMoney();
+      this.activeUserInfo()
+      this.dashBoardAnalytics();
+      // this.$vs.loading();
+      // .then(() => {
+      //   this.$vs.loading.close();
+      // })
+      // .catch(() => {
+      //   this.$vs.loading.close();
+      //   this.logOutAction()
+      //   .then(() => {
+      //     this.$router.push('/login').catch(() => {})
+      //   })
+      //   .catch((err) => {
+      //     console.log(err)
+      //   })
+      // })
+      // this.dashBoardContractsOverview();
+      // this.transactionDetailsData();
     }
 }
 </script>

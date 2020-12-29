@@ -74,10 +74,10 @@
               <span class="truncate">{{ groupItem.name }}</span>
               <!-- <span v-if="group.name == 'Buyer'">{{getBuyerPendingCount}}</span> -->
               <vs-chip class="ml-auto" :color="groupItem.tagColor" v-if="groupItem.tag">{{ groupItem.tag }}</vs-chip>
-              <vs-chip class="ml-auto" color="warning" v-else-if="group.name == 'Buyer' && groupItem.name == 'Pending'">{{getBuyerPendingCount}}</vs-chip>
-              <vs-chip class="ml-auto" color="warning" v-else-if="group.name == 'Buyer' && groupItem.name == 'Completed'">{{getBuyerCompletedCount}}</vs-chip>
-              <vs-chip class="ml-auto" color="warning" v-else-if="group.name == 'Seller' && groupItem.name == 'Pending'">{{getSellerPendingCount}}</vs-chip>
-              <vs-chip class="ml-auto" color="warning" v-else-if="group.name == 'Seller' && groupItem.name == 'Completed'">{{getSellerCompletedCount}}</vs-chip>
+              <vs-chip class="ml-auto" color="warning" v-else-if="group.name == 'Buyer' && groupItem.name == 'Pending'">{{buyerCounter.pending_counter}}</vs-chip>
+              <vs-chip class="ml-auto" color="warning" v-else-if="group.name == 'Buyer' && groupItem.name == 'Completed'">{{buyerCounter.completed_counter}}</vs-chip>
+              <vs-chip class="ml-auto" color="warning" v-else-if="group.name == 'Seller' && groupItem.name == 'Pending'">{{sellerCounter.pending_counter}}</vs-chip>
+              <vs-chip class="ml-auto" color="warning" v-else-if="group.name == 'Seller' && groupItem.name == 'Completed'">{{sellerCounter.completed_counter}}</vs-chip>
           </v-nav-menu-item>
 
         </li>
@@ -112,7 +112,14 @@ export default {
       getBuyerCompletedCount: "contract_request/getBuyerCompletedCount",
       getSellerPendingCount: "contract_request/getSellerPendingCount",
       getSellerCompletedCount: "contract_request/getSellerCompletedCount",
+      userData : 'users/getUserData',
     }),
+    buyerCounter () {
+      return this.userData.buyer
+    },
+    sellerCounter () {
+      return this.userData.seller
+    },
     verticalNavMenuItemsMin() { return this.$store.state.verticalNavMenuItemsMin },
     styleItems() {
       return { maxHeight: this.maxHeight }

@@ -19,10 +19,10 @@
             <div class="mb-4 algolia-header">
                 <div class="flex flex-wrap items-center justify-between md:items-end">
                     <!-- TOGGLE SIDEBAR BUTTON -->
-                    <feather-icon
+                    <!-- <feather-icon
                         class="inline-flex mr-4 cursor-pointer lg:hidden"
                         icon="MenuIcon"
-                        @click.stop="toggleFilterSidebar" />
+                        @click.stop="toggleFilterSidebar" /> -->
 
                     <p class="hidden font-semibold lg:inline-flex algolia-filters-label"></p>
 
@@ -82,7 +82,7 @@
 
                                 <!-- SEARCH INPUT -->
                                 <!-- <vs-input class="w-full vs-input-shadow-drop vs-input-no-border d-theme-input-dark-bg" placeholder="Search here" v-model="currentRefinement" @input="refine($event)" @keyup.esc="refine('')" size="large" /> -->
-                                <vs-input class="w-full vs-input-shadow-drop vs-input-no-border d-theme-input-dark-bg" placeholder="Search here" v-model="searchQuery"  @keyup.esc="refine('')" size="large" />
+                                <vs-input class="w-full vs-input-shadow-drop vs-input-no-border d-theme-input-dark-bg" placeholder="Search For User here..." v-model="searchQuery"  @keyup.esc="refine('')" size="large" />
 
                                 <!-- SEARCH LOADING -->
                                 <p :hidden="!isSearchStalled" class="mt-4 text-grey">
@@ -127,7 +127,8 @@
                                           </template>
                                       </item-grid-view>
                                   </div> -->
-                                    <div class="w-full vx-col sm:w-1/2 lg:w-1/3 mb-base" v-for="(item, index) in resultQuery" :key="index">
+                                    <template v-if="searchQuery.length > 0">
+                                       <div class="w-full vx-col sm:w-1/2 lg:w-1/3 mb-base" v-for="(item, index) in resultQuery" :key="index">
                                         <vx-card class="p-2">
                                             <div class="text-center">
                                                 <h4>{{ `${item.first_name + ' ' + item.last_name}` }}</h4>
@@ -160,7 +161,8 @@
                                                 </div> -->
                                             </template>
                                         </vx-card>
-                                    </div>
+                                        </div>
+                                    </template>
                                     <vx-card  title="User Not Found"
                                     title-color="#fff"
                                     card-background="primary"

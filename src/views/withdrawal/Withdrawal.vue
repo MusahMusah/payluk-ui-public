@@ -149,7 +149,11 @@
               </div>
               <div class="card-input">
                 <label for="amount" class="card-input__label">Amount</label>
-                <input type="text" id="amount" class="card-input__input" v-model="amount" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="amount" autocomplete="off">
+                <currency-input
+                id="amount" currency="NGN" class="card-input__input" v-model="amount"
+                v-on:focus="focusInput" v-on:blur="blurInput" data-ref="amount"
+                />
+                <!-- <input type="text" id="amount" class="card-input__input" v-model="amount" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="amount" autocomplete="off"> -->
               </div>
               <!-- <div class="card-form__row">
                 <div class="card-form__col">

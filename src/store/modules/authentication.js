@@ -9,7 +9,8 @@
 
 import axios from "axios"
 import router from "@/router"
-
+// const ApiLoginUrl = 'http://localhost:3000/login';
+const ApiLoginUrl = 'https://www.app.payluk.com/login';
 export default {
   namespaced: true,
 
@@ -21,7 +22,7 @@ export default {
 
   getters : {
     loggedIn(state) {
-        return state.token !== null 
+        return state.token !== null
     },
     user (state) {
       return state.user
@@ -55,23 +56,23 @@ export default {
         // Set jwt token
         commit('SET_TOKEN', response.data.token)
       }
-      let verify = await axios.get('/firewall') 
+      let verify = await axios.get('/firewall')
       if (verify.status == 200) {
         dispatch('attempt', response.data.token)
-        
+
       } else if(verify.status == 201){
-        
+
         localStorage.setItem("verify_token", localStorage.getItem('token'))
         localStorage.removeItem("token")
         // Check if account has multiple login attempt error and redirect to force password reset
         if (verify.data.errorcode == 703) {
           // localStorage.removeItem("token")
           localStorage.setItem("error_703", verify.data.message)
-          // return router.push({ name: 'verify-otp', params: { dataMessage: verify.data.message } }) 
-          return window.location.href = ` https://payluk.com/verify_otp?message=${verify.data.message}`; 
+          // return router.push({ name: 'verify-otp', params: { dataMessage: verify.data.message } })
+          return window.location.href =  ApiLoginUrl + `/verify_otp?message=${verify.data.message}`;
         }
         localStorage.removeItem("token")
-        // Set the error 
+        // Set the error
          commit('SET_ERROR', verify.data.message)
         throw 201
       }
@@ -94,22 +95,22 @@ export default {
           //   await axios.get('/firewall').then(() => {}).catch(() => {
           //   localStorage.removeItem("token")
           //   localStorage.removeItem("verify_token")
-          //   return window.location.href = ` https://payluk.com/backend/login`; 
-          // }) 
+          //   return window.location.href = ` https://payluk.com/backend/login`;
+          // })
           let response = await axios.get('/account')
           if (response.status == 200) {
             commit('SET_USER', response.data.data)
-            
+
           } else {
                localStorage.removeItem("token")
         //   // , params: { dataMessage: verify.data.message }
-                return router.push({ name: 'login' }) 
-          }        
+                return router.push({ name: 'login' })
+          }
       } catch (error) {
         commit('SET_TOKEN', null)
         commit('SET_USER', null)
       }
-    }, 
+    },
 
     // Register New User
     async registerUser({ dispatch, commit }, payload) {
@@ -118,19 +119,19 @@ export default {
         // Set jwt token
         commit('SET_TOKEN', response.data.token)
       }
-      let verify = await axios.get('/firewall') 
+      let verify = await axios.get('/firewall')
       if (verify.status == 200) {
         dispatch('attempt', response.data.token)
-        
+
       }
-  
+
     },
 
     // Verify User Otp
     async verifyOtp(_, payload) {
       axios.defaults.headers.common['Authorization'] =  `Bearer ${localStorage.getItem('verify_token')}`
       return await axios.post('/verify_otp', {otp : payload})
-  
+
     },
 
     // Resend Otp For User
@@ -166,7 +167,7 @@ export default {
         localStorage.setItem("verify_password_token", response.data.token)
         router.push({ name: 'verify-password-otp', params: { dataMessage: response.data.message } })
       })
-        
+
     },
 
     // Reset Password For forgot Account
@@ -186,8 +187,8 @@ export default {
         console.log(response)
         localStorage.removeItem("token")
         localStorage.removeItem("verify_token")
-        return window.location.href = ` https://payluk.com/login`; 
-      }) 
+        return window.location.href = ApiLoginUrl;
+      })
       return axios.post('/logout')
       .then(() => {
         localStorage.removeItem("verify_token")

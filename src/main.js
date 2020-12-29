@@ -65,6 +65,10 @@ Vue.use(VueObserveVisibility)
 import VueClipboard from 'vue-clipboard2'
 Vue.use(VueClipboard);
 
+// Vue Currency
+import VueCurrencyInput from 'vue-currency-input'
+Vue.use(VueCurrencyInput)
+
 // VeeValidate
 import VeeValidate from 'vee-validate';
 Vue.use(VeeValidate);

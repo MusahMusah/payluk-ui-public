@@ -9,11 +9,11 @@
 
 <template>
   <div id="demo-basic-card">
-    <div class="vx-row" v-if="allRequests.data">
+    <div class="vx-row" v-if="getAllPendingRequests.data">
       <!-- USER PROFILE CARD 2 - MINIMAL -->
       <div
         class="w-full vx-col sm:w-1/2 lg:w-1/3 mb-base"
-        v-for="(request, index) in allRequests.data"
+        v-for="(request, index) in getAllPendingRequests.data"
         :key="index"
       >
         <vx-card class="p-2">
@@ -263,7 +263,7 @@
         </div>
       </div>
       <!-- @click.prevent="submitNewAddressForm" :disabled="!validateForm" -->
-      <vs-button class="flex mt-6 ml-auto" :disabled="!validateForm" @click="send_quotation"
+      <vs-button class="flex mt-6 mb-12 ml-auto" :disabled="!validateForm" @click="send_quotation"
         >SAVE AND SEND QUOTATION</vs-button
       >
       <!-- </form> -->
@@ -414,15 +414,20 @@ export default {
     }
   },
   created() {
-    this.$vs.loading();
-    this.allInvites()
-    .then(() => {
-      this.$vs.loading.close();
-    })
-    .catch((error) => {
-      this.$vs.loading.close();
-      console.log(error)
-    })
+    // if (this.getAllPendingRequests.data.length > 0) {
+    //   return
+    // }
+    if (!this.getAllPendingRequests.length > 0) {
+      this.$vs.loading();
+      this.allInvites()
+      .then(() => {
+        this.$vs.loading.close();
+      })
+      .catch((error) => {
+        this.$vs.loading.close();
+        console.log(error)
+      })
+    }
   },
   components: {
     Quotation,

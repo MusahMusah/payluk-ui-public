@@ -10,6 +10,7 @@
 import axios from "axios"
 // import router from "@/router"
 // const ApiLoginUrl = 'http://localhost:3000/login';
+const ApiLoginUrl = 'https://www.app.payluk.com/login';
 export default {
   namespaced: true,
 
@@ -85,7 +86,7 @@ export default {
         let response = await axios.get('/firewall').then(() => {}).catch(() => {
           localStorage.removeItem("token")
           localStorage.removeItem("verify_token")
-          return window.location.href = `https://payluk.com/login`;
+          return window.location.href = ApiLoginUrl;
         })
         let res = await axios.get('/account')
         // console.log(res)
@@ -94,11 +95,11 @@ export default {
         } else if(response.status == 201) {
           localStorage.removeItem("token")
           localStorage.removeItem("verify_token")
-          return window.location.href = `https://payluk.com/login`;
+          return window.location.href = ApiLoginUrl;
         }else {
           localStorage.removeItem("token")
           localStorage.removeItem("verify_token")
-          return window.location.href = `https://payluk.com/login`;
+          return window.location.href = ApiLoginUrl;
         }
     },
 

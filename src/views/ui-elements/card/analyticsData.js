@@ -607,7 +607,7 @@ export default {
                 }
                 }
             },
-            labels: ['MAIN BALANCE', 'LAIN BALANCE']
+            labels: ['MAIN BALANCE', 'LEIN BALANCE']
         }
     },
     supportTrackerRadialBar: {

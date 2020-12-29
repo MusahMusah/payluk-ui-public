@@ -58,8 +58,8 @@
               <star-rating
               :star-size="15"
               :read-only="true"
-              :rating="rank"
-              :max-rating="rank"
+              :rating="Number(rank)"
+              :max-rating="Number(rank)"
               :border-width="1"
               border-color="#d8d8d8"
               :rounded-corners="true"
@@ -70,16 +70,16 @@
                 23,43, 38,50, 36,34,
                 46,19, 31,17]">
               </star-rating>
-              <span class="p-2" style="text-transform: uppercase;font-weight: bold; font-size: 1.2em">{{userData.rank}}</span>
+              <span class="p-2" style="text-transform: uppercase;font-weight: bold; font-size: 1.2em">{{userData.info.rank}}</span>
               <!-- <vs-button class="p-1" style="text-transform: uppercase;font-weight: bold; font-size: 1.3em">{{userData.rank.toUpperCase()}}</vs-button> -->
             </vs-chip>
             <vs-chip color="primary" class="ml-2 mr-2" id="tour_statusSection">
-              <vs-avatar size="28px" v-if="userData.status == 'not activated'" icon="close" />
+              <vs-avatar size="28px" v-if="userData.info.status == 'not activated'" icon="close" />
               <vs-avatar size="28px" v-else icon="check" />
-              <span  style="text-transform: uppercase; font-weight: bold; font-size: 1.3em">ACCOUNT {{userData.status}}</span>
+              <span  style="text-transform: uppercase; font-weight: bold; font-size: 1.3em">ACCOUNT {{userData.info.status}}</span>
                 <!-- <vs-button icon="send" radius style="text-transform: uppercase; font-weight: bold; font-size: 1.3em">ACCOUNT {{userData.status.toUpperCase()}}</vs-button> -->
             </vs-chip>
-            <vs-button v-if="userData.status == 'not activated'"
+            <vs-button v-if="userData.info.status == 'not activated'"
             :to="{name: 'activate-account'}"
             style="text-transform: uppercase; font-weight: bold; font-size: .7em"
             size="medium" icon="double_arrow" color="primary">ACTIVATE</vs-button>
@@ -116,8 +116,8 @@
               <star-rating
               :star-size="10"
               :read-only="true"
-              :rating="rank"
-              :max-rating="rank"
+              :rating="Number(rank)"
+              :max-rating="Number(rank)"
               :border-width="1"
               border-color="#d8d8d8"
               :rounded-corners="true"
@@ -128,7 +128,7 @@
                 23,43, 38,50, 36,34,
                 46,19, 31,17]">
               </star-rating>
-              <span class="p" style="text-transform: uppercase;font-weight: bold; font-size: .9em">{{userData.rank}}</span>
+              <span class="p" style="text-transform: uppercase;font-weight: bold; font-size: .9em">{{userData.info.rank}}</span>
               <!-- <vs-button class="p-1" style="text-transform: uppercase;font-weight: bold; font-size: 1.3em">{{userData.rank.toUpperCase()}}</vs-button> -->
             </vs-chip>
         </div>
@@ -300,17 +300,17 @@ export default {
 
         // PROFILE
         user_displayName() {
-            return this.userData.first_name + " " + this.userData.last_name
+            return this.userData.info.first_name + " " + this.userData.info.last_name
         },
         user_displayEmail() {
-            return this.userData.email
+            return this.userData.info.email
         },
         getNotifications(){
           return this.notificationsData
         },
         activeUserImg() {
             // return this.$store.state.AppActiveUser.photoURL;
-            return this.userData.small_image
+            return this.userData.info.small_image
         },
         navbarColorLocal() {
           return this.$store.state.theme === "dark" ? "#10163a" : this.navbarColor
@@ -333,7 +333,8 @@ export default {
         // BOOKMARK & SEARCH
         data() {
             // return this.$store.state.navbarSearchAndPinList;
-            return this.searchUserData()
+            // return this.searchUserData()
+            return 0
         },
         starredPages() {
             return this.$store.state.starredPages;
@@ -477,9 +478,9 @@ export default {
       this.notifications()
       setInterval(() => this.notifications(), 300000);
     },
-    updated(){
-      this.rank = parseFloat(this.userData.star)
-    },
+    // updated(){
+    //   this.rank = Number(this.userData.info.star)
+    // },
     directives: {
         'click-outside': {
             bind: function(el, binding) {

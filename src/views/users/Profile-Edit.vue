@@ -270,7 +270,7 @@ export default {
             color: "success",
           });
           this.imagePreview = require("@/assets/images/Placeholder.jpg");
-          this.$router.push("/profile-view").catch((err) => {
+          this.$router.push("/dashboard/analytics").catch((err) => {
             console.log(err);
           });
         })

@@ -242,10 +242,11 @@
       </div>
       <!-- {{allReviews}} -->
       <!-- COL 2 -->
-      <div class="w-full vx-col lg:w-1/2" v-if="allReviews != null">
+      <!-- <div class="w-full vx-col lg:w-1/2" v-if="allReviews != null"> -->
+      <div class="w-full vx-col lg:w-1/2" v-if="userReviews">
 
         <vx-card title="All Reviews" class="mt-base">
-          <div  v-for="(userReview, index) in allReviews" :key="index" class="mb-10">
+          <div  v-for="(userReview, index) in userReviews" :key="index" class="mb-10">
             <!-- POST HEADER -->
             <div class="flex justify-between mb-4 post-header">
               <div class="flex items-center">
@@ -312,7 +313,7 @@
             <div class="h-10 p-5 m-5 post-content">
               <p>You Do not have any reviews Yet</p>
             </div>
-            <!-- {{userReviews}} -->
+            {{userReviews}}
           </div>
         </vx-card>
       </div>
@@ -393,7 +394,7 @@ export default {
       return !this.errors.any() && this.textarea != "";
     },
     userData_info() {
-      return this.userData;
+      return this.userData.info;
     },
     wallet_id() {
       return this.userData_info.wallet_id;
@@ -582,24 +583,22 @@ export default {
   },
   created() {
     this.$vs.loading();
-    this.activeUserInfo()
+    // this.activeUserInfo()
+    this.topSellers()
     .then(() => {
       this.$vs.loading.close();
     })
     .catch(() => {
         this.$router.replace({name: '404'}).catch(() => {})
     })
-    this.topSellers();
   },
   components: {
     videoPlayer,
     StarRating,
-    // InfiniteScroll
   },
   mounted() {
     this.wasSidebarOpen = this.$store.state.reduceButton;
     this.$store.commit("TOGGLE_REDUCE_BUTTON", true);
-    // this.fetch(1)
     this.fetch()
   },
   beforeDestroy() {

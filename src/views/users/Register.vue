@@ -12,12 +12,19 @@
 <div>
     <div class="flex items-center justify-center w-full h-screen bg-img vx-row no-gutter" style="height: 120vh !important;">
       <div class="flex items-center justify-center w-full vx-row no-gutter">
+        <!-- <template v-if="windowWidth < 992"> -->
           <div class="text-center" style="margin-bottom: -7em">
+            <img src="@/assets/images/logo.png" style="height: 120px;" alt="login" class="mx-auto">
+          </div>
+        <!-- </template> -->
+        <!-- <template v-else>
+          <div class="text-center" style="marginbottom: -7em">
             <img src="@/assets/images/small-logo-white.png" style="height: 120px;" alt="login" class="mx-auto">
           </div>
+        </template> -->
       </div>
         <div class="m-4 vx-col sm:w-1/2 md:w-1/2 lg:w-3/4 xl:w-3/5 sm:m-0">
-            <vx-card>
+            <vx-card class="mt-5">
                 <div slot="no-body" class="full-page-bg-color">
                     <div class="vx-row no-gutter">
                         <div class="self-center hidden mx-auto vx-col sm:hidden md:hidden lg:block lg:w-1/2">
@@ -141,7 +148,8 @@ export default {
     computed: {
         validateForm() {
             return !this.errors.any() && this.first_name != '' && this.country!= '' && this.last_name != '' && this.email != '' && this.password != '' && this.confirm_password != '' && this.terms === true;
-        }
+        },
+        windowWidth()     { return this.$store.state.windowWidth }
     },
     methods: {
         ...mapActions({

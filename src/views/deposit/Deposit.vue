@@ -44,13 +44,26 @@
               label-placeholder="Amount"
               v-model="amount"
             />
+            <!-- <currency-input
+            currency="NGN"
+              data-vv-validate-on="blur"
+              v-validate="'required'"
+              class="w-full vs-inputx vs-input--input normal"
+              style="border: 1px solid rgba(0, 0, 0, 0.2);"
+              name="Amount"
+              icon-pack="feather"
+              icon="feather icon-credit-card"
+              icon-no-border
+              label-placeholder="Amount"
+              v-model="amount"
+                /> -->
             <span class="text-sm text-danger">{{ errors.first('Amount') }}</span>
           </div>
         </div>
         <div class="vx-row ">
           <div class="w-full mt-6 vx-col">
             <vs-button
-              v-if="this.activeUserCurrency == 'USD'"
+              v-if="activeUserCurrency.currency != null && activeUserCurrency.currency == 'USD'"
               :disabled="!validateForm"
               @click="invokeStripe"
               icon-pack="feather"
@@ -157,20 +170,11 @@ export default {
       getTransactionsDetails: "payments/getTransactionsData",
       getUserData : "users/getUserData",
     }),
-    user_transactions() {
-      if (this.getTransactionsDetails == null) {
-        return []
-      }else {
-        return this.getTransactionsDetails;
-
-      }
-      // return []
-    },
     activeUserEmail(){
-      return this.getUserData.email
+      return this.getUserData.info.email
     },
     activeUserCurrency(){
-      return this.getUserData.currency
+      return this.getUserData.info
     },
     validateForm() {
       return !this.errors.any() && this.amount != "";

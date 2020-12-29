@@ -107,11 +107,11 @@
             <vs-button :to="{name: 'activate-account'}" icon="double_arrow" color="primary" v-if="userData.status == 'not activated'" class="mt-4 mb-10 ml-8">Activate Account</vs-button>
           </template>
 
-          <!-- <template>
+          <template>
             <div :key="`group-${index}`" clas="h-10" style="height: 8em">
 
             </div>
-          </template> -->
+          </template>
         </VuePerfectScrollbar>
         <!-- /Menu Items -->
       </div>
@@ -161,6 +161,7 @@ export default {
       swipeEasing       : true
     },
     showShadowBottom    : false,
+    index:"",
   }),
   computed: {
     ...mapGetters({
@@ -233,7 +234,7 @@ export default {
     //   this.setVerticalNavMenuWidth()
     // },
     ...mapActions({
-      activeUserInfo : "users/activeUserInfo",
+      // activeUserInfo : "users/activeUserInfo",
       buyerPendingCount: "contract_request/buyerPendingCount",
       buyerCompletedCount: "contract_request/buyerCompletedCount",
       sellerPendingCount: "contract_request/sellerPendingCount",
@@ -305,11 +306,11 @@ export default {
     },
   },
   created(){
-    this.activeUserInfo()
-    this.buyerPendingCount()
-    this.buyerCompletedCount()
-    this.sellerPendingCount()
-    this.sellerCompletedCount()
+    // this.activeUserInfo()
+    // this.buyerPendingCount()
+    // this.buyerCompletedCount()
+    // this.sellerPendingCount()
+    // this.sellerCompletedCount()
   },
   mounted() {
     this.setVerticalNavMenuWidth()

@@ -11,7 +11,8 @@
 <template>
   <div class="layout--main" :class="[layoutTypeClass, navbarClasses, footerClasses, {'app-page': isAppPage}]">
 
-    <vx-tour :steps="steps" v-if="!disableThemeTour && (windowWidth >= 1200 && mainLayoutType === 'vertical')" />
+    <!-- <vx-tour :steps="steps" v-if="!disableThemeTour && (windowWidth >= 1200 && mainLayoutType === 'vertical') && userData != ''" /> -->
+    <!-- <vx-tour :steps="steps" v-if="!disableThemeTour && (windowWidth >= 1200 && mainLayoutType === 'vertical')" /> -->
 
     <!-- <the-customizer
       v-if                    = "!disableCustomizer"
@@ -131,6 +132,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import BackToTop           from 'vue-backtotop'
 import HNavMenu            from "@/layouts/components/horizontal-nav-menu/HorizontalNavMenu.vue"
 import navMenuItems        from "@/layouts/components/vertical-nav-menu/navMenuItems.js"
@@ -219,6 +221,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({
+        userData : 'users/getUserData',
+    }),
     bodyOverlay() { return this.$store.state.bodyOverlay },
     contentAreaClass() {
       if(this.mainLayoutType === "vertical") {
