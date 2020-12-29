@@ -104,7 +104,7 @@
           </template>
 
           <template v-if="windowWidth < 992">
-            <vs-button :to="{name: 'activate-account'}" icon="double_arrow" color="primary" v-if="userData.status == 'not activated'" class="mt-4 mb-10 ml-8">Activate Account</vs-button>
+            <vs-button :to="{name: 'activate-account'}" icon="double_arrow" color="primary" v-if="userData.info.status == 'not activated'" class="mt-4 mb-10 ml-8">Activate Account</vs-button>
           </template>
 
           <template>
