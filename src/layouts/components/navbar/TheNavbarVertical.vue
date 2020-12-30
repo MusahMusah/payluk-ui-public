@@ -105,9 +105,10 @@
         </div>
 
         <div class="bookmark-container">
+            <!-- icon="double_arrow" -->
             <vs-button :to="{name: 'activate-account'}"
-            icon="double_arrow" color="primary"
-            v-if="(userData.info.status == 'not activated')" size="small" class="ml-2">Activate Account</vs-button>
+            color="primary"
+            v-if="(userData.info.status == 'not activated')" size="small" class="ml-2">ACTIVATE ACCOUNT</vs-button>
             <vs-chip color="primary" v-else>
               <span style="font-weight: bold; font-size: .9em; padding:1px">RANK :</span>
               <star-rating
