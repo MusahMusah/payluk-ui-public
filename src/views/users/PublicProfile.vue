@@ -312,7 +312,7 @@
            <vs-divider color="primary" class="mb-3"></vs-divider>
           </div>
         </vx-card>
-        <div v-if="userReviews != null" v-observe-visibility="handleScrolledToBottom"></div>
+        <!-- <div v-if="userReviews != null" v-observe-visibility="handleScrolledToBottom"></div> -->
       </div>
       <div class="w-full vx-col lg:w-1/2" v-else>
         <vx-card class="mt-base" title="No Reviews Available"
@@ -456,7 +456,7 @@ export default {
     //   this.lastPage = reviews.data.data.reviews.pager.meta.last_page
     //   // console.log(this.lastPage)
     // },
-    async fetch(){
+    async fetchfd(){
       // let reviews = await axios.get(`https://payluk.com/backend/reviews?page=${this.page}`)
       let reviews = await axios.get(`https://payluk.com/backend/clients_review?wallet_id=${this.$route.params.wallet_id}&page=${this.page}`)
       if (reviews.data.reviews != null)
@@ -613,8 +613,8 @@ export default {
           .catch(() => {
               this.$router.replace({name: 'page-error-404'}).catch(() => {})
           })
-          this.fetch()
-          this.handleScrolledToBottom()
+          // this.fetch()
+          // this.handleScrolledToBottom()
         },
    },
   created() {
@@ -626,8 +626,8 @@ export default {
     .catch(() => {
         this.$router.replace({name: '404'}).catch(() => {})
     })
-    this.fetch()
-    this.handleScrolledToBottom()
+    // this.fetch()
+    // this.handleScrolledToBottom()
     // this.activeUserInfo();
     this.topSellers();
   },
@@ -640,7 +640,7 @@ export default {
     this.wasSidebarOpen = this.$store.state.reduceButton;
     this.$store.commit("TOGGLE_REDUCE_BUTTON", true);
     // this.fetch(1)
-    this.fetch()
+    // this.fetch()
   },
   beforeDestroy() {
     if (!this.wasSidebarOpen) this.$store.commit("TOGGLE_REDUCE_BUTTON", false);

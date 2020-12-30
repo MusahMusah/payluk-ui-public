@@ -94,11 +94,40 @@
             <h6>Full Name:</h6>
             <p>{{fullname}}</p>
           </div>
-          <div class="mt-5">
-            <h6>Joined:</h6>
-            <p>November 15, 2015</p>
+          <div class="mt-3 mb-4">
+            <!-- <h6>Ranking: </h6>
+            <p>
+              <vs-chip color="primary" style="text-transform : uppercase !important">
+                {{userData_info.rating.ranking}}
+              </vs-chip>
+            </p>
+            <br> -->
+            <p style="margin-left : -.5em !important;">
+              <vs-chip color="primary">
+              <!-- <vs-avatar icon-pack="feather" icon="icon-star" /> -->
+              <span style="font-weight: bold;font-size: 1em" class="p-1">RANKING:</span>
+              <star-rating
+              :star-size="15"
+              :rating="Number(userData_info.rating.star)"
+              :max-rating="Number(userData_info.rating.star)"
+              :read-only="true"
+              :border-width="1"
+              border-color="#d8d8d8"
+              :rounded-corners="true"
+              :show-rating="false"
+              :star-points="
+              [23,2, 14,17, 0,19,
+                10,34, 7,50,
+                23,43, 38,50, 36,34,
+                46,19, 31,17]">
+              </star-rating>
+              <span class="p-2" style="text-transform: uppercase;font-weight: bold; font-size: 1em">{{userData_info.rating.ranking}}</span>
+              <!-- <vs-button class="p-1" style="text-transform: uppercase;font-weight: bold; font-size: 1.3em">{{userData.rank.toUpperCase()}}</vs-button> -->
+            </vs-chip>
+            </p>
           </div>
-          <div class="mt-5">
+          <br>
+          <div class="mt-6">
             <h6>Email:</h6>
             <p>{{userData_info.email}}</p>
           </div>
@@ -140,9 +169,9 @@
       </div>
 
       <!-- COL 2 -->
-      <div  class="w-full vx-col lg:w-1/2" v-if="allReviews.length != 0">
+      <div  class="w-full vx-col lg:w-1/2" v-if="userReviews">
         <vx-card class="mt-base" title="All Reviews">
-          <div  v-for="(userReview, index) in allReviews" :key="index" class="mb-10">
+          <div  v-for="(userReview, index) in userReviews" :key="index" class="mb-10">
             <!-- POST HEADER -->
             <div class="flex justify-between mb-4 post-header">
               <div class="flex items-center">
@@ -187,10 +216,13 @@
             <vs-divider color="primary" class="mb-3"></vs-divider>
           </div>
         </vx-card>
-        <div v-if="userReviews != null" v-observe-visibility="handleScrolledToBottom"></div>
+        <!-- <div v-if="userReviews != null" v-observe-visibility="handleScrolledToBottom"></div> -->
       </div>
       <div class="w-full vx-col lg:w-1/2" v-else>
-        <vx-card class="mt-base" title="All Reviews">
+        <vx-card class="mt-base" title="No Reviews Available"
+          title-color="#fff"
+          card-background="primary"
+          content-color="#fff">
           <div>
             <!-- POST HEADER -->
             <div class="flex justify-between mb-4 post-header">
@@ -202,9 +234,9 @@
 
             <!-- POST CONTENT -->
             <div class="h-10 p-5 m-5 post-content">
-              <h2 class="mb-4">No Reviews Yet</h2>
+              <p>You Do not have any reviews Yet</p>
             </div>
-
+            {{userReviews}}
           </div>
         </vx-card>
       </div>
@@ -299,7 +331,7 @@ export default {
       topSellers: "users/topSellers",
       sendInvite: "users/sendInvite",
     }),
-    async fetch(){
+    async fetchdsd(){
       let reviews = await axios.get(`https://payluk.com/backend/clients_review?wallet_id=${this.$route.params.wallet_id}&page=${this.page}`)
       if (reviews.data.reviews != null)
       {
@@ -425,8 +457,8 @@ export default {
           .catch(() => {
               this.$router.replace({name: 'page-error-404'}).catch(() => {})
           })
-          this.fetch()
-          this.handleScrolledToBottom()
+          // this.fetch()
+          // this.handleScrolledToBottom()
         },
    },
   created() {
@@ -447,7 +479,7 @@ export default {
   mounted() {
     this.wasSidebarOpen = this.$store.state.reduceButton;
     this.$store.commit("TOGGLE_REDUCE_BUTTON", true);
-    this.fetch()
+    // this.fetch()
   },
   beforeDestroy() {
     if (!this.wasSidebarOpen) this.$store.commit("TOGGLE_REDUCE_BUTTON", false);

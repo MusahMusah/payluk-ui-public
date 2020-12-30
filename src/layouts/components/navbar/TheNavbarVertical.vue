@@ -105,14 +105,11 @@
         </div>
 
         <div class="bookmark-container">
-          <!-- <feather-icon icon="StarIcon" :svgClasses="['stoke-current text-warning', {'text-white': navbarColor != '#fff'}]" class="p-2 cursor-pointer" @click.stop="showBookmarkPagesDropdown = !showBookmarkPagesDropdown" /> -->
-                    <!-- <div v-click-outside="outside" class="absolute w-1/3 mt-4 bookmark-list xl:w-1/4" v-if="showBookmarkPagesDropdown">
-          <vx-auto-suggest :autoFocus="true" :data="navbarSearchAndPinList" @selected="selected" @actionClicked="actionClicked" inputClassses="w-full" show-action show-pinned background-overlay></vx-auto-suggest>
-          </div> -->
-          <!-- <feather-icon icon="StarIcon" :svgClasses="['stoke-current text-warning', {'text-white': navbarColor != '#fff'}]" class="p-2 cursor-pointer" @click.stop="showBookmarkPagesDropdown = !showBookmarkPagesDropdown" /> -->
-            <vs-chip color="primary">
-              <!-- <vs-avatar icon-pack="feather" icon="icon-star" /> -->
-              <span style="font-weight: bold; font-size: .8em; padding:1px">RANK:</span>
+            <vs-button :to="{name: 'activate-account'}"
+            icon="double_arrow" color="primary"
+            v-if="(userData.info.status == 'not activated')" size="small" class="ml-2">Activate Account</vs-button>
+            <vs-chip color="primary" v-else>
+              <span style="font-weight: bold; font-size: .9em; padding:1px">RANK :</span>
               <star-rating
               :star-size="10"
               :read-only="true"
@@ -128,8 +125,7 @@
                 23,43, 38,50, 36,34,
                 46,19, 31,17]">
               </star-rating>
-              <span class="p" style="text-transform: uppercase;font-weight: bold; font-size: .9em">{{userData.info.rank}}</span>
-              <!-- <vs-button class="p-1" style="text-transform: uppercase;font-weight: bold; font-size: 1.3em">{{userData.rank.toUpperCase()}}</vs-button> -->
+              <span class="p-1" style="text-transform: uppercase;font-weight: bold; font-size: .9em">{{userData.info.rank}}</span>
             </vs-chip>
         </div>
       </template>

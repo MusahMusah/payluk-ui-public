@@ -146,7 +146,7 @@
             <p>{{userData_info.currency}}</p>
           </div>
           <div class="mt-5">
-            <h6>Joined:</h6>
+            <h>Joined:</h>
             <p>{{userData_info.created_at.date}}</p>
           </div>
           <div class="mt-5">
@@ -296,7 +296,6 @@
       </div>
       <div class="w-full vx-col lg:w-1/2" v-else>
         <vx-card class="mt-base" title="No Reviews Available"
-          style="height:70vh"
           title-color="#fff"
           card-background="primary"
           content-color="#fff">
