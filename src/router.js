@@ -296,6 +296,21 @@ const router = new Router({
                 },
 
               },
+              // Merchant Contracts
+              {
+                path: '/merchant-contracts',
+                name: 'merchant-contracts',
+                component: () => import('./views/merchant/MerchantContracts.vue'),
+                meta: {
+                  breadcrumb: [
+                      { title: 'Home', url: '/' },
+                      { title: 'All Merchant Transactions', active: true },
+                  ],
+                  pageTitle: 'All Merchant Transactions',
+                  requiresAuthentication: true,
+                },
+
+              },
               {
                 path: '/test2',
                 name: 'test2',

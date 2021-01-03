@@ -149,10 +149,22 @@
               </div>
               <div class="card-input">
                 <label for="amount" class="card-input__label">Amount</label>
-                <currency-input
+                  <!-- data-vv-validate-on="blur"
+                  v-validate="'required'" -->
+                <input
+                  v-currency="{currency: 'NGN'}"
+                  class="w-full card-input__input"
+                  name="Amount"
+                  icon-pack="feather"
+                  icon="feather icon-credit-card"
+                  icon-no-border
+                  label-placeholder="Amount"
+                  v-model="amount"
+                />
+                <!-- <currency-input
                 id="amount" currency="NGN" class="card-input__input" v-model="amount"
                 v-on:focus="focusInput" v-on:blur="blurInput" data-ref="amount"
-                />
+                /> -->
                 <!-- <input type="text" id="amount" class="card-input__input" v-model="amount" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="amount" autocomplete="off"> -->
               </div>
               <!-- <div class="card-form__row">

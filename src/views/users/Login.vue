@@ -45,7 +45,49 @@
                       v-model="formData.email"
                       class="w-full"/>
                      <span class="text-sm text-danger">{{ errors.first('email') }}</span>
-                  <vs-input
+                     <!-- <VuePassword
+                      class="w-full mt-6"
+                      v-model="formData.password"
+                      id="password"
+                      :strength="score"
+                      @input="updateStrength"
+                      /> -->
+                      <VuePassword
+                          v-model="formData.password"
+                          class="mt-6"
+                          :strength="score"
+                          @input="updateStrength"
+                      >
+                          <template
+                              v-slot:password-input="props"
+                              class="mt-6 control has-icons-left vs-con-input"
+                          >
+                              <input
+                                  class="w-full pl-12 input vs-inputx vs-input--input normal hasValue"
+                                  style="border: 1px solid rgba(0, 0, 0, 0.2);"
+                                  type="password"
+                                  placeholder="Password"
+                                  :value="props.value"
+                                  name="password"
+                                  data-vv-validate-on="blur"
+                                  v-validate="'required'"
+                                  @input="props.updatePassword"
+                              />
+                              <i class="vs-icon notranslate icon-scale icon-inputx vs-input--icon feather icon icon-lock null icon-no-border"></i>
+                              <!-- <vs-input
+                              v-model="formData.password"
+                              data-vv-validate-on="blur"
+                              v-validate="'required|min:6'"
+                              icon-no-border
+                              icon="icon icon-lock"
+                              icon-pack="feather"
+                              :value="props.value"
+                              @input="props.updatePassword"
+                              type="password"
+                              class="w-full" /> -->
+                          </template>
+                      </VuePassword>
+                  <!-- <vs-input
                       data-vv-validate-on="blur"
                       v-validate="'required|min:6'"
                       type="password"
@@ -55,7 +97,7 @@
                       icon-pack="feather"
                       label-placeholder="Password"
                       v-model="formData.password"
-                      class="w-full mt-6" />
+                      class="w-full mt-6" /> -->
                       <span class="text-sm text-danger">{{ errors.first('password') }}</span>
 
                   <div class="flex flex-wrap justify-between my-5">
@@ -77,10 +119,14 @@
 
 <script>
 // import router from '@/router'
+import VuePassword from 'vue-password';
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'login',
+  components: {
+    VuePassword,
+  },
   props: {
     dataSuccessMessage: {
       type: String,
@@ -93,6 +139,9 @@ export default {
         password: '',
         checkbox_remember_me: false
       },
+      score: 0,
+      strongRegex: '',
+      mediumRegex: '',
       successMessage : this.dataSuccessMessage
     }
   },
@@ -121,6 +170,21 @@ export default {
     ...mapActions({
       logIn : 'authentication/logIn'
     }),
+
+    updateStrength (password) {
+      // return password
+      this.strongRegex = new RegExp("^(?=.{14,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g");
+      this.mediumRegex = new RegExp("^(?=.{10,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g");
+      if (this.strongRegex.test(password)){
+        this.score = 4
+        // return 4
+      } else if(this.mediumRegex.test(password)){
+        this.score = 2
+        // return 2
+      }else {
+        this.score = 1
+      }
+    },
 
     login() {
       // Loading

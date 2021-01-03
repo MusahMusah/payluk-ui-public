@@ -150,6 +150,20 @@ export default [
     ]
   },
   {
+    header: "MERCHANT TRANSACTIONS",
+    icon: "PieChartIcon",
+    i18n: "Apps",
+    items: [
+      {
+        url: '/merchant-contracts',
+        slug: 'merchant-contracts',
+        name: "Merchant Contracts",
+        icon: "PieChartIcon",
+        i18n: "FAQ",
+      },
+    ]
+  },
+  {
     header: "SUPPORT",
     icon: "PackageIcon",
     i18n: "Apps",

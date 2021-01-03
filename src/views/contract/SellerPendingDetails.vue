@@ -71,409 +71,6 @@
                             class="mt-2 mr-4 text-2xl font-medium leading-none text-primary"
                             >₦{{ details.total_cost }}</span
                           >
-                          <span
-                            class="pl-4 mt-2 mr-2 border border-t-0 border-b-0 border-r-0 border-solid d-theme-border-grey-light"
-                          >
-                            <div data-v-34cbeed1="" class="vue-star-rating">
-                              <div data-v-34cbeed1="" class="vue-star-rating">
-                                <span
-                                  data-v-34cbeed1=""
-                                  class="vue-star-rating-star"
-                                  style="margin-right: 0px"
-                                >
-                                  <svg
-                                    data-v-21f5376e=""
-                                    data-v-34cbeed1=""
-                                    height="20"
-                                    width="20"
-                                    viewBox="0 0 20 20"
-                                    class="vue-star-rating-star"
-                                    step="100"
-                                  >
-                                    <linearGradient
-                                      data-v-21f5376e=""
-                                      id="gvv127"
-                                      x1="0"
-                                      x2="100%"
-                                      y1="0"
-                                      y2="0"
-                                    >
-                                      <stop
-                                        data-v-21f5376e=""
-                                        offset="100%"
-                                        stop-color="#ffd055"
-                                      ></stop>
-                                      <stop
-                                        data-v-21f5376e=""
-                                        offset="100%"
-                                        stop-color="#d8d8d8"
-                                      ></stop>
-                                    </linearGradient>
-                                    <filter
-                                      data-v-21f5376e=""
-                                      id="di23cg"
-                                      height="130%"
-                                      width="130%"
-                                      filterUnits="userSpaceOnUse"
-                                    >
-                                      <feGaussianBlur
-                                        data-v-21f5376e=""
-                                        stdDeviation="0"
-                                        result="coloredBlur"
-                                      ></feGaussianBlur>
-                                      <feMerge data-v-21f5376e="">
-                                        <feMergeNode
-                                          data-v-21f5376e=""
-                                          in="coloredBlur"
-                                        ></feMergeNode>
-                                        <feMergeNode
-                                          data-v-21f5376e=""
-                                          in="SourceGraphic"
-                                        ></feMergeNode>
-                                      </feMerge>
-                                    </filter>
-                                    <polygon
-                                      data-v-21f5376e=""
-                                      points="9.090909090909092,1.0101010101010102,3.0303030303030303,20,18.181818181818183,7.878787878787879,0,7.878787878787879,15.15151515151515,20"
-                                      fill="url(#gvv127)"
-                                      stroke="#fff"
-                                      filter="url(#di23cg)"
-                                    ></polygon>
-                                    <polygon
-                                      data-v-21f5376e=""
-                                      points="9.090909090909092,1.0101010101010102,3.0303030303030303,20,18.181818181818183,7.878787878787879,0,7.878787878787879,15.15151515151515,20"
-                                      fill="url(#gvv127)"
-                                      stroke="#999"
-                                      stroke-width="0"
-                                      stroke-linejoin="miter"
-                                    ></polygon>
-                                    <polygon
-                                      data-v-21f5376e=""
-                                      points="9.090909090909092,1.0101010101010102,3.0303030303030303,20,18.181818181818183,7.878787878787879,0,7.878787878787879,15.15151515151515,20"
-                                      fill="url(#gvv127)"
-                                    ></polygon>
-                                  </svg>
-                                </span>
-                                <span
-                                  data-v-34cbeed1=""
-                                  class="vue-star-rating-star"
-                                  style="margin-right: 0px"
-                                >
-                                  <svg
-                                    data-v-21f5376e=""
-                                    data-v-34cbeed1=""
-                                    height="20"
-                                    width="20"
-                                    viewBox="0 0 20 20"
-                                    class="vue-star-rating-star"
-                                    step="100"
-                                  >
-                                    <linearGradient
-                                      data-v-21f5376e=""
-                                      id="avu1cs"
-                                      x1="0"
-                                      x2="100%"
-                                      y1="0"
-                                      y2="0"
-                                    >
-                                      <stop
-                                        data-v-21f5376e=""
-                                        offset="100%"
-                                        stop-color="#ffd055"
-                                      ></stop>
-                                      <stop
-                                        data-v-21f5376e=""
-                                        offset="100%"
-                                        stop-color="#d8d8d8"
-                                      ></stop>
-                                    </linearGradient>
-                                    <filter
-                                      data-v-21f5376e=""
-                                      id="xoyt5"
-                                      height="130%"
-                                      width="130%"
-                                      filterUnits="userSpaceOnUse"
-                                    >
-                                      <feGaussianBlur
-                                        data-v-21f5376e=""
-                                        stdDeviation="0"
-                                        result="coloredBlur"
-                                      ></feGaussianBlur>
-                                      <feMerge data-v-21f5376e="">
-                                        <feMergeNode
-                                          data-v-21f5376e=""
-                                          in="coloredBlur"
-                                        ></feMergeNode>
-                                        <feMergeNode
-                                          data-v-21f5376e=""
-                                          in="SourceGraphic"
-                                        ></feMergeNode>
-                                      </feMerge>
-                                    </filter>
-                                    <polygon
-                                      data-v-21f5376e=""
-                                      points="9.090909090909092,1.0101010101010102,3.0303030303030303,20,18.181818181818183,7.878787878787879,0,7.878787878787879,15.15151515151515,20"
-                                      fill="url(#avu1cs)"
-                                      stroke="#fff"
-                                      filter="url(#xoyt5)"
-                                    ></polygon>
-                                    <polygon
-                                      data-v-21f5376e=""
-                                      points="9.090909090909092,1.0101010101010102,3.0303030303030303,20,18.181818181818183,7.878787878787879,0,7.878787878787879,15.15151515151515,20"
-                                      fill="url(#avu1cs)"
-                                      stroke="#999"
-                                      stroke-width="0"
-                                      stroke-linejoin="miter"
-                                    ></polygon>
-                                    <polygon
-                                      data-v-21f5376e=""
-                                      points="9.090909090909092,1.0101010101010102,3.0303030303030303,20,18.181818181818183,7.878787878787879,0,7.878787878787879,15.15151515151515,20"
-                                      fill="url(#avu1cs)"
-                                    ></polygon>
-                                  </svg>
-                                </span>
-                                <span
-                                  data-v-34cbeed1=""
-                                  class="vue-star-rating-star"
-                                  style="margin-right: 0px"
-                                >
-                                  <svg
-                                    data-v-21f5376e=""
-                                    data-v-34cbeed1=""
-                                    height="20"
-                                    width="20"
-                                    viewBox="0 0 20 20"
-                                    class="vue-star-rating-star"
-                                    step="100"
-                                  >
-                                    <linearGradient
-                                      data-v-21f5376e=""
-                                      id="kcann"
-                                      x1="0"
-                                      x2="100%"
-                                      y1="0"
-                                      y2="0"
-                                    >
-                                      <stop
-                                        data-v-21f5376e=""
-                                        offset="100%"
-                                        stop-color="#ffd055"
-                                      ></stop>
-                                      <stop
-                                        data-v-21f5376e=""
-                                        offset="100%"
-                                        stop-color="#d8d8d8"
-                                      ></stop>
-                                    </linearGradient>
-                                    <filter
-                                      data-v-21f5376e=""
-                                      id="r7nzph"
-                                      height="130%"
-                                      width="130%"
-                                      filterUnits="userSpaceOnUse"
-                                    >
-                                      <feGaussianBlur
-                                        data-v-21f5376e=""
-                                        stdDeviation="0"
-                                        result="coloredBlur"
-                                      ></feGaussianBlur>
-                                      <feMerge data-v-21f5376e="">
-                                        <feMergeNode
-                                          data-v-21f5376e=""
-                                          in="coloredBlur"
-                                        ></feMergeNode>
-                                        <feMergeNode
-                                          data-v-21f5376e=""
-                                          in="SourceGraphic"
-                                        ></feMergeNode>
-                                      </feMerge>
-                                    </filter>
-                                    <polygon
-                                      data-v-21f5376e=""
-                                      points="9.090909090909092,1.0101010101010102,3.0303030303030303,20,18.181818181818183,7.878787878787879,0,7.878787878787879,15.15151515151515,20"
-                                      fill="url(#kcann)"
-                                      stroke="#fff"
-                                      filter="url(#r7nzph)"
-                                    ></polygon>
-                                    <polygon
-                                      data-v-21f5376e=""
-                                      points="9.090909090909092,1.0101010101010102,3.0303030303030303,20,18.181818181818183,7.878787878787879,0,7.878787878787879,15.15151515151515,20"
-                                      fill="url(#kcann)"
-                                      stroke="#999"
-                                      stroke-width="0"
-                                      stroke-linejoin="miter"
-                                    ></polygon>
-                                    <polygon
-                                      data-v-21f5376e=""
-                                      points="9.090909090909092,1.0101010101010102,3.0303030303030303,20,18.181818181818183,7.878787878787879,0,7.878787878787879,15.15151515151515,20"
-                                      fill="url(#kcann)"
-                                    ></polygon>
-                                  </svg>
-                                </span>
-                                <span
-                                  data-v-34cbeed1=""
-                                  class="vue-star-rating-star"
-                                  style="margin-right: 0px"
-                                >
-                                  <svg
-                                    data-v-21f5376e=""
-                                    data-v-34cbeed1=""
-                                    height="20"
-                                    width="20"
-                                    viewBox="0 0 20 20"
-                                    class="vue-star-rating-star"
-                                    step="100"
-                                  >
-                                    <linearGradient
-                                      data-v-21f5376e=""
-                                      id="dqcqii"
-                                      x1="0"
-                                      x2="100%"
-                                      y1="0"
-                                      y2="0"
-                                    >
-                                      <stop
-                                        data-v-21f5376e=""
-                                        offset="100%"
-                                        stop-color="#ffd055"
-                                      ></stop>
-                                      <stop
-                                        data-v-21f5376e=""
-                                        offset="100%"
-                                        stop-color="#d8d8d8"
-                                      ></stop>
-                                    </linearGradient>
-                                    <filter
-                                      data-v-21f5376e=""
-                                      id="it8g4s"
-                                      height="130%"
-                                      width="130%"
-                                      filterUnits="userSpaceOnUse"
-                                    >
-                                      <feGaussianBlur
-                                        data-v-21f5376e=""
-                                        stdDeviation="0"
-                                        result="coloredBlur"
-                                      ></feGaussianBlur>
-                                      <feMerge data-v-21f5376e="">
-                                        <feMergeNode
-                                          data-v-21f5376e=""
-                                          in="coloredBlur"
-                                        ></feMergeNode>
-                                        <feMergeNode
-                                          data-v-21f5376e=""
-                                          in="SourceGraphic"
-                                        ></feMergeNode>
-                                      </feMerge>
-                                    </filter>
-                                    <polygon
-                                      data-v-21f5376e=""
-                                      points="9.090909090909092,1.0101010101010102,3.0303030303030303,20,18.181818181818183,7.878787878787879,0,7.878787878787879,15.15151515151515,20"
-                                      fill="url(#dqcqii)"
-                                      stroke="#fff"
-                                      filter="url(#it8g4s)"
-                                    ></polygon>
-                                    <polygon
-                                      data-v-21f5376e=""
-                                      points="9.090909090909092,1.0101010101010102,3.0303030303030303,20,18.181818181818183,7.878787878787879,0,7.878787878787879,15.15151515151515,20"
-                                      fill="url(#dqcqii)"
-                                      stroke="#999"
-                                      stroke-width="0"
-                                      stroke-linejoin="miter"
-                                    ></polygon>
-                                    <polygon
-                                      data-v-21f5376e=""
-                                      points="9.090909090909092,1.0101010101010102,3.0303030303030303,20,18.181818181818183,7.878787878787879,0,7.878787878787879,15.15151515151515,20"
-                                      fill="url(#dqcqii)"
-                                    ></polygon>
-                                  </svg>
-                                </span>
-                                <span
-                                  data-v-34cbeed1=""
-                                  class="vue-star-rating-star"
-                                  style="margin-right: 0px"
-                                >
-                                  <svg
-                                    data-v-21f5376e=""
-                                    data-v-34cbeed1=""
-                                    height="20"
-                                    width="20"
-                                    viewBox="0 0 20 20"
-                                    class="vue-star-rating-star"
-                                    step="100"
-                                  >
-                                    <linearGradient
-                                      data-v-21f5376e=""
-                                      id="ng7w4"
-                                      x1="0"
-                                      x2="100%"
-                                      y1="0"
-                                      y2="0"
-                                    >
-                                      <stop
-                                        data-v-21f5376e=""
-                                        offset="0%"
-                                        stop-color="#ffd055"
-                                      ></stop>
-                                      <stop
-                                        data-v-21f5376e=""
-                                        offset="0%"
-                                        stop-color="#d8d8d8"
-                                      ></stop>
-                                    </linearGradient>
-                                    <filter
-                                      data-v-21f5376e=""
-                                      id="ojd83"
-                                      height="130%"
-                                      width="130%"
-                                      filterUnits="userSpaceOnUse"
-                                    >
-                                      <feGaussianBlur
-                                        data-v-21f5376e=""
-                                        stdDeviation="0"
-                                        result="coloredBlur"
-                                      ></feGaussianBlur>
-                                      <feMerge data-v-21f5376e="">
-                                        <feMergeNode
-                                          data-v-21f5376e=""
-                                          in="coloredBlur"
-                                        ></feMergeNode>
-                                        <feMergeNode
-                                          data-v-21f5376e=""
-                                          in="SourceGraphic"
-                                        ></feMergeNode>
-                                      </feMerge>
-                                    </filter>
-                                    <polygon
-                                      data-v-21f5376e=""
-                                      points="9.090909090909092,1.0101010101010102,3.0303030303030303,20,18.181818181818183,7.878787878787879,0,7.878787878787879,15.15151515151515,20"
-                                      fill="url(#ng7w4)"
-                                      stroke="#fff"
-                                      filter="url(#ojd83)"
-                                      style="display: none"
-                                    ></polygon>
-                                    <polygon
-                                      data-v-21f5376e=""
-                                      points="9.090909090909092,1.0101010101010102,3.0303030303030303,20,18.181818181818183,7.878787878787879,0,7.878787878787879,15.15151515151515,20"
-                                      fill="url(#ng7w4)"
-                                      stroke="#999"
-                                      stroke-width="0"
-                                      stroke-linejoin="miter"
-                                    ></polygon>
-                                    <polygon
-                                      data-v-21f5376e=""
-                                      points="9.090909090909092,1.0101010101010102,3.0303030303030303,20,18.181818181818183,7.878787878787879,0,7.878787878787879,15.15151515151515,20"
-                                      fill="url(#ng7w4)"
-                                    ></polygon>
-                                  </svg>
-                                </span>
-                                <!---->
-                              </div>
-                            </div>
-                          </span>
-                          <span class="mt-2 leading-none cursor-pointer"
-                            >424 ratings</span
-                          >
                         </p>
                         <div class="vs-component vs-divider">
                           <span
@@ -676,11 +273,12 @@
             <vs-input
               v-validate="'required'"
               data-vv-validate-on="blur"
+              v-currency="{currency: null}"
               name="Total Cost"
               type="text"
               class="w-full mt-5"
               icon-pack="feather"
-              icon="icon-smartphone"
+              icon="feather icon-credit-card"
               icon-no-border
               label="Total Cost"
               v-model="details.total_cost"
@@ -716,7 +314,7 @@
               data-vv-validate-on="blur"
               v-model="details.ship_from"
               class="w-full"
-              :options="['Kano', 'Abuja']"
+              :options="states"
             ></v-select>
             <span class="text-sm text-danger">{{
               errors.first("Ship From")
@@ -731,7 +329,7 @@
               data-vv-validate-on="blur"
               v-model="details.ship_to"
               class="w-full"
-              :options="['Kano', 'Abuja']"
+              :options="states"
             ></v-select>
             <span class="text-sm text-danger">{{ errors.first("Ship To") }}</span>
           </div>
@@ -801,7 +399,7 @@
           </div>
         </div>
         <!-- @click.prevent="submitNewAddressForm" :disabled="!validateForm" -->
-        <vs-button class="flex mt-6 ml-auto" :disabled="!validateForm" @click="send_quotation"
+        <vs-button class="flex mt-6 mb-12 ml-auto" :disabled="!validateForm" @click="send_quotation"
           >SAVE AND MODIFY</vs-button
         >
         <!-- </form> -->
@@ -897,6 +495,45 @@ export default {
   data() {
     return {
       // Tickets Data
+      states: [
+        "Abia",
+        "Adamawa",
+        "Akwa Ibom",
+        "Anambra",
+        "Bauchi",
+        "Bayelsa",
+        "Benue",
+        "Borno",
+        "Cross River",
+        "Delta",
+        "Ebonyi",
+        "Edo",
+        "Ekiti",
+        "Enugu",
+        "FCT - Abuja",
+        "Gombe",
+        "Imo",
+        "Jigawa",
+        "Kaduna",
+        "Kano",
+        "Katsina",
+        "Kebbi",
+        "Kogi",
+        "Kwara",
+        "Lagos",
+        "Nasarawa",
+        "Niger",
+        "Ogun",
+        "Ondo",
+        "Osun",
+        "Oyo",
+        "Plateau",
+        "Rivers",
+        "Sokoto",
+        "Taraba",
+        "Yobe",
+        "Zamfara"
+      ],
       subject: "Choose Subject",
       addressTypeOptions: [
         {
@@ -1050,7 +687,7 @@ export default {
         total_cost: Number(this.details.total_cost.replace(/[^0-9.-]+/g,"")),
         currency: this.details.currency,
         ship_from: this.details.ship_from,
-        ship_to: this.ship_to,
+        ship_to: this.details.ship_to,
         ship_date: this.details.ship_date,
         delivered_before_date: this.details.delivered_before_date,
         company_name: this.details.company_name,
@@ -1071,6 +708,7 @@ export default {
             color: "success"
           });
           this.visibility = "display:none";
+          this.popupActive = false
           localStorage.removeItem("invite_id")
           setTimeout(() => {
               location.reload()

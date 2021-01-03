@@ -216,6 +216,12 @@ export default {
       }
     },
 
+    // Get Single Contract By Invitation Id
+    async singleContractNotification(_, invitation_id) {
+      return await axios.get('/contract/batch?invitation_id=' + invitation_id)
+      // console.log(response.data.data)
+    },
+
     // Accept Invitation
     async acceptInvite(_, payload) {
       return await axios.get('/invitation_pointer?invitation_id=' + payload +'&response=accepted')

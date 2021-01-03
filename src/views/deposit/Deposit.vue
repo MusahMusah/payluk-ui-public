@@ -34,6 +34,7 @@
         <div class="mt-6 mb-4 vx-row">
           <div class="w-full vx-col">
             <vs-input
+              v-currency="{currency: 'NGN'}"
               data-vv-validate-on="blur"
               v-validate="'required'"
               class="w-full"
@@ -77,7 +78,7 @@
             id="paystack-button"
             class="bg-primary"
             :disabled="!validateForm"
-            :amount="amount * 100"
+            :amount="filteredAmount * 100"
             :email="activeUserEmail"
             :paystackkey="PUBLIC_KEY"
             :reference="reference"
@@ -88,6 +89,22 @@
             <i class="fas fa-money-bill-alt"></i>
             Make Payment
             </paystack>
+            <!-- <paystack
+            v-else
+            id="paystack-button"
+            class="bg-primary"
+            :disabled="!validateForm"
+            :amount="amount * 100"
+            :email="activeUserEmail"
+            :paystackkey="PUBLIC_KEY"
+            :reference="reference"
+            :callback="creditUserAccount"
+            :close="paystackCloseWindow"
+            :embed="false"
+            >
+            <i class="fas fa-money-bill-alt"></i>
+            Make Payment
+            </paystack> -->
           </div>
         </div>
       </vx-card>
@@ -162,7 +179,7 @@ export default {
     // End Paystack Methods
     invokeStripe(){
       localStorage.setItem("amount", this.amount)
-      this.$router.replace({name:'deposit-pay', params: { amount : this.amount }}).catch((err) => { console.log(err)})
+      this.$router.replace({name:'deposit-pay', params: { amount : this.filteredAmount }}).catch((err) => { console.log(err)})
     }
   },
   computed:{
@@ -170,6 +187,9 @@ export default {
       getTransactionsDetails: "payments/getTransactionsData",
       getUserData : "users/getUserData",
     }),
+    filteredAmount () {
+      return (this.amount.replace(/[^0-9.-]+/g,""))
+    },
     activeUserEmail(){
       return this.getUserData.info.email
     },

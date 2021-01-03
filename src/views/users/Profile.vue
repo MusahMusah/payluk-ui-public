@@ -252,8 +252,8 @@
               <div class="flex items-center">
                 <div>
                   <vs-avatar
-                    v-if="userReview.profile_image"
-                    :src="userReview.profile_image"
+                    v-if="userReview.client_profile"
+                    :src="userReview.client_profile"
                     class="m-0"
                     size="45px"
                   ></vs-avatar>

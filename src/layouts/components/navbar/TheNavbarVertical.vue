@@ -159,35 +159,35 @@
       <!-- <vs-dropdown vs-custom-content :vs-trigger-click="change"  class="cursor-pointer"> -->
       <div @click="notification_read" id="tour_notificationSection">
         <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer">
-        <feather-icon icon="BellIcon" class="mt-1 mr-2 cursor-pointer sm:mr-6" :badge="getNotifications.badge"></feather-icon>
-        <vs-dropdown-menu class="notification-dropdown dropdown-custom vx-navbar-dropdown">
+          <feather-icon icon="BellIcon" class="mt-1 mr-2 cursor-pointer sm:mr-6" :badge="getNotifications.badge"></feather-icon>
+          <vs-dropdown-menu class="notification-dropdown dropdown-custom vx-navbar-dropdown">
 
-          <div class="p-5 text-center text-white notification-top bg-primary">
-            <h3 class="text-white">{{ getNotifications.badge }} New</h3>
-            <p class="opacity-75">App Notifications</p>
-          </div>
+            <div class="p-5 text-center text-white notification-top bg-primary">
+              <h3 class="text-white">{{ getNotifications.badge }} New</h3>
+              <p class="opacity-75">App Notifications</p>
+            </div>
 
-          <VuePerfectScrollbar ref="mainSidebarPs" class="p-0 mb-10 scroll-area--nofications-dropdown" :settings="settings">
-          <ul class="bordered-items">
-            <li v-for="(ntf, index) in getNotifications.data" :key="index" class="flex justify-between px-4 py-4 cursor-pointer notification">
-              <template v-if="index <= 5">
-                <div class="flex items-start">
-                  <feather-icon icon="PackageIcon" svgClasses="text-primary stroke-current mr-1 h-6 w-6"></feather-icon>
-                  <div class="mx-2">
-                    <span class="block font-medium notification-title text-primary">{{ntf.title}}</span>
-                    <small>{{ ntf.message }}</small>
-                  </div>
-                </div>
-                <small class="mt-1 whitespace-no-wrap">{{ ntf.created_at }}</small>
-              </template>
-            </li>
-          </ul>
-          </VuePerfectScrollbar>
-                    <div class="fixed bottom-0 w-full p-2 font-semibold text-center border border-b-0 border-l-0 border-r-0 border-solid rounded-b-lg cursor-pointer checkout-footer text-primary d-theme-border-grey-light">
-                        <span>View All Notifications</span>
+            <VuePerfectScrollbar ref="mainSidebarPs" class="p-0 mb-10 scroll-area--nofications-dropdown" :settings="settings">
+            <ul class="bordered-items">
+              <li @click="viewNotification(ntf.invitation_id, ntf.user, ntf.title)" v-for="(ntf, index) in getNotifications.data" :key="index" class="flex justify-between px-4 py-4 cursor-pointer notification">
+                <template v-if="index <= 5">
+                  <div class="flex items-start">
+                    <feather-icon icon="PackageIcon" svgClasses="text-primary stroke-current mr-1 h-6 w-6"></feather-icon>
+                    <div class="mx-2">
+                      <span class="block font-medium notification-title text-primary">{{ntf.title}}</span>
+                      <small>{{ ntf.message }}</small>
                     </div>
-        </vs-dropdown-menu>
-      </vs-dropdown>
+                  </div>
+                  <small class="mt-1 whitespace-no-wrap">{{ ntf.created_at }}</small>
+                </template>
+              </li>
+            </ul>
+            </VuePerfectScrollbar>
+                      <div class="fixed bottom-0 w-full p-2 font-semibold text-center border border-b-0 border-l-0 border-r-0 border-solid rounded-b-lg cursor-pointer checkout-footer text-primary d-theme-border-grey-light">
+                          <span>View All Notifications</span>
+                      </div>
+          </vs-dropdown-menu>
+        </vs-dropdown>
       </div>
       <!-- {{getNotifications}} -->
       <!-- USER META -->
@@ -360,8 +360,46 @@ export default {
           activeUserInfo : "users/activeUserInfo",
           searchDB : "users/searchUserData",
           notifications: "users/notifications",
-          notificationRead: "contract_request/notificationRead"
+          notificationRead: "contract_request/notificationRead",
+          singleContractNotification: "contract_request/singleContractNotification",
         }),
+        viewNotification (invitation_id, user_type, title) {
+          this.$vs.loading();
+          if (title == 'Invoice') {
+            this.$router.replace({ name: 'request'}).catch(() => {})
+          }
+          else if (user_type == 'buyer') {
+            this.singleContractNotification(invitation_id)
+            .then((response) => {
+              // console.log(response.data.contract)
+              this.$vs.loading.close();
+              if (response.data.contract[0].status == 'pending') {
+                this.$router.replace({ name: 'buyer-pending-details', params: { invitation_id: invitation_id } }).catch(() => {})
+              }else {
+                this.$router.replace({ name: 'buyer-completed-details', params: { invitation_id: invitation_id } }).catch(() => {})
+              }
+            })
+            .catch(() => {
+              this.$vs.loading.close();
+              this.$router.replace({name: '404'}).catch(() => {})
+            })
+          }else if (user_type == 'seller') {
+            this.singleContractNotification(invitation_id)
+            .then((response) => {
+              // console.log(response.data.contract[0].status)
+              this.$vs.loading.close();
+              if (response.data.contract[0].status == 'pending') {
+                this.$router.replace({ name: 'seller-pending-details', params: { invitation_id: invitation_id } }).catch(() => {})
+              }else {
+                this.$router.replace({ name: 'seller-completed-details', params: { invitation_id: invitation_id } }).catch(() => {})
+              }
+            })
+            .catch(() => {
+              this.$vs.loading.close();
+              this.$router.replace({name: '404'}).catch(() => {})
+            })
+          }
+        },
         searchUsers () {
             this.$router.push('/users').catch(() => {})
         },
@@ -431,12 +469,15 @@ export default {
             return 'Just Now'
         },
         logout() {
-            // This is just for demo Purpose. If user clicks on logout -> redirect
+          // This is just for demo Purpose. If user clicks on logout -> redirect
+          this.$vs.loading();
             this.logOutAction()
             .then(() => {
+              this.$vs.loading.close();
               this.$router.push('/login').catch(() => {})
             })
             .catch((err) => {
+              this.$vs.loading.close();
               console.log(err)
             })
         },

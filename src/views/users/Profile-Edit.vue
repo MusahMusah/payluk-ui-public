@@ -65,21 +65,46 @@
                             <p v-else>Please enter your new password.</p>
                           </div>
                           <!-- <vs-input type="email" label-placeholder="Email" v-model="value1" class="w-full mb-6" /> -->
-                          <vs-input
+                          <!-- <vs-input
                             ref="password"
                             data-vv-validate-on="blur"
-                            v-validate="'required|min:6|max:10'"
+                            v-validate="'required|min:6'"
                             name="password"
                             placeholder="Password"
                             v-model="password"
                             type="password"
                             label-placeholder="Password"
-                            class="w-full mb-6"
-                          />
+                            class="w-full mb-2"
+                          /> -->
+                          <VuePassword
+                              v-model="password"
+                              class="mt-6"
+                              :strength="score"
+                              @input="updateStrength"
+                          >
+                              <template
+                                  v-slot:password-input="props"
+                                  class="mt-6 control has-icons-left vs-con-input"
+                              >
+                                  <input
+                                      class="w-full pl-12 input vs-inputx vs-input--input normal hasValue"
+                                      style="border: 1px solid rgba(0, 0, 0, 0.2);"
+                                      type="password"
+                                      ref="password"
+                                      data-vv-validate-on="blur"
+                                      v-validate="'required|min:6'"
+                                      placeholder="Password"
+                                      :value="props.value"
+                                      name="password"
+                                      @input="props.updatePassword"
+                                  />
+                                  <i class="vs-icon notranslate icon-scale icon-inputx vs-input--icon feather icon icon-lock null icon-no-border"></i>
+                              </template>
+                          </VuePassword>
                           <span class="text-sm text-danger">{{
                             errors.first("password")
                           }}</span>
-                          <vs-input
+                          <!-- <vs-input
                             type="password"
                             v-validate="'min:6|confirmed:password'"
                             data-vv-validate-on="blur"
@@ -88,10 +113,35 @@
                             label-placeholder="Confirm Password"
                             placeholder="Confirm Password"
                             v-model="confirm_password"
-                            class="w-full mb-8"
-                          />
+                            class="w-full mt-8 mb-2"
+                          /> -->
+                          <VuePassword
+                            v-model="confirm_password"
+                            class="mt-6"
+                            :strength="score"
+                            @input="updateStrength"
+                          >
+                              <template
+                                  v-slot:password-input="props"
+                                  class="mt-6 control has-icons-left vs-con-input"
+                              >
+                                  <input
+                                    class="w-full pl-12 input vs-inputx vs-input--input normal hasValue"
+                                    style="border: 1px solid rgba(0, 0, 0, 0.2);"
+                                    name="confirm password"
+                                    type="password"
+                                    v-validate="'min:6|confirmed:password'"
+                                    data-vv-validate-on="blur"
+                                    label-placeholder="Confirm Password"
+                                    placeholder="Confirm Password"
+                                    :value="props.value"
+                                    @input="props.updatePassword"
+                                  />
+                                  <i class="vs-icon notranslate icon-scale icon-inputx vs-input--icon feather icon icon-lock null icon-no-border"></i>
+                              </template>
+                          </VuePassword>
                           <span class="text-sm text-danger">{{
-                            errors.first("confirm_password")
+                            errors.first("confirm password")
                           }}</span>
 
                           <div
@@ -99,7 +149,7 @@
                           >
                             <!-- <vs-button type="border" to="/login" class="w-full mt-3 mb-8 sm:w-auto sm:mb-auto sm:mt-auto">Go Back To Login</vs-button> -->
                             <vs-button
-                              class="w-full sm:w-auto"
+                              class="w-full mt-5 sm:w-auto"
                               :disabled="!validateForm"
                               @click="update_password"
                               >Update Password</vs-button
@@ -180,6 +230,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import vSelect from "vue-select";
+import VuePassword from 'vue-password';
 import axios from "axios";
 export default {
   data() {
@@ -221,6 +272,20 @@ export default {
         updatePassword: "users/updatePassword",
         updateCurrency: "users/updateCurrency",
     }),
+    updateStrength (password) {
+      // return password
+      this.strongRegex = new RegExp("^(?=.{14,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g");
+      this.mediumRegex = new RegExp("^(?=.{10,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g");
+      if (this.strongRegex.test(password)){
+        this.score = 4
+        // return 4
+      } else if(this.mediumRegex.test(password)){
+        this.score = 2
+        // return 2
+      }else {
+        this.score = 1
+      }
+    },
     openUpload() {
       document.getElementById("file-field").click();
     },
@@ -368,6 +433,7 @@ export default {
   },
   components: {
     "v-select": vSelect,
+    VuePassword,
   },
 };
 </script>

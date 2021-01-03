@@ -90,7 +90,7 @@
                                     class="w-full mt-6" />
                                   <span class="text-sm text-danger">{{ errors.first('phone') }}</span>
 
-                                  <vs-input
+                                  <!-- <vs-input
                                     ref="password"
                                     type="password"
                                     data-vv-validate-on="blur"
@@ -99,10 +99,35 @@
                                     label-placeholder="Password"
                                     placeholder="Password"
                                     v-model="pass"
-                                    class="w-full mt-6" />
-                                  <span class="text-sm text-danger">{{ errors.first('pass') }}</span>
+                                    class="w-full mt-6" /> -->
+                                  <VuePassword
+                                      v-model="password"
+                                      class="mt-6"
+                                      :strength="score"
+                                      @input="updateStrength"
+                                  >
+                                      <template
+                                          v-slot:password-input="props"
+                                          class="mt-6 control has-icons-left vs-con-input"
+                                      >
+                                          <input
+                                              class="w-full pl-12 input vs-inputx vs-input--input normal hasValue"
+                                              style="border: 1px solid rgba(0, 0, 0, 0.2);"
+                                              type="password"
+                                              ref="password"
+                                              data-vv-validate-on="blur"
+                                              v-validate="'required|min:6'"
+                                              placeholder="Password"
+                                              :value="props.value"
+                                              name="password"
+                                              @input="props.updatePassword"
+                                          />
+                                          <i class="vs-icon notranslate icon-scale icon-inputx vs-input--icon feather icon icon-lock null icon-no-border"></i>
+                                      </template>
+                                  </VuePassword>
+                                  <span class="text-sm text-danger">{{ errors.first('password') }}</span>
 
-                                  <vs-input
+                                  <!-- <vs-input
                                     type="password"
                                     v-validate="'min:6|confirmed:password'"
                                     data-vv-validate-on="blur"
@@ -111,12 +136,37 @@
                                     label-placeholder="Confirm Password"
                                     placeholder="Confirm Password"
                                     v-model="confirm_password"
-                                    class="w-full mt-6" />
-                                  <span class="text-sm text-danger">{{ errors.first('confirm_password') }}</span>
+                                    class="w-full mt-6" /> -->
+                                    <VuePassword
+                                      v-model="confirm_password"
+                                      class="mt-6"
+                                      :strength="score"
+                                      @input="updateStrength"
+                                    >
+                                        <template
+                                            v-slot:password-input="props"
+                                            class="mt-6 control has-icons-left vs-con-input"
+                                        >
+                                            <input
+                                              class="w-full pl-12 input vs-inputx vs-input--input normal hasValue"
+                                              style="border: 1px solid rgba(0, 0, 0, 0.2);"
+                                              name="confirm password"
+                                              type="password"
+                                              v-validate="'min:6|confirmed:password'"
+                                              data-vv-validate-on="blur"
+                                              label-placeholder="Confirm Password"
+                                              placeholder="Confirm Password"
+                                              :value="props.value"
+                                              @input="props.updatePassword"
+                                            />
+                                            <i class="vs-icon notranslate icon-scale icon-inputx vs-input--icon feather icon icon-lock null icon-no-border"></i>
+                                        </template>
+                                    </VuePassword>
+                                  <span class="text-sm text-danger">{{ errors.first('confirm password') }}</span>
 
-                                  <vs-checkbox v-model="terms" class="mt-3">I accept the terms & conditions.</vs-checkbox>
-                                  <vs-button  type="border" to="/login" class="mt-2 mb-6">Login</vs-button>
-                                  <vs-button class="float-right mt-2 mb-6" @click="register_User" :disabled="!validateForm">Register</vs-button>
+                                  <vs-checkbox v-model="terms" class="mt-5">I accept the terms & conditions.</vs-checkbox>
+                                  <vs-button  type="border" to="/login" class="mt-5 mb-6">Login</vs-button>
+                                  <vs-button class="float-right mt-5 mb-6" @click="register_User" :disabled="!validateForm">Register</vs-button>
                                 </div>
                             </div>
                         </div>
@@ -130,6 +180,7 @@
 
 <script>
 import { mapActions } from 'vuex'
+import VuePassword from 'vue-password';
 import vSelect from "vue-select";
 export default {
     data() {
@@ -138,7 +189,7 @@ export default {
             last_name: '',
             email : '',
             country: 'Nigeria',
-            pass: '',
+            password: '',
             confirm_password: '',
             phone : '',
             terms: false,
@@ -155,6 +206,20 @@ export default {
         ...mapActions({
           registerUser : 'authentication/registerUser'
         }),
+        updateStrength (password) {
+          // return password
+          this.strongRegex = new RegExp("^(?=.{14,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g");
+          this.mediumRegex = new RegExp("^(?=.{10,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g");
+          if (this.strongRegex.test(password)){
+            this.score = 4
+            // return 4
+          } else if(this.mediumRegex.test(password)){
+            this.score = 2
+            // return 2
+          }else {
+            this.score = 1
+          }
+        },
         checkLogin() {
           // If user is already logged in notify
           if(this.$store.state.auth.isUserLoggedIn()) {
@@ -182,7 +247,7 @@ export default {
               last_name : this.last_name,
               email: this.email,
               country: this.country,
-              pass: this.pass,
+              pass: this.password,
               confirm_password : this.confirm_password,
               phone : this.phone,
               terms : this.terms == true ? 'on' : 'false'
@@ -217,7 +282,8 @@ export default {
 
     },
     components: {
-    "v-select": vSelect,
+      "v-select": vSelect,
+      VuePassword,
     }
 }
 </script>

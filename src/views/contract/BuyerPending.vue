@@ -595,7 +595,7 @@ export default {
         type: 'confirm',
         color: 'primary',
         title: `Confirm`,
-        text: 'Are You Sure To Comnfirm Transaction? No Complains Can be resolved After Confirmation.',
+        text: 'Are You Sure To Confirm Transaction? No Complains Can be resolved After Confirmation.',
         accept: this.close_transaction
       })
     },

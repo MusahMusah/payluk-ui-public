@@ -148,7 +148,7 @@
                           </div>
                           <div class="w-full vx-col">
                             <div class="mb-4 fle flex-wra items-sta">
-                              <vs-button @click="popupActivo4 = true" v-if="(details.flow == 'buyer' && details.status != 'request_modification')" type="border" color="primary" > REQUEST MODIFICATION </vs-button>
+                              <vs-button @click="popupActivo4 = true" v-if="(details.flow == 'buyer' && details.payment != 'made' && details.status != 'request_modification')" type="border" color="primary" > REQUEST MODIFICATION </vs-button>
                             </div>
                           </div>
                           <div class="w-full vx-col">
@@ -446,9 +446,6 @@ export default {
     singleContractDetails () {
       return this.getSingleContract
     },
-    // allBuyerPendingContracts () {
-    //   return this.getBuyerPendingContracts
-    // }
   },
 
   methods : {
@@ -519,6 +516,9 @@ export default {
             icon: "icon-alert-circle",
             color: "success",
           });
+          setTimeout(() => {
+              location.reload()
+            }, 800);
         })
         .catch((error) => {
           console.log(error);
@@ -704,7 +704,7 @@ export default {
         type: 'confirm',
         color: 'primary',
         title: `Confirm`,
-        text: 'Are You Sure To Comnfirm Transaction? No Complains Can be resolved After Confirmation.',
+        text: 'Are You Sure To Confirm Transaction? No Complains Can be resolved After Confirmation.',
         accept: this.close_transaction
       })
     },

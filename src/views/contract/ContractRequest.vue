@@ -108,7 +108,8 @@
             icon="icon-mail"
           /> -->
           <label for="">Add Item(s) Name</label>
-          <v-select data-vv-validate-on="blur" v-validate="'required|min:3'" name="Item Name" v-model="items_name" class="w-full" :options="[]" taggable multiple push-tags />
+          <v-select data-vv-validate-on="blur" v-validate="'required|min:3'" name="Item Name" v-model="items_name"
+           class="w-full mb-2" :options="[]" taggable multiple push-tags />
           <span class="text-sm text-danger">{{
             errors.first("Item Name")
           }}</span>
@@ -135,11 +136,12 @@
 
       <div class="vx-row">
         <div class="w-full vx-col sm:w-1/2">
+            <!-- type="number" -->
           <vs-input
+            v-currency="{currency: null}"
             v-validate="'required'"
             data-vv-validate-on="blur"
             name="Total Cost"
-            type="number"
             class="w-full mt-5"
             icon-pack="feather"
             icon="icon-smartphone"
@@ -178,7 +180,7 @@
             data-vv-validate-on="blur"
             v-model="ship_from"
             class="w-full"
-            :options="['Kano', 'Abuja']"
+            :options="states"
           ></v-select>
           <span class="text-sm text-danger">{{
             errors.first("Ship From")
@@ -193,18 +195,20 @@
             data-vv-validate-on="blur"
             v-model="ship_to"
             class="w-full"
-            :options="['Kano', 'Abuja']"
+            :options="states"
           ></v-select>
+            <!-- :options="['Kano', 'Abuja']" -->
           <span class="text-sm text-danger">{{ errors.first("Ship To") }}</span>
         </div>
       </div>
 
       <div class="vx-row">
         <div class="w-full mt-5 vx-col">
+          <label for="">Ship Date</label>
           <datepicker
             v-validate="'required'"
             data-vv-validate-on="blur"
-            placeholder="Select Ship Date"
+            placeholder="Choose Ship Date"
             name="Ship Date"
             v-model="ship_date"
           ></datepicker>
@@ -214,10 +218,11 @@
         </div>
 
         <div class="w-full mt-5 vx-col">
+          <label for="">Delivered Before Date</label>
           <datepicker
             v-validate="'required'"
             data-vv-validate-on="blur"
-            placeholder="Delivered Before Date"
+            placeholder="Choose Delivered Before Date"
             name="Delivered Before Date"
             v-model="delivered_before_date"
           ></datepicker>
@@ -236,9 +241,7 @@
             data-vv-validate-on="blur"
             type="text"
             class="w-full mt-5"
-            icon-pack="feather"
-            icon="icon-smartphone"
-            icon-no-border
+            placeholder="Your Company Name"
             label="Company Name"
             name="Company Name"
             v-model="company_name"
@@ -281,6 +284,45 @@ export default {
   data() {
     return {
       // card 1
+      states: [
+        "Abia",
+        "Adamawa",
+        "Akwa Ibom",
+        "Anambra",
+        "Bauchi",
+        "Bayelsa",
+        "Benue",
+        "Borno",
+        "Cross River",
+        "Delta",
+        "Ebonyi",
+        "Edo",
+        "Ekiti",
+        "Enugu",
+        "FCT - Abuja",
+        "Gombe",
+        "Imo",
+        "Jigawa",
+        "Kaduna",
+        "Kano",
+        "Katsina",
+        "Kebbi",
+        "Kogi",
+        "Kwara",
+        "Lagos",
+        "Nasarawa",
+        "Niger",
+        "Ogun",
+        "Ondo",
+        "Osun",
+        "Oyo",
+        "Plateau",
+        "Rivers",
+        "Sokoto",
+        "Taraba",
+        "Yobe",
+        "Zamfara"
+      ],
       item_name: "",
       items_name : [],
       item_quantity: "",
@@ -364,7 +406,7 @@ export default {
         invitation_id: localStorage.getItem("invite_id"),
         item_name: this.items_name,
         item_quantity: this.item_quantity,
-        total_cost: this.total_cost,
+        total_cost: this.total_cost.replace(/[^0-9.-]+/g,""),
         currency: this.currency,
         ship_from: this.ship_from,
         ship_to: this.ship_to,
