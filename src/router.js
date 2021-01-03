@@ -298,15 +298,30 @@ const router = new Router({
               },
               // Merchant Contracts
               {
-                path: '/merchant-contracts',
-                name: 'merchant-contracts',
-                component: () => import('./views/merchant/MerchantContracts.vue'),
+                path: '/merchant-pending',
+                name: 'merchant-pending',
+                component: () => import('./views/merchant/MerchantPending.vue'),
                 meta: {
                   breadcrumb: [
                       { title: 'Home', url: '/' },
-                      { title: 'All Merchant Transactions', active: true },
+                      { title: 'All Merchant Pending Transactions', active: true },
                   ],
-                  pageTitle: 'All Merchant Transactions',
+                  pageTitle: 'All Merchant Pending Transactions',
+                  requiresAuthentication: true,
+                },
+
+              },
+              // Merchant Contracts
+              {
+                path: '/merchant-completed',
+                name: 'merchant-completed',
+                component: () => import('./views/merchant/MerchantCompleted.vue'),
+                meta: {
+                  breadcrumb: [
+                      { title: 'Home', url: '/' },
+                      { title: 'All Merchant Completed Transactions', active: true },
+                  ],
+                  pageTitle: 'All Merchant Completed Transactions',
                   requiresAuthentication: true,
                 },
 

@@ -357,7 +357,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import { videoPlayer } from "vue-video-player";
 import "video.js/dist/video-js.css";
 // import InfiniteScroll from '../musah/InfiniteScroll'
@@ -435,23 +434,6 @@ export default {
       sendInvite: "users/sendInvite",
       runMigration: "users/runMigration",
     }),
-    async fetch(){
-      let reviews = await axios.get(`https://payluk.com/backend/reviews?page=${this.page}`)
-      if (reviews.data.reviews != null)
-      {
-        this.allReviews.push(...reviews.data.reviews)
-        this.lastPage = reviews.data.pagers[0].meta.last_page
-      }else
-      {
-        this.allReviews = null
-      }
-    },
-    handleScrolledToBottom (isVisible){
-            if(!isVisible) {return}
-            if (this.page >= this.lastPage) {  return  }
-            this.page ++
-            this.fetch()
-    },
     pop() {
       this.popupActivo = true;
       this.visibility = "";
@@ -598,7 +580,6 @@ export default {
   mounted() {
     this.wasSidebarOpen = this.$store.state.reduceButton;
     this.$store.commit("TOGGLE_REDUCE_BUTTON", true);
-    this.fetch()
   },
   beforeDestroy() {
     if (!this.wasSidebarOpen) this.$store.commit("TOGGLE_REDUCE_BUTTON", false);

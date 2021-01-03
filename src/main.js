@@ -105,7 +105,7 @@ store.dispatch('authentication/attempt', localStorage.getItem('token'))
 // console.log(store.dispatch('authentication/attempt', localStorage.getItem('token')))
 
 Vue.config.productionTip = false
-console.log(store.getters['authentication/loggedIn'])
+// console.log(store.getters['authentication/loggedIn'])
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuthentication)) {

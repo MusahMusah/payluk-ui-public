@@ -156,11 +156,11 @@
       <feather-icon icon="SearchIcon" id="tour_searchSection" @click="searchUsers" class="mr-4 cursor-pointer navbar-fuzzy-search"></feather-icon>
 
       <!-- NOTIFICATIONS -->
-      <!-- <vs-dropdown vs-custom-content :vs-trigger-click="change"  class="cursor-pointer"> -->
+      <!-- <vs-dropdown vs-custom-content :style="hideNotifications" :vs-trigger-click="change"  class="cursor-pointer"> -->
       <div @click="notification_read" id="tour_notificationSection">
         <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer">
           <feather-icon icon="BellIcon" class="mt-1 mr-2 cursor-pointer sm:mr-6" :badge="getNotifications.badge"></feather-icon>
-          <vs-dropdown-menu class="notification-dropdown dropdown-custom vx-navbar-dropdown">
+          <vs-dropdown-menu :style="hideNotifications" class="notification-dropdown dropdown-custom vx-navbar-dropdown">
 
             <div class="p-5 text-center text-white notification-top bg-primary">
               <h3 class="text-white">{{ getNotifications.badge }} New</h3>
@@ -257,6 +257,7 @@ export default {
     },
     data() {
         return {
+            hideNotifications : '',
             rank: 0,
             profileNoImage : require('@/assets/images/noimage.svg'),
             navbarSearchAndPinList: this.$store.state.navbarSearchAndPinList,
@@ -364,6 +365,7 @@ export default {
           singleContractNotification: "contract_request/singleContractNotification",
         }),
         viewNotification (invitation_id, user_type, title) {
+          this.hideNotifications = 'display : none';
           this.$vs.loading();
           if (title == 'Invoice') {
             this.$router.replace({ name: 'request'}).catch(() => {})
@@ -371,6 +373,7 @@ export default {
           else if (user_type == 'buyer') {
             this.singleContractNotification(invitation_id)
             .then((response) => {
+              // this.hideNotifications = 'display : initial';
               // console.log(response.data.contract)
               this.$vs.loading.close();
               if (response.data.contract[0].status == 'pending') {
@@ -405,6 +408,8 @@ export default {
         },
         notification_read()
         {
+          this.hideNotifications = '';
+          // this.hideNotifications = 'display : initial';
           this.notificationRead()
           .then(() => {
             this.notifications()

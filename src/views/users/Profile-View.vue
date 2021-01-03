@@ -1,7 +1,7 @@
 <template>
     <div class="content-area__content">
         <div class="vue-back-to-top" style="bottom: 5%; right: 30px; display: none;">
-            <button type="button" name="button" class="vs-component vs-button shadow-lg btn-back-to-top vs-button-primary vs-button-filled includeIcon includeIconOnly">
+            <button type="button" name="button" class="shadow-lg vs-component vs-button btn-back-to-top vs-button-primary vs-button-filled includeIcon includeIconOnly">
                 <span class="vs-button-backgroundx vs-button--background" style="opacity: 1; left: 20px; top: 20px; width: 0px; height: 0px; transition: width 0.3s ease 0s, height 0.3s ease 0s, opacity 0.3s ease 0s;"></span>
                 <i class="vs-icon notranslate icon-scale vs-button--icon feather icon-arrow-up null" style="order: 0; margin-right: 0px; margin-left: 0px;"></i>
                 <!---->
@@ -24,59 +24,59 @@
                             <div class="vx-row">
                                 <!-- /img/avatar-s-11.51a23c07.png -->
                                 <div id="avatar-col" class="vx-col">
-                                    <div class="img-container mb-4">
-                                            
-                                    
-                                    <img 
+                                    <div class="mb-4 img-container">
+
+
+                                    <img
                                     v-if="userData_info.small_image"
                                     :src="userData_info.small_image"
                                     alt="user-img"
                                     width="120"
                                     height="100"
                                     style="object-fit:cover"
-                                    class="rounded shadow-md cursor-pointer block" />
-                                    <img 
+                                    class="block rounded shadow-md cursor-pointer" />
+                                    <img
                                     v-else
                                     :src="profileNoImage"
                                     alt="user-img"
                                     width="140"
                                     height="120"
                                     style="object-fit:cover"
-                                    class="rounded shadow-md cursor-pointer block" />
+                                    class="block rounded shadow-md cursor-pointer" />
                                     </div>
                                 </div>
-                                <div id="account-info-col-1" class="vx-col flex-1">
+                                <div id="account-info-col-1" class="flex-1 vx-col">
                                     <table>
                                         <tr>
-                                            <td class="font-semibold pt-5 p-2">First Name</td>
+                                            <td class="p-2 pt-5 font-semibold">First Name</td>
                                             <td class="pt-5"> {{ userData_info.first_name }}</td>
                                         </tr>
                                         <tr>
-                                            <td class="font-semibold p-2">Last Name</td>
+                                            <td class="p-2 font-semibold">Last Name</td>
                                             <td>{{ userData_info.last_name }}</td>
                                         </tr>
                                         <tr>
-                                            <td class="font-semibold p-2">Email</td>
+                                            <td class="p-2 font-semibold">Email</td>
                                             <td clas="p-2">{{ userData_info.email }}</td>
                                         </tr>
                                     </table>
                                 </div>
-                                <div id="account-info-col-2" class="vx-col flex-1">
+                                <div id="account-info-col-2" class="flex-1 vx-col">
                                         <h2>Account Details</h2>
                                     <table>
                                         <tr>
-                                            <td class="font-semibold pt-2" style="font-size:1.2em !important">Main Balance</td>
-                                            <td class="pt-5 p-2"><vs-chip color="primary" style="font-size:1.2em !important">N56,0000</vs-chip></td>
+                                            <td class="pt-2 font-semibold" style="font-size:1.2em !important">Main Balance</td>
+                                            <td class="p-2 pt-5"><vs-chip color="primary" style="font-size:1.2em !important">N56,0000</vs-chip></td>
                                         </tr>
                                         <tr>
-                                            
-                                            <td class="font-semibold pt-2" style="font-size:1.2em !important">Lain Balance</td>
+
+                                            <td class="pt-2 font-semibold" style="font-size:1.2em !important">Lain Balance</td>
                                             <td class="pt-3"><vs-chip color="primary" style="font-size:1.2em !important">N30,0000</vs-chip></td>
                                         </tr>
                                     </table>
                                 </div>
-                                <div id="account-manage-buttons" class="vx-col w-full flex mt-3">
-                                    <vs-button type="button" to="/profile-update" name="button" class="vs-component vs-button mr-4 vs-button-primary vs-button-filled includeIcon">
+                                <div id="account-manage-buttons" class="flex w-full mt-3 vx-col">
+                                    <vs-button type="button" to="/profile-update" name="button" class="mr-4 vs-component vs-button vs-button-primary vs-button-filled includeIcon">
                                         <span
                                             class="vs-button-backgroundx vs-button--background"
                                             style="opacity: 1; left: 20px; top: 20px; width: 0px; height: 0px; transition: width 0.3s ease 0s, height 0.3s ease 0s, opacity 0.3s ease 0s;"
@@ -91,7 +91,7 @@
                                             class="vs-button-backgroundx vs-button--background"
                                             style="opacity: 1; left: 20px; top: 20px; width: 0px; height: 0px; transition: width 0.3s ease 0s, height 0.3s ease 0s, opacity 0.3s ease 0s;"
                                         ></span>
-                                        <i class="vs-icon notranslate icon-scale vs-button--icon feather icon-trash null" 
+                                        <i class="vs-icon notranslate icon-scale vs-button--icon feather icon-trash null"
                                         style="order: 0; margin-right: 5px; margin-left: 0px;"></i>
                                         <span class="vs-button-text vs-button--text">Delete</span>
                                         <span class="vs-button-linex" style="top: auto; bottom: -2px; left: 50%; transform: translate(-50%);"></span>
@@ -107,7 +107,7 @@
                         </div>
                     </div>
                 </div>
-            
+
             </div>
         </div>
     </div>
@@ -137,8 +137,8 @@ export default {
         }),
     },
     created () {
-        this.activeUserInfo()
+        // this.activeUserInfo()
     }
-    
+
 }
 </script>

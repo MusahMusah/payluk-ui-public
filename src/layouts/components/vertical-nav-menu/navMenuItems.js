@@ -160,6 +160,20 @@ export default [
         name: "Merchant Contracts",
         icon: "PieChartIcon",
         i18n: "FAQ",
+        submenu: [
+          {
+            url: '/merchant-pending',
+            name: "Pending",
+            slug: "merchant-pending",
+            i18n: "merchant-pending",
+          },
+          {
+            url: '/merchant-completed',
+            name: "Completed",
+            slug: "merchant-completed",
+            i18n: "merchant-completed",
+          },
+        ]
       },
     ]
   },
