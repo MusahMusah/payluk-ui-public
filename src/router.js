@@ -332,12 +332,6 @@ const router = new Router({
                 component: () => import('./views/users/Test.vue'),
               },
               {
-                path: '/test',
-                name: 'test',
-                // "v-autocomplete": "^1.8.2",
-                component: () => import('./views/users/TestSave.vue'),
-              },
-              {
                 path: '/users',
                 name: 'users',
                 // "v-autocomplete": "^1.8.2",
