@@ -132,7 +132,7 @@
             <p>{{userData_info.email}}</p>
           </div>
         </vx-card>
-        <vx-card title="TOP SELLERS" class="mt-base">
+        <vx-card title="TOP TRADERS" class="mt-base">
           <template slot="actions">
             <feather-icon icon="MoreHorizontalIcon"></feather-icon>
           </template>

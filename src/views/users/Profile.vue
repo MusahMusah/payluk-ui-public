@@ -188,7 +188,7 @@
             >
           </vs-popup>
         </div>
-        <vx-card title="TOP SELLERS" class="mt-base">
+        <vx-card title="TOP TRADERS" class="mt-base">
           <template slot="actions">
             <feather-icon icon="MoreHorizontalIcon"></feather-icon>
           </template>
