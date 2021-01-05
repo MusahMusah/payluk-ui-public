@@ -9,8 +9,8 @@
 
 import axios from "axios"
 import router from "@/router"
-// const ApiLoginUrl = 'http://localhost:3000/';
-const ApiLoginUrl = 'https://www.app.payluk.com/';
+const ApiLoginUrl = 'http://localhost:3000/';
+// const ApiLoginUrl = 'https://www.app.payluk.com/';
 export default {
   namespaced: true,
 
@@ -52,23 +52,24 @@ export default {
     // Login User
     async logIn ( { dispatch, commit }, credentials) {
       let response = await axios.post('/login', credentials)
-      if (response.data.token) {
-        // Set jwt token
-        commit('SET_TOKEN', response.data.token)
-      }
+      // if (response.data.token) {
+      //   // Set jwt token
+      //   commit('SET_TOKEN', response.data.token)
+      // }
+      axios.defaults.headers.common['Authorization'] =  `Bearer ${response.data.token}`
       let verify = await axios.get('/firewall')
       if (verify.status == 200) {
         dispatch('attempt', response.data.token)
-
       } else if(verify.status == 201){
 
-        localStorage.setItem("verify_token", localStorage.getItem('token'))
+        // localStorage.setItem("verify_token", localStorage.getItem('token'))
+        localStorage.setItem("verify_token", response.data.token)
         localStorage.removeItem("token")
         // Check if account has multiple login attempt error and redirect to force password reset
         if (verify.data.errorcode == 703) {
           // localStorage.removeItem("token")
           localStorage.setItem("error_703", verify.data.message)
-          // return router.replace({ name: 'verify-otp'})
+          // router.push('/verify_otp')
           // return router.push({ name: 'verify-otp', params: { dataMessage: verify.data.message } })
           // return window.location.href =  ApiLoginUrl + `/verify_otp?message=${verify.data.message}`;
           return window.location.href =  ApiLoginUrl + `verify_otp`;
@@ -188,7 +189,7 @@ export default {
       let response = await axios.get('/firewall').then(() => {}).catch(() => {
         console(response)
         localStorage.removeItem("token")
-        localStorage.removeItem("verify_token")
+        // localStorage.removeItem("verify_token")
         return window.location.href = ApiLoginUrl + `login`;
       })
       return axios.post('/logout')

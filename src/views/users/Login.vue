@@ -146,6 +146,7 @@ export default {
     }
   },
   created(){
+    localStorage.removeItem("verify_token")
     if (this.successMessage) {
       this.$vs.notify({
         title: 'Info',

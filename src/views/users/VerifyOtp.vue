@@ -48,11 +48,11 @@
 import { mapActions } from 'vuex'
 export default {
     name: 'verify-otp',
-    props: {
-        dataMessage: {
-            type: String,
-        }
-    },
+    // props: {
+    //     dataMessage: {
+    //         type: String,
+    //     }
+    // },
     computed: {
         validateForm() {
             return !this.errors.any() && this.otp;
@@ -148,6 +148,6 @@ export default {
                 })
             })
         }
-    }
+    },
 }
 </script>
