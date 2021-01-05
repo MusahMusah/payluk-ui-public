@@ -435,10 +435,10 @@ const router = new Router({
               name: 'verify-otp',
               component: () => import('@/views/users/VerifyOtp.vue'),
               // props : true,
-              // meta: {
-              //   // requiresVisitor: true,
-              //   requiresAuthentication: true,
-              // },
+              meta: {
+                requiresVisitor: true,
+                // requiresAuthentication: true,
+              },
             },
             {
               path: '/forgot-password',

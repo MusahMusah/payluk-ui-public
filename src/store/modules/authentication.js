@@ -68,7 +68,7 @@ export default {
         if (verify.data.errorcode == 703) {
           // localStorage.removeItem("token")
           localStorage.setItem("error_703", verify.data.message)
-          // return router.push({ name: 'verify-otp'})
+          // return router.replace({ name: 'verify-otp'})
           // return router.push({ name: 'verify-otp', params: { dataMessage: verify.data.message } })
           // return window.location.href =  ApiLoginUrl + `/verify_otp?message=${verify.data.message}`;
           return window.location.href =  ApiLoginUrl + `verify_otp`;
@@ -140,9 +140,9 @@ export default {
     async resendOtp() {
       axios.defaults.headers.common['Authorization'] =  `Bearer ${localStorage.getItem('verify_token')}`
       return await axios.get('/resend_otp')
-      .then((response) => {
-        router.push({ name: 'verify-otp', params: { dataMessage: response.data.message } })
-      })
+      // .then((response) => {
+      //   router.push({ name: 'verify-otp', params: { dataMessage: response.data.message } })
+      // })
     },
 
     // Verify User Password change Otp
@@ -186,7 +186,7 @@ export default {
     // Do the Logout
     async logOut({ commit }) {
       let response = await axios.get('/firewall').then(() => {}).catch(() => {
-        console.log(response)
+        console(response)
         localStorage.removeItem("token")
         localStorage.removeItem("verify_token")
         return window.location.href = ApiLoginUrl + `login`;
