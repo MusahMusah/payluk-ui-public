@@ -376,7 +376,7 @@ export default {
               // this.hideNotifications = 'display : initial';
               // console.log(response.data.contract)
               this.$vs.loading.close();
-              if (response.data.contract[0].status == 'pending') {
+              if (response.data.contract[0].status == 'pending' || response.data.contract[0].state == 'open') {
                 this.$router.replace({ name: 'buyer-pending-details', params: { invitation_id: invitation_id } }).catch(() => {})
               }else {
                 this.$router.replace({ name: 'buyer-completed-details', params: { invitation_id: invitation_id } }).catch(() => {})

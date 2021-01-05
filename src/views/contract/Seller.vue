@@ -90,7 +90,7 @@
         <tbody>
           <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
             <vs-td class="img-container">
-              <img v-if="tr.seller_image" :src="tr.seller_image" class="product-img" />
+              <img v-if="tr.buyer_image" :src="tr.buyer_image" class="product-img" />
               <img v-else :src="cover_img" class="product-img" />
             </vs-td>
 
@@ -109,7 +109,7 @@
             </vs-td>
 
             <vs-td>
-              <vs-chip color="primary">{{ tr.satisfied }}</vs-chip>
+              <vs-chip color="primary">{{ tr.status }}</vs-chip>
             </vs-td>
 
             <vs-td class="text-center">
@@ -124,7 +124,7 @@
 
             <vs-td class="whitespace-no-wrap">
               <vs-button
-                v-if="(tr.current_date > tr.delivered_before_date && tr.seller_ticket != 1 && tr.status != 'request_modification')"
+                v-show="(tr.current_date > tr.delivered_before_date && tr.seller_ticket != 1 && tr.status != 'request_modification')"
                 @click="ticketPopUp(tr.invitation_id)"
                 type="gradient"
                 class="m-1"

@@ -116,7 +116,7 @@
             </vs-td>
 
             <vs-td>
-              <vs-chip color="primary">{{ tr.satisfied }}</vs-chip>
+              <vs-chip color="primary">{{ tr.status }}</vs-chip>
             </vs-td>
 
             <vs-td class="text-center">

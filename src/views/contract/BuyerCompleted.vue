@@ -82,7 +82,7 @@
         <!-- <vs-th sort-key="price">Ship Date</vs-th>
         <vs-th sort-key="price">Delivered Before</vs-th> -->
         <vs-th sort-key="price">Details</vs-th>
-        <vs-th>Action</vs-th>
+        <!-- <vs-th>Action</vs-th> -->
       </template>
 
       <template slot-scope="{ data }">
@@ -111,7 +111,7 @@
             </vs-td>
 
             <vs-td>
-              <vs-chip color="primary">{{ tr.satisfied }}</vs-chip>
+              <vs-chip color="primary">{{ tr.status }}</vs-chip>
             </vs-td>
 
             <vs-td>

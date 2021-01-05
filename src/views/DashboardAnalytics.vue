@@ -106,7 +106,7 @@
 
             <!-- CARD 8: Activity Timeline -->
             <div class="w-full vx-col lg:w-1/2 mb-base">
-                <vx-card title="Activity Timeline" style="height: 90vh;marginbottom: 7.5rem !important;">
+                <vx-card title="Activity Timeline" style="height: 90vh;marginbottom: 7.5rem !important; overflow-y: auto !important;">
                     <!-- {{getNotifications}} -->
                     <!-- <vx-timeline :data="timelineData" /> -->
                     <vx-timeline v-if="getNotifications.data.length > 0" :data="getNotifications.data" styl="margin-bottom: 5.8rem;" />
@@ -132,7 +132,7 @@
                             <span>{{data[indextr].date}}</span>
                         </vs-td>
                         <vs-td :data="data[indextr].amount">
-                            <span>{{data[indextr].amount}}</span>
+                            <span>{{formatMoney(data[indextr].amount)}}</span>
                         </vs-td>
                         <vs-td :data="data[indextr].status">
                             <vs-chip color="primary" class="text-center">

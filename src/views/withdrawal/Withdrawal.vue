@@ -297,7 +297,7 @@ export default {
         // account_number : this.accountNumber,
         bank_code : this.selectedOption.code,
         account_name : this.cardName,
-        amount : this.amount,
+        amount : Number(this.amount.replace(/[^0-9.-]+/g,"")),
         currency : 'NGN',
       }
       this.$vs.loading();

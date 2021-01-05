@@ -69,7 +69,8 @@ export default {
           // localStorage.removeItem("token")
           localStorage.setItem("error_703", verify.data.message)
           // return router.push({ name: 'verify-otp', params: { dataMessage: verify.data.message } })
-          return window.location.href =  ApiLoginUrl + `/verify_otp?message=${verify.data.message}`;
+          // return window.location.href =  ApiLoginUrl + `/verify_otp?message=${verify.data.message}`;
+          return window.location.href =  ApiLoginUrl + `/verify_otp`;
         }
         localStorage.removeItem("token")
         // Set the error

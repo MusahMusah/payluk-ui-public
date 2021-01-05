@@ -37,14 +37,40 @@
               >
                 <div class="item-content">
                   <div class="p-6 product-details">
+                    <h1 class="text-center" style="color: #7367f0; font-weight: bold">Delivery Date Countdown Timer</h1>
+                    <div id="clockdiv" class="flex justify-center" style="text-align: center !important">
+                      <div>
+                        <span class="days"></span>
+                        <div class="smalltext">Days</div>
+                      </div>
+                      <div>
+                        <span class="hours"></span>
+                        <div class="smalltext">Hours</div>
+                      </div>
+                      <div>
+                        <span class="minutes"></span>
+                        <div class="smalltext">Minutes</div>
+                      </div>
+                      <div>
+                        <span class="seconds"></span>
+                        <div class="smalltext">Seconds</div>
+                      </div>
+                    </div>
                     <div class="mt-6 vx-row">
                       <div
                         class="flex items-center justify-center w-full vx-col md:w-2/5"
                       >
                         <div
-                          class="w-3/5 mx-auto mb-10 product-img-container md:mb-0"
+                          class="w-full mx-auto mb-10 w3/5 product-img-container md:mb-0"
                         >
                           <img
+                            v-if="details.seller_image"
+                            :src="details.seller_image"
+                            alt="Apple - Apple Watch Series 1 42mm Space Gray Aluminum Case Black Sport Band - Space Gray Aluminum"
+                            class="responsive"
+                          />
+                          <img
+                            v-else
                             :src="cover_img"
                             alt="Apple - Apple Watch Series 1 42mm Space Gray Aluminum Case Black Sport Band - Space Gray Aluminum"
                             class="responsive"
@@ -327,9 +353,9 @@
               <p class="mb-3 font-semibold">Contract Details</p>
               <div class="flex justify-between">
                 <!-- <span class="font-semibold">Coupons</span> -->
-                <span class="font-medium cursor-pointer text-primary"
+                <!-- <span class="font-medium cursor-pointer text-primary"
                   >All Contracts</span
-                >
+                > -->
               </div>
 
               <vs-divider />
@@ -337,7 +363,7 @@
 
               <div class="flex justify-between mb-2">
                 <span class="text-grey">Status</span>
-                <span><vs-chip color="primary">{{ details.satisfied }}</vs-chip></span>
+                <span><vs-chip color="primary">{{ details.status }}</vs-chip></span>
               </div>
               <div class="flex justify-between mb-2">
                 <span class="text-grey">Item Quantity</span>
@@ -367,7 +393,7 @@
               <vs-divider />
 
 
-              <vs-button @click="decline_contract(details.invitation_id)" color="danger" type="border" class="w-full">DECLINE CONTRACT</vs-button>
+              <vs-button v-if="details.payment != 'made'" @click="decline_contract(details.invitation_id)" color="danger" type="border" class="w-full">DECLINE CONTRACT</vs-button>
             </vx-card>
           </div>
         </div>
@@ -786,7 +812,58 @@ export default {
     })
   },
   mounted () {
-    this.buyerPendingContracts();
+    // this.buyerPendingContracts();
+    // this.$vs.loading();
+    // this.singleContract(this.$route.params.invitation_id)
+    // .then(() => {
+    //   this.$vs.loading.close();
+    //   this.details = this.singleContractDetails[0]
+    // })
+    // .catch(() => {
+    //   this.$vs.loading.close();
+    //   this.$router.replace({name: '404'}).catch(() => {})
+    // })
+
+  },
+  updated() {
+     var countDownDate = new Date(this.singleContractDetails[0].delivered_before_date).getTime();
+    // var countDownDate = new Date("1/2/2021").getTime();
+    // Update the count down every 1 second
+    var x = setInterval(function() {
+
+        // Get today's date and time
+        var now = new Date().getTime();
+
+        // Find the distance between now and the count down date
+        var distance = countDownDate - now;
+        // alert(distance);
+
+        // Time calculations for days, hours, minutes and seconds
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Display the result in the element with id="demo"
+        let clock = document.getElementById("clockdiv");
+        clock.querySelector('.days').innerHTML = days;
+        clock.querySelector('.hours').innerHTML = hours;
+        clock.querySelector('.minutes').innerHTML = minutes;
+        clock.querySelector('.seconds').innerHTML = seconds;
+        // .innerHTML = days + "d " + hours + "h "
+        // + minutes + "m " + seconds + "s ";
+
+        // If the count down is finished, write some text
+        if (distance < 0) {
+          clearInterval(x);
+          document.getElementById("clockdiv").innerHTML = "Contract Delivery Before Date Reached, You can now Open Ticket For Complain...";
+          // clock.querySelector('.days').innerHTML = 0;
+          // clock.querySelector('.hours').innerHTML = 0;
+          // clock.querySelector('.minutes').innerHTML = 0;
+          // clock.querySelector('.seconds').innerHTML = 0;
+
+        }
+    }, 1000);
   }
 };
 </script>
@@ -803,5 +880,37 @@ export default {
   // text-align: center;
   object-fit: contain;
   /* object-fit: cover; */
+}
+
+</style>
+<style>
+#clockdiv{
+	/* color: #fff; */
+	display: inline-block;
+	font-weight: 600;
+	text-align: center;
+  font-size: 1.5rem;
+  /* font-size: 30px; */
+}
+
+#clockdiv > div{
+  padding: 7px;
+  margin: 10px;
+	border-radius: 3px;
+	background: #7367f0;
+	display: inline-block;
+}
+
+#clockdiv div > span{
+	padding: 15px;
+	border-radius: 3px;
+	background: #fff;
+	display: inline-block;
+}
+
+.smalltext{
+  color: #fff;
+	padding-top: 5px;
+	font-size: 16px;
 }
 </style>

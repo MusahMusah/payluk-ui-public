@@ -171,9 +171,9 @@
               <p class="mb-3 font-semibold">Contract Details</p>
               <div class="flex justify-between">
                 <!-- <span class="font-semibold">Coupons</span> -->
-                <span class="font-medium cursor-pointer text-primary"
+                <!-- <span class="font-medium cursor-pointer text-primary"
                   >View All Contracts</span
-                >
+                > -->
               </div>
 
               <vs-divider />
@@ -181,7 +181,7 @@
 
               <div class="flex justify-between mb-2">
                 <span class="text-grey">Status</span>
-                <span><vs-chip color="primary">{{ details.satisfied }}</vs-chip></span>
+                <span><vs-chip color="primary">{{ details.status }}</vs-chip></span>
               </div>
               <div class="flex justify-between mb-2">
                 <span class="text-grey">Item Quantity</span>
