@@ -336,30 +336,70 @@ const router = new Router({
                 name: 'users',
                 // "v-autocomplete": "^1.8.2",
                 component: () => import('./views/topsellers/ECommerceShop.vue'),
+                meta: {
+                  breadcrumb: [
+                      { title: 'Home', url: '/' },
+                      { title: 'All Users', active: true },
+                  ],
+                  pageTitle: 'All Users',
+                  requiresAuthentication: true,
+                },
               },
               {
                 path: '/buyer-pending-details/:invitation_id',
                 props: true,
                 name: 'buyer-pending-details',
                 component: () => import('./views/contract/BuyerPendingDetails.vue'),
+                meta: {
+                  breadcrumb: [
+                      { title: 'Home', url: '/' },
+                      { title: 'Buyer Pending Details', active: true },
+                  ],
+                  pageTitle: 'Buyer Pending Details',
+                  requiresAuthentication: true,
+                },
               },
               {
                 path: '/buyer-completed-details/:invitation_id',
                 props: true,
                 name: 'buyer-completed-details',
                 component: () => import('./views/contract/BuyerCompletedDetails.vue'),
+                meta: {
+                  breadcrumb: [
+                      { title: 'Home', url: '/' },
+                      { title: 'Buyer Completed Details', active: true },
+                  ],
+                  pageTitle: 'Buyer Completed Details',
+                  requiresAuthentication: true,
+                },
               },
               {
                 path: '/seller-pending-details/:invitation_id',
                 props: true,
                 name: 'seller-pending-details',
                 component: () => import('./views/contract/SellerPendingDetails.vue'),
+                meta: {
+                  breadcrumb: [
+                      { title: 'Home', url: '/' },
+                      { title: 'Seller Pending Details', active: true },
+                  ],
+                  pageTitle: 'Seller Pending Details',
+                  requiresAuthentication: true,
+                },
               },
               {
                 path: '/seller-completed-details/:invitation_id',
                 props: true,
                 name: 'seller-completed-details',
                 component: () => import('./views/contract/SellerCompletedDetails.vue'),
+                meta: {
+                  breadcrumb: [
+                      { title: 'Home', url: '/' },
+                      { title: 'Seller Completed Details', active: true },
+                  ],
+                  pageTitle: 'Buyer Completed Details',
+                  requiresAuthentication: true,
+                },
               },
             ],
         },
@@ -394,10 +434,11 @@ const router = new Router({
               path: '/verify_otp',
               name: 'verify-otp',
               component: () => import('@/views/users/VerifyOtp.vue'),
-              props : true,
-              meta: {
-                requiresVisitor: true,
-              },
+              // props : true,
+              // meta: {
+              //   // requiresVisitor: true,
+              //   requiresAuthentication: true,
+              // },
             },
             {
               path: '/forgot-password',

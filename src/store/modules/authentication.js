@@ -9,8 +9,8 @@
 
 import axios from "axios"
 import router from "@/router"
-// const ApiLoginUrl = 'http://localhost:3000/login/';
-const ApiLoginUrl = 'https://www.app.payluk.com/';
+const ApiLoginUrl = 'http://localhost:3000/';
+// const ApiLoginUrl = 'https://www.app.payluk.com/';
 export default {
   namespaced: true,
 
@@ -68,6 +68,7 @@ export default {
         if (verify.data.errorcode == 703) {
           // localStorage.removeItem("token")
           localStorage.setItem("error_703", verify.data.message)
+          // return router.push({ name: 'verify-otp'})
           // return router.push({ name: 'verify-otp', params: { dataMessage: verify.data.message } })
           // return window.location.href =  ApiLoginUrl + `/verify_otp?message=${verify.data.message}`;
           return window.location.href =  ApiLoginUrl + `verify_otp`;
