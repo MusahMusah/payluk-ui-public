@@ -476,9 +476,6 @@ export default {
     singleContractDetails () {
       return this.getSingleContract
     },
-    testme () {
-      return Number(this.details.total_cost.replace(/[^0-9.-]+/g,"")).toString()
-    }
   },
 
   methods : {
