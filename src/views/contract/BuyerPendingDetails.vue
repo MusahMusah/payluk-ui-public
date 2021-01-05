@@ -37,23 +37,27 @@
               >
                 <div class="item-content">
                   <div class="p-6 product-details">
-                    <h1 class="text-center" style="color: #7367f0; font-weight: bold">Delivery Date Countdown Timer</h1>
-                    <div id="clockdiv" class="flex justify-center" style="text-align: center !important">
-                      <div>
-                        <span class="days"></span>
-                        <div class="smalltext">Days</div>
-                      </div>
-                      <div>
-                        <span class="hours"></span>
-                        <div class="smalltext">Hours</div>
-                      </div>
-                      <div>
-                        <span class="minutes"></span>
-                        <div class="smalltext">Minutes</div>
-                      </div>
-                      <div>
-                        <span class="seconds"></span>
-                        <div class="smalltext">Seconds</div>
+                    <div class="vx-row">
+                      <div class="w-full text-center vx-col lg:w-2/2">
+                        <h1 class="text-center" style="color: #7367f0; font-weight: bold">Delivery Date Countdown Timer</h1>
+                        <div id="clockdiv" class="items-center justify-center text-cente fle" style="text-align: center !important">
+                          <div>
+                            <span class="days"></span>
+                            <div class="smalltext">Days</div>
+                          </div>
+                          <div>
+                            <span class="hours"></span>
+                            <div class="smalltext">Hours</div>
+                          </div>
+                          <div>
+                            <span class="minutes"></span>
+                            <div class="smalltext">Minutes</div>
+                          </div>
+                          <div>
+                            <span class="seconds"></span>
+                            <div class="smalltext">Seconds</div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div class="mt-6 vx-row">
@@ -202,6 +206,57 @@
             </div>
           </div>
 
+          <div class="w-full vx-col sm:w-3/3 lg:w-1/3">
+            <vx-card>
+              <!-- <p class="mb-3 text-grey">Contract Details</p> -->
+              <p class="mb-3 font-semibold">Contract Details</p>
+              <div class="flex justify-between">
+                <!-- <span class="font-semibold">Coupons</span> -->
+                <!-- <span class="font-medium cursor-pointer text-primary"
+                  >All Contracts</span
+                > -->
+              </div>
+
+              <vs-divider />
+
+
+              <div class="flex justify-between mb-2">
+                <span class="text-grey">Status</span>
+                <span><vs-chip color="primary">{{ details.status }}</vs-chip></span>
+              </div>
+              <div class="flex justify-between mb-2">
+                <span class="text-grey">Item Quantity</span>
+                <span><vs-chip color="primary">{{ details.item_quantity }}</vs-chip></span>
+              </div>
+              <div class="flex justify-between mb-2">
+                <span class="text-grey">Currency</span>
+                <span><vs-chip color="primary">{{ details.currency }}</vs-chip></span>
+              </div>
+              <div class="flex justify-between mb-2">
+                <span class="text-grey">Ship Date</span>
+                <span><vs-chip color="primary">{{ details.ship_date }}</vs-chip></span>
+              </div>
+              <div class="flex justify-between mb-2">
+                <span class="text-grey">Delivered Date</span>
+                <span><vs-chip color="primary">{{ details.delivered_before_date }}</vs-chip></span>
+              </div>
+              <div class="flex justify-between mb-2">
+                <span class="text-grey">Ship From</span>
+                <span><vs-chip color="primary">{{ details.ship_from }}</vs-chip></span>
+              </div>
+              <div class="flex justify-between mb-2">
+                <span class="text-grey">To</span>
+                <span><vs-chip color="primary">{{ details.ship_to }}</vs-chip></span>
+              </div>
+
+              <vs-divider />
+
+
+              <vs-button v-if="details.payment != 'made'" @click="decline_contract(details.invitation_id)" color="danger" type="border" class="w-full">DECLINE CONTRACT</vs-button>
+            </vx-card>
+          </div>
+        </div>
+
           <!-- Request Modificartion Popup -->
           <div class="clearfix">
             <vs-popup
@@ -346,57 +401,6 @@
               >
             </vs-popup>
           </div>
-
-          <div class="w-full vx-col lg:w-1/3">
-            <vx-card>
-              <!-- <p class="mb-3 text-grey">Contract Details</p> -->
-              <p class="mb-3 font-semibold">Contract Details</p>
-              <div class="flex justify-between">
-                <!-- <span class="font-semibold">Coupons</span> -->
-                <!-- <span class="font-medium cursor-pointer text-primary"
-                  >All Contracts</span
-                > -->
-              </div>
-
-              <vs-divider />
-
-
-              <div class="flex justify-between mb-2">
-                <span class="text-grey">Status</span>
-                <span><vs-chip color="primary">{{ details.status }}</vs-chip></span>
-              </div>
-              <div class="flex justify-between mb-2">
-                <span class="text-grey">Item Quantity</span>
-                <span><vs-chip color="primary">{{ details.item_quantity }}</vs-chip></span>
-              </div>
-              <div class="flex justify-between mb-2">
-                <span class="text-grey">Currency</span>
-                <span><vs-chip color="primary">{{ details.currency }}</vs-chip></span>
-              </div>
-              <div class="flex justify-between mb-2">
-                <span class="text-grey">Ship Date</span>
-                <span><vs-chip color="primary">{{ details.ship_date }}</vs-chip></span>
-              </div>
-              <div class="flex justify-between mb-2">
-                <span class="text-grey">Delivered Date</span>
-                <span><vs-chip color="primary">{{ details.delivered_before_date }}</vs-chip></span>
-              </div>
-              <div class="flex justify-between mb-2">
-                <span class="text-grey">Ship From</span>
-                <span><vs-chip color="primary">{{ details.ship_from }}</vs-chip></span>
-              </div>
-              <div class="flex justify-between mb-2">
-                <span class="text-grey">To</span>
-                <span><vs-chip color="primary">{{ details.ship_to }}</vs-chip></span>
-              </div>
-
-              <vs-divider />
-
-
-              <vs-button v-if="details.payment != 'made'" @click="decline_contract(details.invitation_id)" color="danger" type="border" class="w-full">DECLINE CONTRACT</vs-button>
-            </vx-card>
-          </div>
-        </div>
       </div>
     </div>
   </div>

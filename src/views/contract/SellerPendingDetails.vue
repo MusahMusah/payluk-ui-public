@@ -38,23 +38,27 @@
               >
                 <div class="item-content">
                   <div class="p-6 product-details">
-                    <h1 class="text-center" style="color: #7367f0; font-weight: bold">Delivery Date Countdown Timer</h1>
-                    <div id="clockdiv" class="flex justify-center" style="text-align: center !important">
-                      <div>
-                        <span class="days"></span>
-                        <div class="smalltext">Days</div>
-                      </div>
-                      <div>
-                        <span class="hours"></span>
-                        <div class="smalltext">Hours</div>
-                      </div>
-                      <div>
-                        <span class="minutes"></span>
-                        <div class="smalltext">Minutes</div>
-                      </div>
-                      <div>
-                        <span class="seconds"></span>
-                        <div class="smalltext">Seconds</div>
+                    <div class="vx-row">
+                      <div class="w-full text-center vx-col lg:w-2/2">
+                        <h1 class="text-center" style="color: #7367f0; font-weight: bold">Delivery Date Countdown Timer</h1>
+                        <div id="clockdiv" class="items-center justify-center text-cente fle" style="text-align: center !important">
+                          <div>
+                            <span class="days"></span>
+                            <div class="smalltext">Days</div>
+                          </div>
+                          <div>
+                            <span class="hours"></span>
+                            <div class="smalltext">Hours</div>
+                          </div>
+                          <div>
+                            <span class="minutes"></span>
+                            <div class="smalltext">Minutes</div>
+                          </div>
+                          <div>
+                            <span class="seconds"></span>
+                            <div class="smalltext">Seconds</div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div class="mt-6 vx-row">
