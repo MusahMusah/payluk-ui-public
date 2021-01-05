@@ -605,7 +605,8 @@ export default {
       this.$vs.loading();
       this.acceptContract(payload)
         .then((response) => {
-          if(response.status == 201){
+          if (response.status == 201)
+          {
             localStorage.removeItem("payload")
             this.$vs.loading.close();
             this.$vs.notify({
@@ -617,7 +618,8 @@ export default {
               color: "success",
             });
 
-          }else {
+          } else
+          {
             localStorage.removeItem("payload")
             this.$vs.loading.close();
             this.$vs.notify({

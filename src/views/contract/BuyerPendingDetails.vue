@@ -119,7 +119,7 @@
                           ></span>
                         </div>
                         <p>
-                          {{ details.company_address }}
+                          {{ details.company_address }} {{testme}}
                         </p>
 
                         <div class="vs-component vs-divider">
@@ -476,6 +476,9 @@ export default {
     singleContractDetails () {
       return this.getSingleContract
     },
+    testme () {
+      return Number(this.details.total_cost.replace(/[^0-9.-]+/g,"")).toString()
+    }
   },
 
   methods : {
@@ -715,7 +718,7 @@ export default {
       {
         contract_id : details.id,
         invitation_id: details.invitation_id,
-        amount:   Number(details.total_cost.replace(/[^0-9.-]+/g,"")),
+        amount:   Number(details.total_cost.replace(/[^0-9.-]+/g,"")).toString(),
         currency: details.currency
       }
       localStorage.setItem("payload",  JSON.stringify(payload))

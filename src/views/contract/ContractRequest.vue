@@ -353,7 +353,7 @@ export default {
     },
     allRequests() {
       return { ...this.getAllPendingRequests };
-    }
+    },
   },
   methods: {
     ...mapActions({
@@ -406,7 +406,7 @@ export default {
         invitation_id: localStorage.getItem("invite_id"),
         item_name: this.items_name,
         item_quantity: this.item_quantity,
-        total_cost: this.total_cost.replace(/[^0-9.-]+/g,""),
+        total_cost: Number(this.total_cost.replace(/[^0-9.-]+/g,"")),
         currency: this.currency,
         ship_from: this.ship_from,
         ship_to: this.ship_to,
