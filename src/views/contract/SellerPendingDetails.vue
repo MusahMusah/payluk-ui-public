@@ -829,29 +829,31 @@ export default {
 
 <style>
 #clockdiv{
-	font-family: sans-serif;
-	color: #fff;
+	/* color: #fff; */
 	display: inline-block;
-	font-weight: 100;
+	font-weight: 600;
 	text-align: center;
-	font-size: 30px;
+  font-size: 1.5rem;
+  /* font-size: 30px; */
 }
 
 #clockdiv > div{
-	padding: 10px;
+  padding: 7px;
+  margin: 10px;
 	border-radius: 3px;
-	background: #00BF96;
+	background: #7367f0;
 	display: inline-block;
 }
 
 #clockdiv div > span{
 	padding: 15px;
 	border-radius: 3px;
-	background: #00816A;
+	background: #fff;
 	display: inline-block;
 }
 
 .smalltext{
+  color: #fff;
 	padding-top: 5px;
 	font-size: 16px;
 }
