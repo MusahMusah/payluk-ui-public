@@ -83,7 +83,13 @@ export default {
   actions : {
     // Get Active User Data
     async activeUserInfo({ commit }) {
-        let response = await axios.get('/firewall').then(() => {}).catch(() => {
+        let response = await axios.get('/firewall').then((res) => {
+          if (res.status == 201 && res.data.errorcode == 702) {
+            localStorage.removeItem("token")
+            localStorage.removeItem("verify_token")
+            return window.location.href = ApiLoginUrl;
+          }
+        }).catch(() => {
           localStorage.removeItem("token")
           localStorage.removeItem("verify_token")
           return window.location.href = ApiLoginUrl;

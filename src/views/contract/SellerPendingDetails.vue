@@ -38,7 +38,7 @@
               >
                 <div class="item-content">
                   <div class="p-6 product-details">
-                    <template v-if="windowWidth >= 465">
+                    <!-- <template v-if="windowWidth >= 465"> -->
                       <div class="vx-row">
                         <div class="w-full text-center vx-col lg:w-2/2">
                           <h1 class="text-center" style="color: #7367f0; font-weight: bold">Delivery Date Countdown Timer</h1>
@@ -62,8 +62,8 @@
                           </div>
                         </div>
                       </div>
-                    </template>
-                    <template v-else>
+                    <!-- </template> -->
+                    <!-- <template v-else>
                       <div class="vx-row">
                         <div class="w-full text-center vx-col lg:w-2/2">
                           <h1 class="text-center" style="color: #7367f0; font-weight: bold">Delivery Date Countdown Timer</h1>
@@ -87,7 +87,7 @@
                           </div>
                         </div>
                       </div>
-                    </template>
+                    </template> -->
                     <div class="mt-6 vx-row">
                       <div
                         class="flex items-center justify-center w-full vx-col md:w-2/5"
@@ -819,8 +819,9 @@ export default {
     })
   },
   updated() {
-     var countDownDate = new Date(this.singleContractDetails[0].delivered_before_date).getTime();
+    var countDownDate = new Date(this.singleContractDetails[0].delivered_before_date).getTime();
     // var countDownDate = new Date("1/2/2021").getTime();
+    // var countDownDate = new Date("2021-01-20T09:35:00.000Z").getTime();
     // Update the count down every 1 second
     var x = setInterval(function() {
 
@@ -845,10 +846,10 @@ export default {
         clock.querySelector('.seconds').innerHTML = seconds;
 
         // let clock2 = document.getElementById("clockdiv1");
-        document.getElementById('days1').innerHTML = days;
-         document.getElementById('hours1').innerHTML = hours;
-         document.getElementById('minutes1').innerHTML = minutes;
-         document.getElementById('seconds1').innerHTML = seconds;
+        // document.getElementById('days1').innerHTML = days;
+        //  document.getElementById('hours1').innerHTML = hours;
+        //  document.getElementById('minutes1').innerHTML = minutes;
+        //  document.getElementById('seconds1').innerHTML = seconds;
         // .innerHTML = days + "d " + hours + "h "
         // + minutes + "m " + seconds + "s ";
 

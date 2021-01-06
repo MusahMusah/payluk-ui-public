@@ -832,7 +832,7 @@ export default {
   },
   updated() {
      var countDownDate = new Date(this.singleContractDetails[0].delivered_before_date).getTime();
-    // var countDownDate = new Date("1/2/2021").getTime();
+    // var countDownDate = new Date("2021-01-08").getTime();
     // Update the count down every 1 second
     var x = setInterval(function() {
 
