@@ -183,7 +183,7 @@
                           </div>
                           <div class="w-full vx-col">
                             <div class="mb-4 fle flex-wra items-sta">
-                              <vs-button type="border" color="primary" @click="ticketPopUp(details.invitation_id)" v-if="(details.current_date >  details.delivered_before_date && details.buyer_ticket != 1 && details.status != 'request_modification')"> OPEN TICKET </vs-button>
+                              <vs-button type="border" color="primary" @click="ticketPopUp(details.invitation_id)" v-if="(details.current_date >  details.delivered_before_date && details.payment == 'made' && details.buyer_ticket != 1 && details.status != 'request_modification')"> OPEN TICKET </vs-button>
                             </div>
                           </div>
                         </div>
@@ -508,9 +508,10 @@ export default {
             icon: "icon-alert-circle",
             color: "success",
           });
-          setTimeout(() => {
-            location.reload();
-          }, 1000)
+          this.$router.replace({name: 'dashboard-analytics'}).catch(() => {})
+          // setTimeout(() => {
+          //   location.reload();
+          // }, 300)
 
         })
         .catch((error) => {

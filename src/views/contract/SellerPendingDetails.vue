@@ -38,29 +38,56 @@
               >
                 <div class="item-content">
                   <div class="p-6 product-details">
-                    <div class="vx-row">
-                      <div class="w-full text-center vx-col lg:w-2/2">
-                        <h1 class="text-center" style="color: #7367f0; font-weight: bold">Delivery Date Countdown Timer</h1>
-                        <div id="clockdiv" class="items-center justify-center text-cente fle" style="text-align: center !important">
-                          <div>
-                            <span class="days"></span>
-                            <div class="smalltext">Days</div>
-                          </div>
-                          <div>
-                            <span class="hours"></span>
-                            <div class="smalltext">Hours</div>
-                          </div>
-                          <div>
-                            <span class="minutes"></span>
-                            <div class="smalltext">Minutes</div>
-                          </div>
-                          <div>
-                            <span class="seconds"></span>
-                            <div class="smalltext">Seconds</div>
+                    <template v-if="windowWidth >= 465">
+                      <div class="vx-row">
+                        <div class="w-full text-center vx-col lg:w-2/2">
+                          <h1 class="text-center" style="color: #7367f0; font-weight: bold">Delivery Date Countdown Timer</h1>
+                          <div id="clockdiv" class="items-center justify-center text-cente fle" style="text-align: center !important">
+                            <div>
+                              <span class="days"></span>
+                              <div class="smalltext">Days</div>
+                            </div>
+                            <div>
+                              <span class="hours"></span>
+                              <div class="smalltext">Hours</div>
+                            </div>
+                            <div>
+                              <span class="minutes"></span>
+                              <div class="smalltext">Minutes</div>
+                            </div>
+                            <div>
+                              <span class="seconds"></span>
+                              <div class="smalltext">Seconds</div>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </template>
+                    <template v-else>
+                      <div class="vx-row">
+                        <div class="w-full text-center vx-col lg:w-2/2">
+                          <h1 class="text-center" style="color: #7367f0; font-weight: bold">Delivery Date Countdown Timer</h1>
+                          <div id="clockdiv1" class="items-center justify-center text-cente fle" style="text-align: center !important">
+                            <div>
+                              <span id="days1"></span>
+                              <div class="smalltext1">Days</div>
+                            </div>
+                            <div>
+                              <span id="hours1"></span>
+                              <div class="smalltext1">Hours</div>
+                            </div>
+                            <div>
+                              <span id="minutes1"></span>
+                              <div class="smalltext1">Minutes</div>
+                            </div>
+                            <div>
+                              <span id="seconds1"></span>
+                              <div class="smalltext1">Seconds</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </template>
                     <div class="mt-6 vx-row">
                       <div
                         class="flex items-center justify-center w-full vx-col md:w-2/5"
@@ -633,6 +660,9 @@ export default {
     singleContractDetails () {
       return this.getSingleContract
     },
+    windowWidth() {
+        return this.$store.state.windowWidth
+    },
   },
 
   methods : {
@@ -813,6 +843,12 @@ export default {
         clock.querySelector('.hours').innerHTML = hours;
         clock.querySelector('.minutes').innerHTML = minutes;
         clock.querySelector('.seconds').innerHTML = seconds;
+
+        // let clock2 = document.getElementById("clockdiv1");
+        document.getElementById('days1').innerHTML = days;
+         document.getElementById('hours1').innerHTML = hours;
+         document.getElementById('minutes1').innerHTML = minutes;
+         document.getElementById('seconds1').innerHTML = seconds;
         // .innerHTML = days + "d " + hours + "h "
         // + minutes + "m " + seconds + "s ";
 
@@ -857,6 +893,38 @@ export default {
 }
 
 .smalltext{
+  color: #fff;
+	padding-top: 5px;
+	font-size: 16px;
+}
+
+
+/* Small Screen */
+#clockdiv1{
+	/* color: #fff; */
+	display: inline-block;
+	font-weight: 600;
+	text-align: center;
+  font-size: 1.5rem;
+  /* font-size: 30px; */
+}
+
+#clockdiv1 > div{
+  padding: 7px;
+  margin: 10px;
+	border-radius: 3px;
+	background: #7367f0;
+	display: inline-block;
+}
+
+#clockdiv1 div > span{
+	padding: 15px;
+	border-radius: 3px;
+	background: #fff;
+	display: inline-block;
+}
+
+.smalltext1{
   color: #fff;
 	padding-top: 5px;
 	font-size: 16px;

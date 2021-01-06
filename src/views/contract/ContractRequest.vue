@@ -445,7 +445,7 @@ export default {
           this.$vs.notify({
             title: "Error",
             // text: "Invalid Login Credentials, Try again!",
-            text: error.response.data.message,
+            text: error.response.data.messages.error,
             position:'top-right',
             iconPack: "feather",
             icon: "icon-alert-circle",

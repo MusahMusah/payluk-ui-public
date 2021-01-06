@@ -140,7 +140,7 @@
               </vs-button>
               <vs-button
               color="primary"
-              v-if="(tr.current_date >  tr.delivered_before_date && tr.buyer_ticket != 1 && tr.status != 'request_modification')"
+              v-if="(tr.current_date >  tr.delivered_before_date && tr.payment == 'made' && tr.buyer_ticket != 1 && tr.status != 'request_modification')"
               @click="ticketPopUp(tr.invitation_id)"
               type="border"  class="m-1">
               Open Ticket
