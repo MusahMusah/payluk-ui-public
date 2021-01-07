@@ -391,7 +391,7 @@ export default {
             .then((response) => {
               // console.log(response.data.contract[0].status)
               this.$vs.loading.close();
-              if (response.data.contract[0].status == 'pending') {
+              if (response.data.contract[0].status == 'pending' || response.data.contract[0].state == 'open') {
                 this.$router.replace({ name: 'seller-pending-details', params: { invitation_id: invitation_id } }).catch(() => {})
               }else {
                 this.$router.replace({ name: 'seller-completed-details', params: { invitation_id: invitation_id } }).catch(() => {})

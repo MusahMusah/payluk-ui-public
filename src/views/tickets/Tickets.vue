@@ -32,8 +32,8 @@
             <div class="w-full con-expand-users">
               <div class="flex items-center justify-between con-btns-user">
                 <div class="flex items-center justify-start con-userx">
-                  <vs-avatar :badge="tr.id" size="45px" />
-                  <!-- <vs-avatar :badge="tr.id" size="45px" :src="`https://randomuser.me/api/portraits/women/${indextr}.jpg`" /> -->
+                  <!-- <vs-avatar :badge="tr.id" size="45px" /> -->
+                  <vs-avatar :badge="tr.id" size="60px" :src="adminImage" />
                   <span>Admin</span>
                 </div>
                 <div class="flex">
@@ -42,8 +42,9 @@
                 </div>
               </div>
               <vs-list>
-                <vs-list-item icon-pack="feather" icon="icon-mail" :title="'We hve contacted The Seller your money will be Refunded to back you within 24hrs...'"></vs-list-item>
-                <vs-list-item icon-pack="feather" icon="icon-globe" :title="'Contact Admin for further Details'"></vs-list-item>
+                <vs-list-item icon-pack="feather" icon="icon-mai" :title="'We have recieved your complain, we will repond to your ticket within the next 24hrs.'"></vs-list-item>
+                <vs-list-item icon-pack="feather" icon="icon-mail" :title="'Contact Admin for further Details Via : support@payluk.com'"></vs-list-item>
+                <vs-list-item icon-pack="feather" icon="icon-phone" :title="'Contact Admin for further Details Via : (+234) 8099 378 337 '"></vs-list-item>
               </vs-list>
             </div>
           </template>
@@ -58,6 +59,7 @@ import {mapActions, mapGetters} from 'vuex'
 export default {
   data() {
     return {
+      adminImage : require('@/assets/images/logo.png'),
       users: [{id:1,email: "shoaliyu@gmail.com", name:"musahmusah",website:"aliyu.com"}]
     }
   },

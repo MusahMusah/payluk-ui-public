@@ -10,32 +10,35 @@
                             </h3>
                         </template>
                         <template slot="thead">
-                            <vs-th sort-key="amount"> Amount </vs-th>
-                            <vs-th sort-key="card_number"> Card Number </vs-th>
-                            <!-- <vs-th sort-key="card_type"> Card Type </vs-th> -->
-                            <vs-th sort-key="status"> Status </vs-th>
                             <vs-th sort-key="date"> Date </vs-th>
+                            <vs-th sort-key="amount"> Amount </vs-th>
+                            <vs-th sort-key="currency"> Currency </vs-th>
+                            <vs-th sort-key="card_number"> Card Number </vs-th>
+                            <vs-th sort-key="card_typr"> Card Type </vs-th>
+                            <vs-th sort-key="status"> Status </vs-th>
                         </template>
 
                         <template slot-scope="{data}">
                             <vs-tr :key="indextr" v-for="(tr, indextr) in data">
+                                <vs-td :data="data[indextr].date">
+                                    {{ data[indextr].date }}
+                                </vs-td>
                                 <vs-td :data="data[indextr].amount"> {{ data[indextr].amount }} </vs-td>
+
+                                <vs-td :data="data[indextr].currency"> {{ data[indextr].currency }} </vs-td>
 
                                 <vs-td :data="data[indextr].card_number">
                                     {{ data[indextr].card_number }}
                                 </vs-td>
 
-                                <!-- <vs-td style="text-transform: uppercase" :data="data[indextr].card_type">
+                                <vs-td style="text-transform: uppercase" :data="data[indextr].card_type">
                     {{ data[indextr].card_type | capitalize }}
-                  </vs-td> -->
+                  </vs-td>
                                 <vs-td :data="data[indextr].status">
                                     <vs-chip color="primary">
                                         <vs-avatar icon="check" />
                                         <span>{{ data[indextr].status }}</span>
                                     </vs-chip>
-                                </vs-td>
-                                <vs-td :data="data[indextr].date">
-                                    {{ data[indextr].date }}
                                 </vs-td>
                             </vs-tr>
                         </template>
@@ -65,6 +68,7 @@
         computed: {
             ...mapGetters({
                 getTransactionsDetails: "payments/getTransactionsData",
+                userData : 'users/getUserData',
             }),
             user_transactions() {
                 if (this.getTransactionsDetails == null) {

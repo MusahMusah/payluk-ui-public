@@ -40,7 +40,7 @@
                     <div class="vx-row">
                       <div class="w-full text-center vx-col lg:w-2/2">
                         <h1 class="text-center" style="color: #7367f0; font-weight: bold">Delivery Date Countdown Timer</h1>
-                        <div id="clockdiv" class="items-center justify-center text-cente fle" style="text-align: center !important">
+                        <div v-if="details.buyer_ticket != 1" id="clockdiv" class="items-center justify-center text-cente fle" style="text-align: center !important">
                           <div>
                             <span class="days"></span>
                             <div class="smalltext">Days</div>
@@ -57,6 +57,13 @@
                             <span class="seconds"></span>
                             <div class="smalltext">Seconds</div>
                           </div>
+                        </div>
+                        <div v-else style="font-size: 1.2em">
+                          We have recieved your complain, we will repond to your ticket within the next 24hrs.
+                          <br>
+                          <vs-button to="/tickets">
+                            Ticket Details
+                          </vs-button>
                         </div>
                       </div>
                     </div>
@@ -119,7 +126,7 @@
                           ></span>
                         </div>
                         <p>
-                          {{ details.company_address }} {{testme}}
+                          {{ details.company_address }}
                         </p>
 
                         <div class="vs-component vs-divider">
@@ -183,7 +190,8 @@
                           </div>
                           <div class="w-full vx-col">
                             <div class="mb-4 fle flex-wra items-sta">
-                              <vs-button type="border" color="primary" @click="ticketPopUp(details.invitation_id)" v-if="(details.current_date >  details.delivered_before_date && details.payment == 'made' && details.buyer_ticket != 1 && details.status != 'request_modification')"> OPEN TICKET </vs-button>
+                              <vs-button type="border" color="primary" @click="ticketPopUp(details.invitation_id)" v-if="(new Date(details.current_date) > new Date(details.delivered_before_date) && details.payment == 'made' && details.buyer_ticket != 1 && details.status != 'request_modification')"> OPEN TICKET </vs-button>
+                              <!-- <vs-button type="border" color="primary" @click="ticketPopUp(details.invitation_id)" v-if="(new Date(details.current_date) > new Date(details.delivered_before_date) && details.buyer_ticket != 1)"> OPEN TICKET </vs-button> -->
                             </div>
                           </div>
                         </div>
@@ -831,7 +839,7 @@ export default {
 
   },
   updated() {
-     var countDownDate = new Date(this.singleContractDetails[0].delivered_before_date).getTime();
+     var countDownDate = new Date(this.singleContractDetails[0].delivered_before_date_time).getTime();
     // var countDownDate = new Date("2021-01-08").getTime();
     // Update the count down every 1 second
     var x = setInterval(function() {

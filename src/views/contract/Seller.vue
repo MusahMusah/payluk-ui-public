@@ -124,7 +124,7 @@
 
             <vs-td class="whitespace-no-wrap">
               <vs-button
-                v-show="(tr.current_date > tr.delivered_before_date && tr.seller_ticket != 1 && tr.status != 'request_modification')"
+                v-show="(new Date(tr.current_date) > new Date(tr.delivered_before_date) && tr.seller_ticket != 1 && tr.status != 'request_modification')"
                 @click="ticketPopUp(tr.invitation_id)"
                 type="gradient"
                 class="m-1"
@@ -184,7 +184,7 @@
                   v-bind:src="imagePreview"
                   class="w-full review-image"
                   v-on:click="openUpload"
-                  style="heght: 60vh !important; object-fit: contain"
+                  style="height: 57vh !important; object-fit: cover"
                 />
 
                 <div class="form-group">

@@ -123,6 +123,7 @@
                     <template slot="thead">
                         <vs-th>TRANSACTION DATE</vs-th>
                         <vs-th>TRANSACTION AMOUNT</vs-th>
+                        <vs-th>TRANSACTION CURRENCY</vs-th>
                         <vs-th>TRANSACTION STATUS</vs-th>
                     </template>
 
@@ -132,7 +133,10 @@
                             <span>{{data[indextr].date}}</span>
                         </vs-td>
                         <vs-td :data="data[indextr].amount">
-                            <span>{{formatMoney(data[indextr].amount)}}</span>
+                            <span>{{data[indextr].amount}}</span>
+                        </vs-td>
+                        <vs-td :data="data[indextr].currency">
+                            <span>{{data[indextr].currency}}</span>
                         </vs-td>
                         <vs-td :data="data[indextr].status">
                             <vs-chip color="primary" class="text-center">

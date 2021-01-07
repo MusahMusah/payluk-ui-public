@@ -42,7 +42,7 @@
                       <div class="vx-row">
                         <div class="w-full text-center vx-col lg:w-2/2">
                           <h1 class="text-center" style="color: #7367f0; font-weight: bold">Delivery Date Countdown Timer</h1>
-                          <div id="clockdiv" class="items-center justify-center text-cente fle" style="text-align: center !important">
+                          <div v-if="details.buyer_ticket != 1" id="clockdiv" class="items-center justify-center text-cente fle" style="text-align: center !important">
                             <div>
                               <span class="days"></span>
                               <div class="smalltext">Days</div>
@@ -59,6 +59,13 @@
                               <span class="seconds"></span>
                               <div class="smalltext">Seconds</div>
                             </div>
+                          </div>
+                          <div v-else style="font-size: 1.2em">
+                            We have recieved your complain, we will repond to your ticket within the next 24hrs.
+                            <br>
+                            <vs-button to="/tickets">
+                              Ticket Details
+                            </vs-button>
                           </div>
                         </div>
                       </div>
@@ -201,7 +208,7 @@
                           <div class="w-full vx-col">
                             <div class="mb-4 fle flex-wra items-sta">
                               <!-- @click="ticketPopUp(details.invitation_id)" -->
-                               <vs-button type="border" color="primary" @click="popupActivo = true" v-if="(details.current_date >  details.delivered_before_date && details.seller_ticket != 1 && details.status != 'request_modification')"> OPEN TICKET </vs-button>
+                               <vs-button type="border" color="primary" @click="popupActivo = true" v-if="(new Date(details.current_date) > new Date(details.delivered_before_date) && details.seller_ticket != 1 && details.status != 'request_modification')"> OPEN TICKET </vs-button>
                             </div>
                           </div>
                         </div>
@@ -819,9 +826,9 @@ export default {
     })
   },
   updated() {
-    var countDownDate = new Date(this.singleContractDetails[0].delivered_before_date).getTime();
+    var countDownDate = new Date(this.singleContractDetails[0].delivered_before_date_time).getTime();
     // var countDownDate = new Date("1/2/2021").getTime();
-    // var countDownDate = new Date("2021-01-20T09:35:00.000Z").getTime();
+    // var countDownDate = new Date("2021-01-15T13:48:00.000Z").getTime();
     // Update the count down every 1 second
     var x = setInterval(function() {
 
