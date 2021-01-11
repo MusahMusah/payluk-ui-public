@@ -125,7 +125,7 @@
       <!-- COL 1 -->
       <div class="w-full vx-col lg:w-1/4">
         <!-- ABOUT CARD -->
-        <vx-card title="About Me" class="mt-base">
+        <vx-card title="About Me" class="mt-base" style="height : 70vh">
           <!-- ACTION SLOT popupActivo=true -->
           <template slot="actions">
             <vs-button icon-pack="feather" @click="pop" radis icon="icon-edit-2"
@@ -147,7 +147,7 @@
           </div>
           <div class="mt-5">
             <h>Joined:</h>
-            <p>{{userData_info.created_at.date}}</p>
+            <p>{{userData_info.created_at}}</p>
           </div>
           <div class="mt-5">
             <h6>Email:</h6>
@@ -188,7 +188,7 @@
             >
           </vs-popup>
         </div>
-        <vx-card title="TOP TRADERS" class="mt-base">
+        <!-- <vx-card title="TOP TRADERS" class="mt-base">
           <template slot="actions">
             <feather-icon icon="MoreHorizontalIcon"></feather-icon>
           </template>
@@ -217,7 +217,6 @@
                     {{ top_seller.first_name }}</router-link
                   >
                 </p>
-                <!-- <vs-avatar size="15px" icon="star" color="warning" style="background-color: yellow;"/>  -->
                 <span class="text-xs" style="text-transform: uppercase">{{
                   top_seller.ranking
                 }}</span>
@@ -238,7 +237,7 @@
               >Load More</vs-button
             >
           </template>
-        </vx-card>
+        </vx-card> -->
       </div>
       <!-- {{allReviews}} -->
       <!-- COL 2 -->
@@ -321,7 +320,7 @@
       <div class="w-full vx-col lg:w-1/4">
         <vx-card title="QR CODE" class="mt-base">
           <img :src="userData_info.qr" />
-          <div class="mt-5">
+          <div class="mt">
             <h6>WALLET ID:</h6>
             <template>
               <vs-input
@@ -563,15 +562,15 @@ export default {
     },
   },
   created() {
-    this.$vs.loading();
+    // this.$vs.loading();
     // this.activeUserInfo()
-    this.topSellers()
-    .then(() => {
-      this.$vs.loading.close();
-    })
-    .catch(() => {
-        this.$router.replace({name: '404'}).catch(() => {})
-    })
+    // this.topSellers()
+    // .then(() => {
+    //   this.$vs.loading.close();
+    // })
+    // .catch(() => {
+    //     this.$router.replace({name: '404'}).catch(() => {})
+    // })
   },
   components: {
     videoPlayer,

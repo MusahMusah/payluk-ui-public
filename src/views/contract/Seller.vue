@@ -109,7 +109,8 @@
             </vs-td>
 
             <vs-td>
-              <vs-chip color="primary">{{ tr.status }}</vs-chip>
+              <vs-chip color="primary" v-if="tr.status == 'request_modification'">Requested Modification</vs-chip>
+              <vs-chip v-else color="primary">{{ tr.status }}</vs-chip>
             </vs-td>
 
             <vs-td class="text-center">

@@ -246,7 +246,8 @@
 
               <div class="flex justify-between mb-2">
                 <span class="text-grey">Status</span>
-                <span><vs-chip color="primary">{{ details.satisfied }}</vs-chip></span>
+                <span v-if="details.status == 'request_modification'"><vs-chip color="primary">Requested Modification</vs-chip></span>
+                <span v-else><vs-chip color="primary">{{ details.status }}</vs-chip></span>
               </div>
               <div class="flex justify-between mb-2">
                 <span class="text-grey">Item Quantity</span>
@@ -401,6 +402,7 @@
 
         <div class="vx-row">
           <div class="w-full mt-5 vx-col">
+            <label for="">Ship Date</label>
             <datepicker
               v-validate="'required'"
               data-vv-validate-on="blur"
@@ -414,10 +416,11 @@
           </div>
 
           <div class="w-full mt-5 vx-col">
+            <label for="">Delivered Before Date</label>
             <datepicker
               v-validate="'required'"
               data-vv-validate-on="blur"
-              placeholder="Delivered Before Date"
+              placeholder="Select Delivered Before Date"
               name="Delivered Before Date"
               v-model="details.delivered_before_date"
             ></datepicker>

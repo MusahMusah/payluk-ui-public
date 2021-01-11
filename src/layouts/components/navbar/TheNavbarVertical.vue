@@ -46,44 +46,44 @@
           </vs-dropdown>
         </div>
 
-        <div class="bookmark-container">
-          <!-- <feather-icon icon="StarIcon" :svgClasses="['stoke-current text-warning', {'text-white': navbarColor != '#fff'}]" class="p-2 cursor-pointer" @click.stop="showBookmarkPagesDropdown = !showBookmarkPagesDropdown" /> -->
-                    <!-- <div v-click-outside="outside" class="absolute w-1/3 mt-4 bookmark-list xl:w-1/4" v-if="showBookmarkPagesDropdown">
-          <vx-auto-suggest :autoFocus="true" :data="navbarSearchAndPinList" @selected="selected" @actionClicked="actionClicked" inputClassses="w-full" show-action show-pinned background-overlay></vx-auto-suggest>
-          </div> -->
-          <!-- <feather-icon icon="StarIcon" :svgClasses="['stoke-current text-warning', {'text-white': navbarColor != '#fff'}]" class="p-2 cursor-pointer" @click.stop="showBookmarkPagesDropdown = !showBookmarkPagesDropdown" /> -->
-            <vs-chip color="primary ml-1" id="tour_rankingSection">
-              <!-- <vs-avatar icon-pack="feather" icon="icon-star" /> -->
-              <span style="font-weight: bold; font-sze: 1.3em">RANKING :</span>
-              <star-rating
-              :star-size="15"
-              :read-only="true"
-              :rating="Number(rank)"
-              :max-rating="Number(rank)"
-              :border-width="1"
-              border-color="#d8d8d8"
-              :rounded-corners="true"
-              :show-rating="false"
-              :star-points="
-              [23,2, 14,17, 0,19,
-                10,34, 7,50,
-                23,43, 38,50, 36,34,
-                46,19, 31,17]">
-              </star-rating>
-              <span class="p-2" style="text-transform: uppercase;font-weight: bold; font-size: 1.2em">{{userData.info.rank}}</span>
-              <!-- <vs-button class="p-1" style="text-transform: uppercase;font-weight: bold; font-size: 1.3em">{{userData.rank.toUpperCase()}}</vs-button> -->
-            </vs-chip>
-            <vs-chip color="primary" class="ml-2 mr-2" id="tour_statusSection">
-              <vs-avatar size="28px" v-if="userData.info.status == 'not activated'" icon="close" />
-              <vs-avatar size="28px" v-else icon="check" />
-              <span  style="text-transform: uppercase; font-weight: bold; font-size: 1.3em">ACCOUNT {{userData.info.status}}</span>
-                <!-- <vs-button icon="send" radius style="text-transform: uppercase; font-weight: bold; font-size: 1.3em">ACCOUNT {{userData.status.toUpperCase()}}</vs-button> -->
-            </vs-chip>
-            <vs-button v-if="userData.info.status == 'not activated'"
-            :to="{name: 'activate-account'}"
-            style="text-transform: uppercase; font-weight: bold; font-size: .7em"
-            size="medium" icon="double_arrow" color="primary">ACTIVATE</vs-button>
-        </div>
+          <div class="bookmark-container">
+            <!-- <feather-icon icon="StarIcon" :svgClasses="['stoke-current text-warning', {'text-white': navbarColor != '#fff'}]" class="p-2 cursor-pointer" @click.stop="showBookmarkPagesDropdown = !showBookmarkPagesDropdown" /> -->
+                      <!-- <div v-click-outside="outside" class="absolute w-1/3 mt-4 bookmark-list xl:w-1/4" v-if="showBookmarkPagesDropdown">
+            <vx-auto-suggest :autoFocus="true" :data="navbarSearchAndPinList" @selected="selected" @actionClicked="actionClicked" inputClassses="w-full" show-action show-pinned background-overlay></vx-auto-suggest>
+            </div> -->
+            <!-- <feather-icon icon="StarIcon" :svgClasses="['stoke-current text-warning', {'text-white': navbarColor != '#fff'}]" class="p-2 cursor-pointer" @click.stop="showBookmarkPagesDropdown = !showBookmarkPagesDropdown" /> -->
+              <vs-chip color="primary ml-1" id="tour_rankingSection">
+                <!-- <vs-avatar icon-pack="feather" icon="icon-star" /> -->
+                <span style="font-weight: bold; font-sze: 1.3em">RANKING :</span>
+                <star-rating
+                :star-size="15"
+                :read-only="true"
+                :rating="Number(rank)"
+                :max-rating="Number(rank)"
+                :border-width="1"
+                border-color="#d8d8d8"
+                :rounded-corners="true"
+                :show-rating="false"
+                :star-points="
+                [23,2, 14,17, 0,19,
+                  10,34, 7,50,
+                  23,43, 38,50, 36,34,
+                  46,19, 31,17]">
+                </star-rating>
+                <span class="p-2" style="text-transform: uppercase;font-weight: bold; font-size: 1.2em">{{userData.info.rank}}</span>
+                <!-- <vs-button class="p-1" style="text-transform: uppercase;font-weight: bold; font-size: 1.3em">{{userData.rank.toUpperCase()}}</vs-button> -->
+              </vs-chip>
+              <vs-chip color="primary" class="ml-2 mr-2" id="tour_statusSection">
+                <vs-avatar size="28px" v-if="userData.info.status == 'not activated'" icon="close" />
+                <vs-avatar size="28px" v-else icon="check" />
+                <span  style="text-transform: uppercase; font-weight: bold; font-size: 1.3em">ACCOUNT {{userData.info.status}}</span>
+                  <!-- <vs-button icon="send" radius style="text-transform: uppercase; font-weight: bold; font-size: 1.3em">ACCOUNT {{userData.status.toUpperCase()}}</vs-button> -->
+              </vs-chip>
+              <vs-button v-if="userData.info.status == 'not activated'"
+              :to="{name: 'activate-account'}"
+              style="text-transform: uppercase; font-weight: bold; font-size: .7em"
+              size="medium" icon="double_arrow" color="primary">ACTIVATE</vs-button>
+          </div>
       </template>
       <template v-if="windowWidth < 992">
 

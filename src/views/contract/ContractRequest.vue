@@ -129,7 +129,7 @@
             v-model="item_quantity"
           />
           <span class="text-sm text-danger">{{
-            errors.first("Item(s) Quantity")
+            errors.first("Item Quantity")
           }}</span>
         </div>
       </div>

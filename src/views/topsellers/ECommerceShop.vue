@@ -30,7 +30,7 @@
                         <!-- Stats -->
                         <ais-stats>
                             <p slot-scope="{ hitsPerPage, nbPages, nbHits, page, processingTimeMS, query }" class="hidden font-semibold text-center md:block">
-                                {{ resultQuery.length }} results found in {{ processingTimeMS }}ms
+                                <!-- {{ resultQuery.length }} results found in {{ processingTimeMS }}ms -->
                             </p>
                         </ais-stats>
 
@@ -82,7 +82,7 @@
 
                                 <!-- SEARCH INPUT -->
                                 <!-- <vs-input class="w-full vs-input-shadow-drop vs-input-no-border d-theme-input-dark-bg" placeholder="Search here" v-model="currentRefinement" @input="refine($event)" @keyup.esc="refine('')" size="large" /> -->
-                                <vs-input class="w-full vs-input-shadow-drop vs-input-no-border d-theme-input-dark-bg" placeholder="Search For User here..." v-model="searchQuery"  @keyup.esc="refine('')" size="large" />
+                                <vs-input class="w-full vs-input-shadow-drop vs-input-no-border d-theme-input-dark-bg" placeholder="Search For Traders here..." v-model="searchQuery"  @keyup.esc="refine('')" size="large" />
 
                                 <!-- SEARCH LOADING -->
                                 <p :hidden="!isSearchStalled" class="mt-4 text-grey">
@@ -323,7 +323,7 @@ export default {
       sendInvite: "users/sendInvite",
       activeUserInfo : "users/activeUserInfo",
     }),
-        send_invite(wallet_id) {
+    send_invite(wallet_id) {
       // Loading
       this.$vs.loading();
       this.sendInvite(wallet_id)
@@ -410,7 +410,7 @@ export default {
   },
   created() {
       // Loading
-    this.$vs.loading();
+    // this.$vs.loading();
     this.setSidebarWidth()
   }
 }

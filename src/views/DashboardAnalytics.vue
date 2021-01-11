@@ -106,11 +106,78 @@
 
             <!-- CARD 8: Activity Timeline -->
             <div class="w-full vx-col lg:w-1/2 mb-base">
-                <vx-card title="Activity Timeline" style="height: 90vh;marginbottom: 7.5rem !important; overflow-y: auto !important;">
-                    <!-- {{getNotifications}} -->
-                    <!-- <vx-timeline :data="timelineData" /> -->
+                <!-- <vx-card title="Activity Timeline" style="height: 90vh;marginbottom: 7.5rem !important; overflow-y: auto !important;">
                     <vx-timeline v-if="getNotifications.data.length > 0" :data="getNotifications.data" styl="margin-bottom: 5.8rem;" />
                     <p v-else>No Timeline Data Yet</p>
+                </vx-card> -->
+                <vx-card title="TOP TRADERS" v-if="top_sellers" style="height: 90vh;marginbottom: 7.5rem !important; overflow-y: auto !important;">
+                    <template slot="actions">
+                      <feather-icon icon="MoreHorizontalIcon"></feather-icon>
+                    </template>
+
+                    <ul class="friend-suggesions-list">
+                      <li
+                        class="flex items-center mb-4 friend-suggestion"
+                        v-for="(top_seller, index) in top_sellers"
+                        :key="index"
+                      >
+                        <div class="mr-3">
+                          <vs-avatar
+                            class="m-0"
+                            :src="top_seller.small_image"
+                            size="35px"
+                          />
+                        </div>
+                        <div class="leading-tight">
+                          <p class="font-medium">
+                            <router-link
+                              :to="{
+                                name: 'user-public-profile',
+                                params: { wallet_id: top_seller.wallet_id },
+                              }"
+                            >
+                              {{ top_seller.first_name }}</router-link
+                            >
+                          </p>
+                          <!-- <span class="text-xs" style="text-transform: uppercase">{{
+                            top_seller.ranking
+                          }}</span> -->
+                          <star-rating
+                          :star-size="15"
+                          :read-only="true"
+                          :rating="Number(top_seller.star)"
+                          :max-rating="Number(top_seller.star)"
+                          :border-width="1"
+                          border-color="#d8d8d8"
+                          :rounded-corners="true"
+                          :show-rating="false"
+                          :star-points="
+                          [23,2, 14,17, 0,19,
+                            10,34, 7,50,
+                            23,43, 38,50, 36,34,
+                            46,19, 31,17]">
+                          </star-rating>
+                          <span class="" style="text-transform: uppercase;font-weight: 500; font-size: 1em">Beginner</span>
+                        </div>
+                        <div class="ml-auto cursor-pointer">
+                          <vs-button
+                            type="border"
+                            icon="send"
+                            :disabled="false"
+                            @click="send_invite(top_seller.wallet_id)"
+                            >Send Invite</vs-button
+                          >
+                        </div>
+                      </li>
+                    </ul>
+                    <template slot="footer">
+                      <!-- <vs-button icon-pack="feather" icon="icon-plus" class="w-full my-auto"
+                        >Load More</vs-button
+                      > -->
+                    </template>
+                </vx-card>
+                <vx-card title="TOP TRADERS" v-else style="height: 90vh;marginbottom: 7.5rem !important; overflow-y: auto !important;">
+                  <p>Top Traders Not in the Platform Yet.</p>
                 </vx-card>
             </div>
         </div>
@@ -162,6 +229,7 @@ import StatisticsCardLine from '@/components/statistics-cards/StatisticsCardLine
 import analyticsData from './ui-elements/card/analyticsData.js'
 import ChangeTimeDurationDropdown from '@/components/ChangeTimeDurationDropdown.vue'
 import VxTimeline from "@/components/timeline/VxTimeline"
+import StarRating from 'vue-star-rating'
 import { mapActions, mapGetters } from 'vuex'
 
 export default{
@@ -256,6 +324,9 @@ export default{
           }
           // return this.userData.deposit.transactions
       },
+      top_sellers () {
+        return this.userData.top_seller
+      },
       getNotifications(){
         return this.userData.notification
       },
@@ -302,7 +373,70 @@ export default{
         dashBoardAnalytics : "users/dashBoardAnalytics",
         dashBoardContractsOverview : "users/dashBoardContractsOverview",
         transactionDetailsData: "payments/transactionDetailsData",
+        sendInvite: "users/sendInvite",
       }),
+      send_invite(wallet_id) {
+        // Loading
+        this.$vs.loading();
+        this.sendInvite(wallet_id)
+          .then((response) => {
+            this.$vs.loading.close();
+            if (response.data.errorcode == 711) {
+              // Account Not Activated
+              this.$vs.notify({
+                title: "Info",
+                text: response.data.message,
+                position:'top-right',
+                iconPack: "feather",
+                icon: "icon-alert-circle",
+                color: "danger",
+              });
+            } else if (response.data.errorcode == 712) {
+              // Cant send your self request
+              this.$vs.notify({
+                title: "Info",
+                text: response.data.message,
+                position:'top-right',
+                iconPack: "feather",
+                icon: "icon-alert-circle",
+                color: "success",
+              });
+            } else if (response.data.errorcode == 704) {
+              // Seller Account Not Approved
+              this.$vs.notify({
+                title: "Info",
+                text: response.data.message,
+                position:'top-right',
+                iconPack: "feather",
+                icon: "icon-alert-circle",
+                color: "danger",
+              });
+            } else {
+              // Request Successfully Sent
+              this.$vs.notify({
+                title: "Success",
+                text: response.data.message,
+                position:'top-right',
+                iconPack: "feather",
+                icon: "icon-alert-circle",
+                color: "success",
+              });
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+            this.$vs.loading.close();
+            this.$vs.notify({
+              title: "Error",
+              text: error.response.data.message,
+              position:'top-right',
+              // text: error.response.data,
+              iconPack: "feather",
+              icon: "icon-alert-circle",
+              color: "danger",
+            });
+          });
+      },
       formatMoney(amount, decimalCount = 2, decimal = ".", thousands = ",") {
         try {
           decimalCount = Math.abs(decimalCount);
@@ -324,7 +458,8 @@ export default{
         StatisticsCardLine,
         VuePerfectScrollbar,
         ChangeTimeDurationDropdown,
-        VxTimeline
+        VxTimeline,
+        StarRating,
     },
     mounted() {
         // this.$refs.chatLogPS.$el.scrollTop = this.$refs.chatLog.scrollHeight;

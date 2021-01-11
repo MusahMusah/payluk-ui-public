@@ -230,7 +230,8 @@
 
               <div class="flex justify-between mb-2">
                 <span class="text-grey">Status</span>
-                <span><vs-chip color="primary">{{ details.status }}</vs-chip></span>
+                <span v-if="details.status == 'request_modification'"><vs-chip color="primary">Requested Modification</vs-chip></span>
+                <span v-else><vs-chip color="primary">{{ details.status }}</vs-chip></span>
               </div>
               <div class="flex justify-between mb-2">
                 <span class="text-grey">Item Quantity</span>

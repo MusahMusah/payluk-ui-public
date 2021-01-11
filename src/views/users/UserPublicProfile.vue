@@ -81,7 +81,7 @@
       <!-- COL 1 -->
       <div class="w-full vx-col lg:w-1/4">
         <!-- ABOUT CARD -->
-        <vx-card title="About" class="mt-base">
+        <vx-card title="About" class="mt-base" style="height : 70vh">
           <!-- ACTION SLOT popupActivo=true -->
 
           <!-- USER BIO -->
@@ -132,7 +132,7 @@
             <p>{{userData_info.email}}</p>
           </div>
         </vx-card>
-        <vx-card title="TOP TRADERS" class="mt-base">
+        <!-- <vx-card title="TOP TRADERS" class="mt-base">
           <template slot="actions">
             <feather-icon icon="MoreHorizontalIcon"></feather-icon>
           </template>
@@ -149,7 +149,6 @@
                 <p class="font-medium">
                   <router-link :to="{name: 'user-public-profile', params: {wallet_id : top_seller.wallet_id}}"> {{ top_seller.first_name }}</router-link>
                 </p>
-                <!-- <vs-avatar size="15px" icon="star" color="warning" style="background-color: yellow;"/>  -->
                 <span class="text-xs" style="text-transform: uppercase">{{top_seller.ranking}}</span>
               </div>
               <div class="ml-auto cursor-pointer">
@@ -165,7 +164,7 @@
           <template slot="footer">
             <vs-button icon-pack="feather" icon="icon-plus" class="w-full">Load More</vs-button>
           </template>
-        </vx-card>
+        </vx-card> -->
       </div>
 
       <!-- COL 2 -->
@@ -246,7 +245,7 @@
       <div class="w-full vx-col lg:w-1/4">
         <vx-card title="QR CODE" class="mt-base">
           <img :src="userData_info.qr" />
-          <div class="mt-5">
+          <div class="">
             <h6>WALLET ID:</h6>
             <template>
               <vs-input v-model="wallet_id" disabled class="w-full mt-3 inine-flex" />
@@ -471,7 +470,7 @@ export default {
     .catch(() => {
         this.$router.replace({name: '404'}).catch(() => {})
     })
-    this.topSellers();
+    // this.topSellers();
     },
   components: {
     videoPlayer,

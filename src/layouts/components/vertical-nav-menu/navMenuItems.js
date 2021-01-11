@@ -40,6 +40,13 @@ export default [
     i18n: "Apps",
     items: [
       {
+        url: '/users',
+        slug: 'users',
+        name: "Search Traders",
+        icon: "SearchIcon",
+        i18n: "Search",
+      },
+      {
         url: '/request',
         icon: "GitPullRequestIcon",
         name: "Invoice Request",
