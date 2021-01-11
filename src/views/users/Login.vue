@@ -193,7 +193,11 @@ export default {
       this.logIn(this.formData)
       .then(() => {
         this.$vs.loading.close()
-        this.$router.push('/').catch((err) => { console.log(err)})
+        if (localStorage.getItem("wallet_info")) {
+          this.$router.push({name: 'user-public-profile',params: { wallet_id: localStorage.getItem("wallet_info") }})
+        }else {
+          this.$router.push('/').catch((err) => { console.log(err)})
+        }
         // router.push(router.currentRoute.query.to || '/').catch((err) => { console.log(err)})
       })
       .catch((error) => {
