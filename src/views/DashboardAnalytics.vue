@@ -161,12 +161,13 @@
                         </div>
                         <div class="ml-auto cursor-pointer">
                           <vs-button
-                            type="border"
-                            icon="send"
-                            :disabled="false"
-                            @click="send_invite(top_seller.wallet_id)"
-                            >Send Invite</vs-button
+                          type="border"
+                          icon="send"
+                          :disabled="false"
+                          @click="send_invite(top_seller.wallet_id)"
                           >
+                          Invite
+                          </vs-button>
                         </div>
                       </li>
                     </ul>

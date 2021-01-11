@@ -105,16 +105,27 @@ store.dispatch('authentication/attempt', localStorage.getItem('token'))
 // console.log(store.dispatch('authentication/attempt', localStorage.getItem('token')))
 
 Vue.config.productionTip = false
-// console.log(store.getters['authentication/loggedIn'])
 
 router.beforeEach((to, from, next) => {
+  if (to.params.wallet_id) {
+    // console.log(to.params.wallet_id)
+    // alert(to.fullPath)
+    const callBack = '/user/' + to.params.wallet_id + '?callbackUrl=callback'
+    if (to.fullPath == callBack) {
+      localStorage.setItem("wallet_info", to.params.wallet_id)
+    }
+  }
   if (to.matched.some(record => record.meta.requiresAuthentication)) {
     if (!store.getters['authentication/loggedIn']) {
       next({
         name: 'login',
       })
     } else {
-      next()
+      if (localStorage.getItem("wallet_info")) {
+          router.push({name: 'user-public-profile',params: { wallet_id: localStorage.getItem("wallet_info") }})
+      }else {
+        next()
+      }
     }
   } else if (to.matched.some(record => record.meta.requiresVisitor)) {
     if (store.getters['authentication/loggedIn']) {

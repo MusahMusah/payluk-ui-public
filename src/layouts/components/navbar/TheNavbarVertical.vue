@@ -502,6 +502,9 @@ export default {
         }
     },
     created () {
+      if (localStorage.getItem("wallet_info")) {
+        localStorage.removeItem("wallet_info")
+      }
       this.$vs.loading();
       this.activeUserInfo()
       .then(() => {
